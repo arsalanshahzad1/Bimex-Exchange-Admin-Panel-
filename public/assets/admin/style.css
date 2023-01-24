@@ -28,8 +28,22 @@
     --secondary: #3C39AB;
     --secondary-dark: #0C0A36;
     --secondary-light: #3C39AB;
+    --bg-charts: #161445;
+    --bg-card: rgba(255, 255, 255, 0.1);
+
 
     --white: #FFF;
+    --rgba-white-1: rgba(255, 255, 255, 0.1);
+    --rgba-white-2: rgba(255, 255, 255, 0.2);
+    --rgba-white-3: rgba(255, 255, 255, 0.3);
+    --rgba-white-4: rgba(255, 255, 255, 0.4);
+    --rgba-white-5: rgba(255, 255, 255, 0.5);
+    --rgba-white-6: rgba(255, 255, 255, 0.6);
+    --rgba-white-7: rgba(255, 255, 255, 0.7);
+    --rgba-white-8: rgba(255, 255, 255, 0.8);
+    --rgba-white-9: rgba(255, 255, 255, 0.9);
+    --rgba-white-15: rgba(255, 255, 255, 0.15);
+
 
     --primary-hover: #027dee;
     --primary-dark: #0262bb;
@@ -51,11 +65,8 @@
     --rgba-secondary-7: rgba(60, 57, 171, 0.7);
     --rgba-secondary-8: rgba(60, 57, 171, 0.8);
     --rgba-secondary-9: rgba(60, 57, 171, 0.9);
-    --font-family-base: Poppins, sans-serif;
-    --font-family-title: Poppins, sans-serif;
-    --font-family-base: Poppins, sans-serif;
-    --font-family-title: Poppins, sans-serif;
-    --bg-card: rgba(255, 255, 255, 0.1);
+    --font-family-base: 'Outfit', sans-serif;
+    --font-family-title: 'Outfit', sans-serif;
     --title: #424562;
 }
 
@@ -65,7 +76,9 @@
     (01) Common css
 ----------------------------------------------------------
 */
-@import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+/*@import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');*/
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 
 *,
 ul,
@@ -76,7 +89,8 @@ ol {
 
 body {
     font-size: 14px;
-    font-family: 'Karla', sans-serif;
+    /*font-family: 'Karla', sans-serif;*/
+    font-family: var(--font-family-base);
     margin: 0;
     padding: 0;
     color: #23262F;
@@ -200,12 +214,12 @@ p {
 .sidebar-menu ul li a {
     padding: 12px 10px;
     display: block;
-    color: #B4B8D7;
+    color: var(--white);
     font-size: 15px;
 }
 
 .sidebar-menu ul li a >.icon {
-    background: #2a3343;
+    background: var(--rgba-white-1);
     padding: 6px;
     border-radius: 4px;
     height: 26px;
@@ -253,7 +267,7 @@ p {
 }
 
 .active-page a {
-    background: #333843;
+    background: var(--rgba-white-15) !important;
     position: relative;
 }
 
@@ -554,7 +568,13 @@ p {
 /* Dashboard status */
 
 .status-card {
-    border-radius: 10px;
+    margin-bottom: 1.875rem;
+    background-color: #ffffff;
+    transition: all .5s ease-in-out;
+    position: relative;
+    border: 0rem solid transparent;
+    border-radius: 0.5rem !important;
+    height: calc(100% - 30px);
 }
 
 .status-card-inner {
@@ -567,7 +587,7 @@ p {
 
 .status-card-inner .content h3,
 .status-card-inner .content p {
-    color: #CBCFD7;
+    color: var(--white);
 }
 
 .status-card-inner .content p {
@@ -650,10 +670,10 @@ p {
 .user-chart .card-top h4 {
     font-size: 24px;
     font-weight: 700;
-    color: #CBCFD7;
+    color: var(--white);
 }
 .subtitle {
-    color: #CBCFD7;
+    color: var(--white);
 }
 .user-chart .card-top ul li {
     font-size: 16px;
@@ -2629,9 +2649,11 @@ table.dataTable thead .sorting_desc_disabled:after{
     padding-right: 15px;
 }
 
-/* custome code start here  */
+/* customer code start here  */
 .card {
-    background: var(--secondary-dark);
+    background-color: var(--bg-card);
+    /*background: var(--secondary-light);*/
+    /*background: rgba(255,255,255,0.1);*/
     border: 1px solid hsla(0,0%,49%,.2);
 }
 label {
@@ -2885,4 +2907,36 @@ input[type="submit"] {
 
 .exchange-layout-img {
     border: 1px solid #ffba00;
+}
+
+.dash-main-anay:after{
+    position: absolute;
+    content: "";
+    background-image: url(../admin/images/bg-1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+    z-index: -1;
+}
+.dash-main-anay{
+    position: relative;
+    background-color: #171368;
+    z-index: 1;
+    padding: 40px 30px 20px 30px;
+    margin-left: -30px;
+    margin-right: -30px;
+    margin-bottom: 40px;
+}
+
+
+.status-card .content a {
+    background-color: var(--secondary-dark);
+}
+
+.user-chart  .card {
+    background-color: var(--bg-charts);
 }
