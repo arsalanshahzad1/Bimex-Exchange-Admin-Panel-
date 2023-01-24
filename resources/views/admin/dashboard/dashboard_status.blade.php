@@ -7,7 +7,7 @@
                         <div class="content">
                             <p>{{__('Total User')}}</p>
                             <h3>{{$total_user}}</h3>
-                            <a href="{{ route('adminUsers') }}" class=" mt-3 btn btn-sm ">{{__("Show More")}}</a>
+                            <a href="{{ route('adminUsers') }}" class=" mt-3 btn btn-sm btn-warning">{{__("Show More")}}</a>
                         </div>
                         <div class="icon">
                             <img src="{{asset('assets/admin/images/status-icons/team.svg')}}" class="img-fluid" alt="">
@@ -23,7 +23,7 @@
                         <div class="content">
                             <p>{{__('Total User Coin')}}</p>
                             <h3>{{number_format($total_coin,2)}} BTC</h3>
-                            <a href="{{ route('adminUserCoinList') }}" class=" mt-3 btn btn-sm ">{{__("Show More")}}</a>
+                            <a href="{{ route('adminUserCoinList') }}" class=" mt-3 btn btn-sm btn-warning">{{__("Show More")}}</a>
                         </div>
                         <div class="icon">
                             <img src="{{asset('assets/admin/images/status-icons/money.svg')}}" class="img-fluid" alt="">
@@ -39,8 +39,7 @@
                         <div class="content">
                             <p>{{__('Total Earning')}}</p>
                             <h3>{{number_format($total_earning,8)}}</h3>
-                            <a href="{{ route('adminEarningReport') }}"
-                               class=" mt-3 btn btn-sm ">{{__("Show More")}}</a>
+                            <a href="{{ route('adminEarningReport') }}" class=" mt-3 btn btn-sm btn-warning">{{__("Show More")}}</a>
                         </div>
                         <div class="icon">
                             <img src="{{asset('assets/admin/images/status-icons/funds.svg')}}" class="img-fluid" alt="">
@@ -56,8 +55,7 @@
                         <div class="content">
                             <p>{{__('Active Buy Order')}}</p>
                             <h3>{{$active_buy}}</h3>
-                            <a href="{{ route('adminAllOrdersHistoryBuy') }}"
-                               class=" mt-3 btn btn-sm ">{{__("Show More")}}</a>
+                            <a href="{{ route('adminAllOrdersHistoryBuy') }}" class=" mt-3 btn btn-sm btn-warning">{{__("Show More")}}</a>
                         </div>
                         <div class="icon">
                             <img src="{{asset('assets/admin/images/status-icons/money.svg')}}" class="img-fluid" alt="">
@@ -73,8 +71,7 @@
                         <div class="content">
                             <p>{{__('Active Sell Order')}}</p>
                             <h3>{{$active_sell}}</h3>
-                            <a href="{{ route('adminAllOrdersHistorySell') }}"
-                               class=" mt-3 btn btn-sm ">{{__("Show More")}}</a>
+                            <a href="{{ route('adminAllOrdersHistorySell') }}" class=" mt-3 btn btn-sm btn-warning">{{__("Show More")}}</a>
                         </div>
                         <div class="icon">
                             <img src="{{asset('assets/admin/images/status-icons/money.svg')}}" class="img-fluid" alt="">
@@ -90,8 +87,7 @@
                         <div class="content">
                             <p>{{__('Total Transaction')}}</p>
                             <h3>{{number_format($total_transaction,2)}}</h3>
-                            <a href="{{ route('adminAllTransactionHistory') }}"
-                               class=" mt-3 btn btn-sm ">{{__("Show More")}}</a>
+                            <a href="{{ route('adminAllTransactionHistory') }}" class=" mt-3 btn btn-sm btn-warning">{{__("Show More")}}</a>
                         </div>
                         <div class="icon">
                             <img src="{{asset('assets/admin/images/status-icons/funds.svg')}}" class="img-fluid" alt="">

@@ -19,8 +19,8 @@
     <!-- User Management -->
     <div class="user-management">
         <div class="row no-gutters">
-            <div class="col-12 col-lg-3">
-                <ul class="nav user-management-nav mb-3" id="pills-tab" role="tablist">
+            <div class="col-12 col-lg-12 ">
+                <ul class="nav user-management-nav mb-3 new-tab-main" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a data-id="active_users" class="nav-link active" id="pills-user-tab" data-toggle="pill" href="#pills-user" role="tab" aria-controls="pills-user" aria-selected="true">
                             <img src="{{asset('assets/admin/images/user-management-icons/user.svg')}}" class="img-fluid" alt="">
@@ -59,7 +59,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-12 col-lg-9">
+            <div class="col-12 col-lg-12 table-bg">
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane show active" id="pills-user" role="tabpanel" aria-labelledby="pills-user-tab">
                         <div class="table-area">

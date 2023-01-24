@@ -3157,3 +3157,24 @@ function updateAdminWalletBalance($adminId,$baseCoinId,$tradeCoinId)
         $tradeWallet->increment('balance',100000);
     }
 }
+
+
+// default image function
+function defaultImage()
+{
+    return asset('assets/admin/images/default.webp');
+}
+
+// get image function
+
+function image($img)
+{
+    $file = public_path() . "/assets/admin/images/".$img;
+
+    if(file_exists($file)){
+        return asset('assets/admin/images/'.$img);
+    }
+    else{
+        return defaultImage();
+    }
+}

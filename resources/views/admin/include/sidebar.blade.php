@@ -2,7 +2,8 @@
     <!-- logo -->
     <div class="logo">
         <a href="{{route('adminDashboard')}}">
-            <img src="{{show_image(Auth::user()->id,'logo')}}" class="img-fluid" alt="">
+            <img src="{{ image("logo.jpeg") }}" class="img-fluid" alt="">
+{{--            <img src="{{show_image(Auth::user()->id,'logo')}}" class="img-fluid" alt="">--}}
         </a>
     </div><!-- /logo -->
 
@@ -47,33 +48,33 @@
     ['route' => 'addonsLists', 'title' => __('Addons Lists'),'tab' => $sub_menu ?? '', 'tab_compare' => 'addons_list', 'route_param' => NULL ],
     ['route' => 'addonsSettings', 'title' => __('Addons Settings'),'tab' => $sub_menu ?? '', 'tab_compare' => 'addons_settings', 'route_param' => NULL ],
 ]) !!}
-     
+
 {!! mainMenuRenderer('adminProfile',__('Profile'),$menu ?? '','profile','profile.svg') !!}
-   
+
 {!! subMenuRenderer(__('Trade Reports'),$menu ?? '', 'trade','trade-report.svg',[
     ['route' => 'adminAllOrdersHistoryBuy', 'title' => __('Buy Order History'),'tab' => $sub_menu ?? '', 'tab_compare' => 'buy_order', 'route_param' => NULL ],
     ['route' => 'adminAllOrdersHistorySell', 'title' => __('Sell Order History'),'tab' => $sub_menu ?? '', 'tab_compare' => 'sell_order', 'route_param' => NULL ],
     ['route' => 'adminAllOrdersHistoryStopLimit', 'title' => __('Stop Limit Order History'),'tab' => $sub_menu ?? '', 'tab_compare' => 'stop_limit', 'route_param' => NULL ],
     ['route' => 'adminAllTransactionHistory', 'title' => __('Transaction History'),'tab' => $sub_menu ?? '', 'tab_compare' => 'transaction', 'route_param' => NULL ],
-]) !!} 
-   
+]) !!}
+
 {!! subMenuRenderer(__('Fiat Deposit'),$menu ?? '', 'currency_deposit','coin.svg',[
     ['route' => 'currencyDepositList', 'title' => __('Pending Request'),'tab' => $sub_menu ?? '', 'tab_compare' => 'pending_deposite_list', 'route_param' => NULL ],
     ['route' => 'bankList', 'title' => __('Bank List'),'tab' => $sub_menu ?? '', 'tab_compare' => 'bank_list', 'route_param' => NULL ],
     ['route' => 'currencyPaymentMethod', 'title' => __('Payment Method'),'tab' => $sub_menu ?? '', 'tab_compare' => 'payment_method_list', 'route_param' => NULL ],
-]) !!} 
-   
+]) !!}
+
 {!! subMenuRenderer(__('Fiat Withdraw'),$menu ?? '', 'fiat_withdraw','coin.svg',[
     ['route' => 'fiatWithdrawList', 'title' => __('Pending Request'),'tab' => $sub_menu ?? '', 'tab_compare' => 'fiat_withdraw_list', 'route_param' => NULL ],
     ['route' => 'adminFiatCurrencyList', 'title' => __('Withdrawal Currency'),'tab' => $sub_menu ?? '', 'tab_compare' => 'currency_list', 'route_param' => NULL ],
-]) !!} 
-   
+]) !!}
+
 {!! subMenuRenderer(__('Admin Token'),$menu ?? '', 'deposit','deposit.svg',[
     ['route' => 'adminPendingDepositHistory', 'title' => __('Pending Token Report'),'tab' => $sub_menu ?? '', 'tab_compare' => 'pending', 'route_param' => NULL ],
     ['route' => 'adminGasSendHistory', 'title' => __('Gas Sent Report'),'tab' => $sub_menu ?? '', 'tab_compare' => 'gas', 'route_param' => NULL ],
     ['route' => 'adminTokenReceiveHistory', 'title' => __('Token Received Report'),'tab' => $sub_menu ?? '', 'tab_compare' => 'token', 'route_param' => NULL ],
-]) !!} 
-   
+]) !!}
+
 {!! subMenuRenderer(__('Settings'),$menu ?? '', 'setting','settings.svg',[
     ['route' => 'adminSettings', 'title' => __('General'),'tab' => $sub_menu ?? '', 'tab_compare' => 'general', 'route_param' => NULL ],
     ['route' => 'adminFeatureSettings', 'title' => __('Features'),'tab' => $sub_menu ?? '', 'tab_compare' => 'feature_settings', 'route_param' => NULL ],
@@ -88,7 +89,7 @@
     ['route' => 'tradeFeesSettings', 'title' => __('Trade Fees'),'tab' => $sub_menu ?? '', 'tab_compare' => 'trade_fees_settings', 'route_param' => NULL ],
     ['route' => 'seoManagerAdd', 'title' => __('SEO Manager'),'tab' => $sub_menu ?? '', 'tab_compare' => 'seo_manager', 'route_param' => NULL ],
     ['route' => 'adminConfiguration', 'title' => __('Configuration'),'tab' => $sub_menu ?? '', 'tab_compare' => 'config', 'route_param' => NULL ],
-]) !!} 
+]) !!}
 
 {!! subMenuRenderer(__('Landing Settings'),$menu ?? '', 'landing_setting','landing-settings.svg',[
     ['route' => 'adminLandingSetting', 'title' => __('Landing Page'),'tab' => $sub_menu ?? '', 'tab_compare' => 'landing', 'route_param' => NULL ],
@@ -97,23 +98,23 @@
     ['route' => 'adminFeatureList', 'title' => __('Feature'),'tab' => $sub_menu ?? '', 'tab_compare' => 'feature', 'route_param' => NULL ],
     ['route' => 'adminSocialMediaList', 'title' => __('Social Media'),'tab' => $sub_menu ?? '', 'tab_compare' => 'media', 'route_param' => NULL ],
     ['route' => 'adminAnnouncementList', 'title' => __('Announcement'),'tab' => $sub_menu ?? '', 'tab_compare' => 'announcement', 'route_param' => NULL ],
-]) !!} 
-          
-           
+]) !!}
+
+
 {!! subMenuRenderer(__('Notification'),$menu ?? '', 'notification','Notification.svg',[
     ['route' => 'sendNotification', 'title' => __('Notification'),'tab' => $sub_menu ?? '', 'tab_compare' => 'notify', 'route_param' => NULL ],
     ['route' => 'sendEmail', 'title' => __('Bulk Email'),'tab' => $sub_menu ?? '', 'tab_compare' => 'email', 'route_param' => NULL ],
-]) !!}  
+]) !!}
 
 {!! mainMenuRenderer('adminFaqList',__('FAQs'),$menu ?? '','faq','FAQ.svg') !!}
 
 {!! subMenuRenderer(__('Progress Status'),$menu ?? '', 'progress-status','progress-status.svg',[
     ['route' => 'progressStatusList', 'title' => __('Progress Status List'),'tab' => $sub_menu ?? '', 'tab_compare' => 'progress-status-list', 'route_param' => NULL ],
     ['route' => 'progressStatusSettings', 'title' => __('Progress Status Settings'),'tab' => $sub_menu ?? '', 'tab_compare' => 'progress-status-settings', 'route_param' => NULL ],
-]) !!} 
+]) !!}
 
 {!! mainMenuRenderer('adminLogs',__('Logs'),$menu ?? '','log','logs.svg') !!}
-      
+
 
             </ul>
         </nav>

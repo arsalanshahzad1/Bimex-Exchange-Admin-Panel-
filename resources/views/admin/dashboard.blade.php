@@ -48,7 +48,7 @@
         </div>
     </div>
     <!-- /user chart -->
-    <div class="user-management user-chart card">
+    <div class="user-management user-chart card bg-secondary">
         <div class="card-body">
             <div class="card-top">
                 <h4>{{__('Pending Withdrawal')}}</h4>
@@ -96,10 +96,10 @@
                     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                     datasets: [{
                         label: "Monthly Deposit",
-                        borderColor: "#1cf676",
-                        pointBorderColor: "#1cf676",
-                        pointBackgroundColor: "#1cf676",
-                        pointHoverBackgroundColor: "#1cf676",
+                        borderColor: "#3C39AB",
+                        pointBorderColor: "#3C39AB",
+                        pointBackgroundColor: "#3C39AB",
+                        pointHoverBackgroundColor: "#3C39AB",
                         pointHoverBorderColor: "#D1D1D1",
                         pointBorderWidth: 4,
                         pointHoverRadius: 2,
@@ -157,10 +157,10 @@
                     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                     datasets: [{
                         label: "Monthly Withdrawal",
-                        borderColor: "#f691be",
-                        pointBorderColor: "#f691be",
-                        pointBackgroundColor: "#f691be",
-                        pointHoverBackgroundColor: "#f691be",
+                        borderColor: "#2696FD",
+                        pointBorderColor: "#2696FD",
+                        pointBackgroundColor: "#2696FD",
+                        pointHoverBackgroundColor: "#2696FD",
                         pointHoverBorderColor: "#D1D1D1",
                         pointBorderWidth: 4,
                         pointHoverRadius: 2,
