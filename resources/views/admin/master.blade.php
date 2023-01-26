@@ -94,12 +94,26 @@
         });
 
 
+        /*Setting Modal*/
         $(".setting").click(function () {
             $(".setting > div.dropdown-menu ").toggleClass("show");
         }).on("focusout", function() {
             $(".setting > div.dropdown-menu ").removeClass("show");
         })
 
+        /*Notification Modal*/
+        $(".notification_dropdown > .bell-icon").click(function(){
+            $(`.of-visible`).toggleClass("show");
+        }).on("focusout", function() {
+            $(`.of-visible`).removeClass("show");
+        })
+
+        /*Chat Modal*/
+        $("li.messages").click(function() {
+            $(`.chatbox`).toggleClass("active");
+        }).on("focusout", function() {
+            $(`.chatbox`).removeClass("active");
+        })
     })(jQuery)
 
 </script>

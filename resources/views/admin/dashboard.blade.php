@@ -62,17 +62,14 @@
                                     <option value="today">Today</option>
                                 </select>
                                 <div class="dropdown custom-dropdown">
-                                    <div class="btn sharp btn-primary tp-btn" data-bs-toggle="dropdown"
-                                         aria-expanded="false">
+                                    <select class="btn sharp btn-primary tp-btn">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
                                             <path d="M12 20.275q-.85 0-1.475-.612-.625-.613-.625-1.488 0-.85.625-1.463Q11.15 16.1 12 16.1q.875 0 1.488.612.612.613.612 1.463 0 .875-.612 1.488-.613.612-1.488.612Zm0-6.175q-.85 0-1.475-.625Q9.9 12.85 9.9 12q0-.875.625-1.488Q11.15 9.9 12 9.9q.875 0 1.488.612.612.613.612 1.488 0 .85-.612 1.475-.613.625-1.488.625Zm0-6.2q-.85 0-1.475-.613Q9.9 6.675 9.9 5.825q0-.875.625-1.488.625-.612 1.475-.612.875 0 1.488.612.612.613.612 1.488 0 .85-.612 1.462Q12.875 7.9 12 7.9Z"/>
                                         </svg>
-                                    </div>
-                                    <div class="dropdown-menu dropdown-menu-end" style="">
-                                        <a class="dropdown-item active selected" href="javascript:void(0);">Option 1</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Option 2</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Option 3</a>
-                                    </div>
+                                        <option>10000000000</option>
+                                        <option>20000000000</option>
+                                        <option>30000000000</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="progress-content">
@@ -121,14 +118,6 @@
                                 <h6 class="mb-0 fs-14 font-w400">Total Earning</h6>
                                 <span class="text-primary font-w700 ml-auto">50%</span>
                             </div>
-<!--                            <div class="d-flex align-items-center">
-                                <svg class="mr-2" width="14" height="14" viewBox="0 0 14 14" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.000488281" width="14" height="14" rx="3" fill="#d5dfe7"></rect>
-                                </svg>
-                                <h6 class="mb-0 fs-14 font-w400">Unknown</h6>
-                                <span class="text-primary font-w700 ml-auto">10%</span>
-                            </div>-->
                         </div>
 
                         <div class="card-body pt-0 pb-0 px-3" style="position: relative;">
