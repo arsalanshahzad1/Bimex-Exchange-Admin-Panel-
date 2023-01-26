@@ -397,7 +397,7 @@ p {
 }
 
 .top-bar-right .dropdown-menu {
-    top: 8px !important;
+    top: 55px !important;
     border-radius: 5px;
     padding: 0;
 }
@@ -3268,4 +3268,219 @@ button.btn.dropdown-toggle.btn-light {
     height: 2.5rem;
     background-color: var(--secondary-dark) !important;
     border: transparent;
+}
+
+
+/*Header Dropdown setting*/
+
+
+
+.dropdown-menu *{
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.dropdown-menu.show {
+    right: 0;
+    overflow: unset !important;
+    background-color: var(--secondary-dark);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: unset;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    color: var(--white);
+    background-color: transparent;
+}
+
+.filter-option-inner-inner {
+    color: var(--white);
+    font-size: 12px;
+}
+
+.dropdown-menu .dropdown-item:not(.active) {
+    color: #777777;
+}
+
+.bootstrap-select .dropdown-toggle .filter-option {
+    top: 5px
+}
+
+
+.height370 {
+    height: 23.125rem;
+}
+
+.dz-scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.timeline {
+    flex-direction: column;
+}
+
+.widget-timeline {
+    position: relative;
+}
+
+.widget-timeline .timeline {
+    list-style: none;
+    position: relative;
+}
+
+/*.widget-timeline .timeline:before {*/
+/*    background: rgba(255, 255, 255, 0.1);*/
+
+/*    top: 1.25rem;*/
+/*    bottom: 0;*/
+/*    position: absolute;*/
+/*    content: " ";*/
+/*    width: 0.1875rem;*/
+/*    left: 0.5625rem;*/
+/*    margin-right: -0.0938rem;*/
+/*    !*background: #F3F8FE;*!*/
+/*}*/
+
+.widget-timeline .timeline > li {
+    margin-bottom: 0.9375rem;
+    position: relative;
+}
+
+.widget-timeline .timeline > li:before {
+    content: " ";
+    display: table;
+}
+.widget-timeline .timeline > li:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+
+/*.widget-timeline .timeline > li > .timeline-badge {
+    background-color: #161445;
+
+    border-radius: 50%;
+    height: 1.375rem;
+    left: 0;
+    position: absolute;
+    top: 0.625rem;
+    width: 1.375rem;
+    border-width: 0.125rem;
+    border-style: solid;
+    !*background: #fff;*!
+    padding: 0.25rem;
+}*/
+
+.widget-timeline .timeline > li > .timeline-badge {
+    display: none  !important;
+}
+
+.widget-timeline.style-1 .timeline .timeline-badge.primary + .timeline-panel {
+    border-color: var(--primary)
+}
+
+.widget-timeline.style-1 .timeline .timeline-badge.timeline-badge + .timeline-panel {
+    background: transparent !important;
+    border-style: solid;
+    border-width: 0 0 0 0.3125rem;
+    border-radius: 0;
+    padding: 0.3125rem 0.625rem 0.3125rem 0.9375rem;
+}
+
+.widget-timeline .timeline > li > .timeline-panel {
+    border-radius: 0.5rem;
+    padding: 0.9375rem 1.25rem;
+    position: relative;
+    display: block;
+    /*margin-left: 2.5rem;*/
+    border-width: 0.0625rem;
+    border-style: solid;
+}
+
+.timeline-panel {
+    margin-bottom: 0.5rem;
+}
+
+/*.widget-timeline.style-1 .timeline .timeline-badge.timeline-badge + .timeline-panel:after {*/
+/*    border: 0;*/
+/*    left: -0.5625rem;*/
+/*    width: 0.4375rem;*/
+/*    height: 0.4375rem;*/
+/*}*/
+
+.widget-timeline .timeline-badge.primary:after {
+    background-color: var(--primary);
+    box-shadow: 0 0.3125rem 0.625rem 0 var(--rgba-primary-2);
+}
+
+.widget-timeline .timeline > li > .timeline-panel:after {
+    /*content: "";*/
+    width: 0.625rem;
+    height: 0.625rem;
+    background: inherit;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0rem 0rem 0.0625rem 0.0625rem;
+    display: block;
+    position: absolute;
+    left: -0.3125rem;
+    transform: rotate(45deg);
+    top: 0.9375rem;
+}
+
+.widget-timeline .timeline > li > .timeline-panel span {
+    font-size: 0.75rem;
+    display: block;
+    margin-bottom: 0.3125rem;
+    letter-spacing: 0.0625rem;
+}
+
+.timeline-panel h6 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.timeline-panel p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: unset;
+}
+
+.widget-timeline .timeline > li > .timeline-badge {
+    border-radius: 50%;
+    height: 1.375rem;
+    left: 0;
+    position: absolute;
+    top: 0.625rem;
+    width: 1.375rem;
+    border-width: 0.125rem;
+    border-style: solid;
+    background: #fff;
+    padding: 0.25rem;
+}
+
+.timeline li:nth-child(1) .timeline-panel {
+    border-color: #2696FD !important;
+}
+
+.timeline li:nth-child(2) .timeline-panel {
+    border-color: #00ADA3 !important;
+}
+
+.timeline li:nth-child(3) .timeline-panel {
+    border-color: #fd5353 !important;
+}
+
+.timeline li:nth-child(4) .timeline-panel {
+    border-color: #00ADA3 !important;
+}
+.timeline li:nth-child(5) .timeline-panel {
+    border-color: #FFAB2D !important;
+}
+.timeline li:nth-child(6) .timeline-panel {
+    border-color: #5b5e81 !important;
 }

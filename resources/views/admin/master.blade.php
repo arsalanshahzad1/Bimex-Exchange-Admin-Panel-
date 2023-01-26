@@ -3,7 +3,7 @@
 <head>
     @include('admin.include.header_asset')
 </head>
-@php 
+@php
     $menu = $menu ?? '';
     $sub_menu = $sub_menu ?? '';
 @endphp
@@ -92,6 +92,13 @@
             e.preventDefault();
             return false;
         });
+
+
+        $(".setting").click(function () {
+            $(".setting > div.dropdown-menu ").toggleClass("show");
+        }).on("focusout", function() {
+            $(".setting > div.dropdown-menu ").removeClass("show");
+        })
 
     })(jQuery)
 

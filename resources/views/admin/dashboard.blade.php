@@ -55,31 +55,12 @@
                         </div>
                         <div class="p-static">
                             <div class="d-flex align-items-center mb-3 " style="gap: 1em">
-                                <div class="dropdown bootstrap-select image-select default-select dashboard-select"
-                                >
-                                    <select class="image-select default-select dashboard-select"
-                                            aria-label="Default">
-                                        <option value="month">This Month</option>
-                                        <option value="week">This Weeks</option>
-                                        <option value="today">Today</option>
-                                    </select>
-                                    <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light"
-                                            data-bs-toggle="dropdown" role="combobox" aria-owns="bs-select-1"
-                                            aria-haspopup="listbox" aria-expanded="false" title="This Month">
-                                        <div class="filter-option">
-                                            <div class="filter-option-inner">
-                                                <div class="filter-option-inner-inner">This Month
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </button>
-                                    <div class="dropdown-menu ">
-                                        <div class="inner show" role="listbox" id="bs-select-1" tabindex="-1"
-                                        >
-                                            <ul class="dropdown-menu inner show" role="presentation"></ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <select class="selectpicker image-select default-select dashboard-select select bg-dark text-white"
+                                        aria-label="Default">
+                                    <option value="month">This Month</option>
+                                    <option value="week">This Weeks</option>
+                                    <option value="today">Today</option>
+                                </select>
                                 <div class="dropdown custom-dropdown">
                                     <div class="btn sharp btn-primary tp-btn" data-bs-toggle="dropdown"
                                          aria-expanded="false">
