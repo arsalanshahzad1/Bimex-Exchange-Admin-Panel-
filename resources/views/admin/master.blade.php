@@ -111,9 +111,22 @@
         /*Chat Modal*/
         $("li.messages").click(function() {
             $(`.chatbox`).toggleClass("active");
-        }).on("focusout", function() {
-            $(`.chatbox`).removeClass("active");
+        }).on("blur", function() {
+            // $(`.chatbox`).removeClass("active");
         })
+
+
+        $(".dz-chat-user").click(function() {
+            $(".dz-chat-user-box").addClass("d-none")
+            $(".dz-chat-history-box").removeClass("d-none")
+        })
+
+        $(".card-header.chat-list-header >a").click(function(){
+            $(".dz-chat-user-box").removeClass("d-none")
+            $(".dz-chat-history-box").addClass("d-none")
+        })
+
+
     })(jQuery)
 
 </script>

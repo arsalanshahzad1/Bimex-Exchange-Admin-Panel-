@@ -28,7 +28,7 @@
                     <div class="card-header pb-0 border-0 flex-wrap">
                         <div>
                             <div class="chart-title mb-3">
-                                <h2 class="heading">Project Statistic</h2>
+                                <h2 class="heading">Deposit and Withdraw</h2>
                             </div>
                             <div class="d-flex align-items-center mb-2">
                                 <div class="round weekly" id="dzOldSeries">
