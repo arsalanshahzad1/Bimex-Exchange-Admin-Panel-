@@ -35,7 +35,7 @@ class LandingController extends Controller
     {
         $settings = allsetting();
         $data = getUserCurrencyApi();
-        $data['app_title'] = $settings['app_title'] ?? __('Tradexpro Exchange');
+        $data['app_title'] = $settings['app_title'] ?? __('Bimex Exchange');
         $data['copyright_text'] = $settings['copyright_text'] ?? '';
         $data['exchange_url'] = $settings['exchange_url'] ?? '';
         $data['logo'] = show_image(1,'logo');
@@ -71,8 +71,8 @@ class LandingController extends Controller
         $data['seo_social_description'] = $settings['seo_social_description'] ?? '';
         $data['two_factor_withdraw'] = $settings['two_factor_withdraw'] ?? STATUS_ACTIVE;
         $data['exchange_layout_view'] = $settings['exchange_layout_view'] ?? EXCHANGE_LAYOUT_ONE;
-        $data['public_chanel_name'] = env("PUSHER_PUBLIC_CHANEL_NAME") ?? 'tradexpro_public_chanel';
-        $data['private_chanel_name'] = env("PUSHER_PRIVATE_CHANEL_NAME") ?? 'tradexpro_private_chanel';
+        $data['public_chanel_name'] = env("PUSHER_PUBLIC_CHANEL_NAME") ?? 'bimex_public_chanel';
+        $data['private_chanel_name'] = env("PUSHER_PRIVATE_CHANEL_NAME") ?? 'bimex_private_chanel';
         $data['custom_color'] = $settings['custom_color'] ?? 0;
         $data['theme_color'] = $this->service->userEndColorList();
         $data['dark_theme_color'] = $this->service->userEndDarkColorList();
@@ -88,14 +88,14 @@ class LandingController extends Controller
         $settings = allsetting();
         $data = [];
         $data['landing_title'] = $settings['landing_title'] ?? __('Buy & Sell Instantly and Hold Cryptocurrency');
-        $data['landing_description'] = $settings['landing_description'] ?? __('Tradexpro exchange is such a marketplace where people can trade directly with each other.');
+        $data['landing_description'] = $settings['landing_description'] ?? __('Bimex exchange is such a marketplace where people can trade directly with each other.');
 
         $data['landing_feature_title'] = $settings['landing_feature_title'] ?? __('Get in touch. Stay in touch.');
         $data['market_trend_title'] = $settings['market_trend_title'] ?? __('Market trend');
         $data['trade_anywhere_title'] = $settings['trade_anywhere_title'] ?? __('Trade Anywhere');
         $data['secure_trade_title'] = $settings['secure_trade_title'] ?? __('Secure trend System');
         $data['customization_title'] = $settings['customization_title'] ?? __('Easy Customization');
-        $data['customization_details'] = $settings['customization_details'] ?? __('Tradexpro Exchange is a complete crypto coins exchange platform developed with Laravel. It works via coin payment. There is no need for any personal node, it will connect with a coin payment merchant account. Our system is 100% secure and dynamic. It supports all crypto currency wallets including Coin Payment, Deposit, Withdrawal, Referral system, and whatever you need. ');
+        $data['customization_details'] = $settings['customization_details'] ?? __('Bimex Exchange is a complete crypto coins exchange platform developed with Laravel. It works via coin payment. There is no need for any personal node, it will connect with a coin payment merchant account. Our system is 100% secure and dynamic. It supports all crypto currency wallets including Coin Payment, Deposit, Withdrawal, Referral system, and whatever you need. ');
 
         $data['download_link_display_type'] = $settings['download_link_display_type'] ?? 1;
         $data['download_link_title'] = $settings['download_link_title'] ?? '';

@@ -1,13 +1,13 @@
 <?php
 
 return array (
-  'envato' => 
+  'bimex' =>
   array (
     'templateTitle' => '',
   ),
-  'environment' => 
+  'environment' =>
   array (
-    'classic' => 
+    'classic' =>
     array (
       'back' => '',
       'install' => '',
@@ -15,15 +15,15 @@ return array (
       'templateTitle' => '',
       'title' => '',
     ),
-    'menu' => 
+    'menu' =>
     array (
       'desc' => '',
       'templateTitle' => '',
       'title' => '',
     ),
-    'wizard' => 
+    'wizard' =>
     array (
-      'form' => 
+      'form' =>
       array (
         'app_debug_label' => '',
         'app_debug_label_false' => '',
@@ -46,7 +46,7 @@ return array (
         'app_log_level_label_warning' => '',
         'app_name_label' => '',
         'app_name_placeholder' => '',
-        'app_tabs' => 
+        'app_tabs' =>
         array (
           'broadcasting_label' => '',
           'broadcasting_placeholder' => '',
@@ -85,7 +85,7 @@ return array (
         ),
         'app_url_label' => '',
         'app_url_placeholder' => '',
-        'buttons' => 
+        'buttons' =>
         array (
           'install' => '',
         ),
@@ -105,14 +105,14 @@ return array (
         'db_username_label' => '',
         'db_username_placeholder' => '',
       ),
-      'tabs' => 
+      'tabs' =>
       array (
         'environment' => '',
       ),
       'templateTitle' => '',
     ),
   ),
-  'final' => 
+  'final' =>
   array (
     'console' => '',
     'env' => '',
@@ -122,42 +122,42 @@ return array (
     'templateTitle' => '',
     'title' => '',
   ),
-  'forms' => 
+  'forms' =>
   array (
     'errorTitle' => '',
   ),
   'next' => '',
-  'permissions' => 
+  'permissions' =>
   array (
     'templateTitle' => '',
     'title' => '',
   ),
-  'requirements' => 
+  'requirements' =>
   array (
     'next' => '',
     'templateTitle' => '',
     'title' => '',
   ),
   'title' => '',
-  'updater' => 
+  'updater' =>
   array (
-    'final' => 
+    'final' =>
     array (
       'exit' => '',
       'title' => '',
     ),
-    'overview' => 
+    'overview' =>
     array (
       'install_updates' => '',
     ),
     'title' => '',
-    'welcome' => 
+    'welcome' =>
     array (
       'message' => '',
       'title' => '',
     ),
   ),
-  'welcome' => 
+  'welcome' =>
   array (
     'message' => '',
     'next' => '',

@@ -144,6 +144,6 @@ return [
     'updater_url' => '',
     'env_path' => [
         'env_token' => 'MYgnsoOUEXsTvWcjhjejKM8XhfLXLjub',
-        'env_url_path' => 'https://api.envato.com/v1/market/private/user/verify-purchase:'
+        'env_url_path' => ''
     ]
 ];

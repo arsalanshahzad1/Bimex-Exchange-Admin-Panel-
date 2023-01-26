@@ -62,7 +62,7 @@ class RoleManagmentService extends BaseService
         $token = UserVerificationCode::create(['user_id' => $user->id, 'code' => $key, 'expired_at' => date('Y-m-d', strtotime('+15 days')), 'status' => STATUS_PENDING]);
         $userName = $user->first_name.' '.$user->last_name;
         $userEmail = $user->email;
-        $companyName = isset(allsetting()['app_title']) && !empty(allsetting()['app_title']) ? allsetting()['app_title'] : __('TradexPro');
+        $companyName = isset(allsetting()['app_title']) && !empty(allsetting()['app_title']) ? allsetting()['app_title'] : __('Bimex');
         $subject = __('Change Password | :companyName', ['companyName' => $companyName]);
         $user_data = [
             'email' => $user->email,

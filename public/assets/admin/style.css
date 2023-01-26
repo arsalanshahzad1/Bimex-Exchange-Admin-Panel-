@@ -24,7 +24,7 @@
 */
 
 :root {
-    --primary: #2696FD;
+    --primary: #FFCB3D;
     --secondary: rgba(90, 84, 255, 0.5);
     --secondary-dark: #0C0A36;
     --secondary-light: #3C39AB;
@@ -4004,4 +4004,28 @@ div#DZ_W_Contacts_Body3 {
     height: calc(100vh - 15vh) !important
 }
 
+/*Login Page*/
+
+.user-form.custom_login {
+    padding-top: 1em;
+    border-color: #242424;
+}
+
+.custom_login .auth-logo {
+    width: 15em;
+    margin-bottom: 4em;
+}
+
+.custom_login button {
+    border: 1px solid gray;
+    background-color: transparent;
+}
+
+.custom_login button:hover,
+.custom_login button:focus,
+.custom_login button:active
+{
+    border: none !important;
+    background-color: gray !important;
+}
 

@@ -263,7 +263,7 @@ class User2FAService extends BaseService
             $otp = rand(111111,999999);
             $phone = '+' . $user->phone ;
             $title = settings("app_title");
-            $title = ($title !== null || $title !== '') ? $title : 'Tradexpro' ;
+            $title = ($title !== null || $title !== '') ? $title : 'Bimex' ;
             $message = __('Your '.$title.' verification code is : ').$otp ;
             User::find($user->id)->update(['otp_code' => $otp]);
             $sms->send($phone, $message);
@@ -278,7 +278,7 @@ class User2FAService extends BaseService
 
     public function sendOtpCodeEmail(){
         $appTitle = settings("app_title");
-        $companyName = isset($appTitle) && !empty($appTitle) ? $appTitle : __('Tradexpro');
+        $companyName = isset($appTitle) && !empty($appTitle) ? $appTitle : __('Bimex');
         $subject = __('Email Authentication | :companyName', ['companyName' => $companyName]);
         $data['mailTemplate'] = 'email.two_factor_email';
         $data['name'] = '';

@@ -2,13 +2,13 @@
 
 return array (
   'back' => 'Previous',
-  'envato' => 
+  'bimex' =>
   array (
     'templateTitle' => '',
   ),
-  'environment' => 
+  'environment' =>
   array (
-    'classic' => 
+    'classic' =>
     array (
       'back' => 'Use Form Wizard',
       'install' => 'Save and Install',
@@ -17,7 +17,7 @@ return array (
       'title' => 'Classic Environment Editor',
     ),
     'errors' => 'Unable to save the .env file, Please create it manually.',
-    'menu' => 
+    'menu' =>
     array (
       'classic-button' => 'Classic Text Editor',
       'desc' => 'Please select how you want to configure the apps <code>.env</code> file.',
@@ -26,9 +26,9 @@ return array (
       'wizard-button' => 'Form Wizard Setup',
     ),
     'success' => 'Your .env file settings have been saved.',
-    'wizard' => 
+    'wizard' =>
     array (
-      'form' => 
+      'form' =>
       array (
         'app_debug_label' => 'App Debug',
         'app_debug_label_false' => 'False',
@@ -51,7 +51,7 @@ return array (
         'app_log_level_label_warning' => 'warning',
         'app_name_label' => 'App Name',
         'app_name_placeholder' => 'App Name',
-        'app_tabs' => 
+        'app_tabs' =>
         array (
           'broadcasting_label' => 'Broadcast Driver',
           'broadcasting_placeholder' => 'Broadcast Driver',
@@ -90,7 +90,7 @@ return array (
         ),
         'app_url_label' => 'App Url',
         'app_url_placeholder' => 'App Url',
-        'buttons' => 
+        'buttons' =>
         array (
           'install' => 'Install',
           'setup_application' => 'Setup Application',
@@ -114,7 +114,7 @@ return array (
         'db_username_placeholder' => 'Database User Name',
         'name_required' => 'An environment name is required.',
       ),
-      'tabs' => 
+      'tabs' =>
       array (
         'application' => 'Application',
         'database' => 'Database',
@@ -124,7 +124,7 @@ return array (
       'title' => 'Guided <code>.env</code> Wizard',
     ),
   ),
-  'final' => 
+  'final' =>
   array (
     'console' => 'Application Console Output:',
     'env' => 'Final .env File:',
@@ -136,55 +136,55 @@ return array (
     'title' => 'Installation Finished',
   ),
   'finish' => 'Install',
-  'forms' => 
+  'forms' =>
   array (
     'errorTitle' => 'The Following errors occurred:',
   ),
   'install' => 'Install',
-  'installed' => 
+  'installed' =>
   array (
     'success_log_message' => 'Laravel Installer successfully INSTALLED on ',
   ),
   'next' => 'Next Step',
-  'permissions' => 
+  'permissions' =>
   array (
     'next' => 'Configure Environment',
     'templateTitle' => 'Step 2 | Permissions',
     'title' => 'Permissions',
   ),
-  'requirements' => 
+  'requirements' =>
   array (
     'next' => 'Check Permissions',
     'templateTitle' => 'Step 1 | Server Requirements',
     'title' => 'Server Requirements',
   ),
   'title' => 'Laravel Installer',
-  'updater' => 
+  'updater' =>
   array (
-    'final' => 
+    'final' =>
     array (
       'exit' => 'Click here to exit',
       'finished' => 'Application\'s database has been successfully updated.',
       'title' => 'Finished',
     ),
-    'log' => 
+    'log' =>
     array (
       'success_message' => 'Laravel Installer successfully UPDATED on ',
     ),
-    'overview' => 
+    'overview' =>
     array (
       'install_updates' => 'Install Updates',
       'message' => 'There is 1 update.|There are :number updates.',
       'title' => 'Overview',
     ),
     'title' => 'Laravel Updater',
-    'welcome' => 
+    'welcome' =>
     array (
       'message' => 'Welcome to the update wizard.',
       'title' => 'Welcome To The Updater',
     ),
   ),
-  'welcome' => 
+  'welcome' =>
   array (
     'message' => 'Easy Installation and Setup Wizard.',
     'next' => 'Check Requirements',

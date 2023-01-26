@@ -1,12 +1,12 @@
 @extends('vendor.installer.layouts.master')
 
 @section('template_title')
-    {{ trans('installer_messages.envato.templateTitle') }}
+    {{ trans('installer_messages.bimex.templateTitle') }}
 @endsection
 
 @section('title')
     <i class="fa fa-key fa-fw" aria-hidden="true"></i>
-    {{ __('Verify Envato Purchase Code') }}
+    {{ __('Verify Purchase Code') }}
 @endsection
 
 @section('container')
@@ -18,7 +18,7 @@
             <label for="purchase_code">
                 {{ __('Purchase Code') }}
             </label>
-            <input type="text" name="purchase_code" id="purchase_code" value="" placeholder="{{ __('Envato purchase code')}}" />
+            <input type="text" name="purchase_code" id="purchase_code" value="" placeholder="{{ __('purchase code')}}" />
             @if ($errors->has('purchase_code'))
                 <span class="error-block">
                             <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
