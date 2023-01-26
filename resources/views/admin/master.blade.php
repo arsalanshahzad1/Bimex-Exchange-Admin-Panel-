@@ -111,9 +111,11 @@
         /*Chat Modal*/
         $("li.messages").click(function() {
             $(`.chatbox`).toggleClass("active");
-        }).on("blur", function() {
-            // $(`.chatbox`).removeClass("active");
         })
+
+        $(`.chatbox-close`).click(function () {
+            $(".chatbox").removeClass("active")
+        });
 
 
         $(".dz-chat-user").click(function() {

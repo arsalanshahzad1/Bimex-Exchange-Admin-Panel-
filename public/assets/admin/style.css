@@ -2992,16 +2992,16 @@ input[type="submit"] {
 }
 
 
-.new-tab-main {
-    display: flex !important;
-    flex-direction: row !important;
-    width: 100% !important;
-    margin-bottom: 3rem !important;
-}
+/*.new-tab-main {*/
+/*    display: flex !important;*/
+/*    flex-direction: row !important;*/
+/*    width: 100% !important;*/
+/*    margin-bottom: 3rem !important;*/
+/*}*/
 
-.new-tab-main li {
-    width: unset !important;
-}
+/*.new-tab-main li {*/
+/*    width: unset !important;*/
+/*}*/
 
 .table-bg {
     background-color: var(--bg-charts);
