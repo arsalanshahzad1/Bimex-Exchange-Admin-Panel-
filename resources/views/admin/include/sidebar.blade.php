@@ -75,30 +75,32 @@
     ['route' => 'adminTokenReceiveHistory', 'title' => __('Token Received Report'),'tab' => $sub_menu ?? '', 'tab_compare' => 'token', 'route_param' => NULL ],
 ]) !!}
 
-{!! subMenuRenderer(__('Settings'),$menu ?? '', 'setting','settings.svg',[
-    ['route' => 'adminSettings', 'title' => __('General'),'tab' => $sub_menu ?? '', 'tab_compare' => 'general', 'route_param' => NULL ],
-    ['route' => 'adminFeatureSettings', 'title' => __('Features'),'tab' => $sub_menu ?? '', 'tab_compare' => 'feature_settings', 'route_param' => NULL ],
-    ['route' => 'themesSettingsPage', 'title' => __('Theme Setting'),'tab' => $sub_menu ?? '', 'tab_compare' => 'theme_setting', 'route_param' => NULL ],
-    ['route' => 'adminCoinApiSettings', 'title' => __('Api'),'tab' => $sub_menu ?? '', 'tab_compare' => 'api_settings', 'route_param' => NULL ],
-    ['route' => 'kycList', 'title' => __('KYC Settings'),'tab' => $sub_menu ?? '', 'tab_compare' => 'kyc_settings', 'route_param' => NULL ],
-    ['route' => 'googleAnalyticsAdd', 'title' => __('Google Analytics'),'tab' => $sub_menu ?? '', 'tab_compare' => 'google_analytics', 'route_param' => NULL ],
-    ['route' => 'adminLanguageList', 'title' => __('Language List'),'tab' => $sub_menu ?? '', 'tab_compare' => 'lang_list', 'route_param' => NULL ],
-    ['route' => 'countryList', 'title' => __('Country List'),'tab' => $sub_menu ?? '', 'tab_compare' => 'country_list', 'route_param' => NULL ],
-    ['route' => 'twoFactor', 'title' => __('Two Factor Settings'),'tab' => $sub_menu ?? '', 'tab_compare' => 'two_factor', 'route_param' => NULL ],
-    ['route' => 'adminCurrencyList', 'title' => __('Fiat Currency'),'tab' => $sub_menu ?? '', 'tab_compare' => 'currency_list', 'route_param' => NULL ],
-    ['route' => 'tradeFeesSettings', 'title' => __('Trade Fees'),'tab' => $sub_menu ?? '', 'tab_compare' => 'trade_fees_settings', 'route_param' => NULL ],
-    ['route' => 'seoManagerAdd', 'title' => __('SEO Manager'),'tab' => $sub_menu ?? '', 'tab_compare' => 'seo_manager', 'route_param' => NULL ],
-    ['route' => 'adminConfiguration', 'title' => __('Configuration'),'tab' => $sub_menu ?? '', 'tab_compare' => 'config', 'route_param' => NULL ],
-]) !!}
+                {{--TODO:: Turn off Setting Option--}}
+{{--{!! subMenuRenderer(__('Settings'),$menu ?? '', 'setting','settings.svg',[--}}
+{{--    ['route' => 'adminSettings', 'title' => __('General'),'tab' => $sub_menu ?? '', 'tab_compare' => 'general', 'route_param' => NULL ],--}}
+{{--    ['route' => 'adminFeatureSettings', 'title' => __('Features'),'tab' => $sub_menu ?? '', 'tab_compare' => 'feature_settings', 'route_param' => NULL ],--}}
+{{--    ['route' => 'themesSettingsPage', 'title' => __('Theme Setting'),'tab' => $sub_menu ?? '', 'tab_compare' => 'theme_setting', 'route_param' => NULL ],--}}
+{{--    ['route' => 'adminCoinApiSettings', 'title' => __('Api'),'tab' => $sub_menu ?? '', 'tab_compare' => 'api_settings', 'route_param' => NULL ],--}}
+{{--    ['route' => 'kycList', 'title' => __('KYC Settings'),'tab' => $sub_menu ?? '', 'tab_compare' => 'kyc_settings', 'route_param' => NULL ],--}}
+{{--    ['route' => 'googleAnalyticsAdd', 'title' => __('Google Analytics'),'tab' => $sub_menu ?? '', 'tab_compare' => 'google_analytics', 'route_param' => NULL ],--}}
+{{--    ['route' => 'adminLanguageList', 'title' => __('Language List'),'tab' => $sub_menu ?? '', 'tab_compare' => 'lang_list', 'route_param' => NULL ],--}}
+{{--    ['route' => 'countryList', 'title' => __('Country List'),'tab' => $sub_menu ?? '', 'tab_compare' => 'country_list', 'route_param' => NULL ],--}}
+{{--    ['route' => 'twoFactor', 'title' => __('Two Factor Settings'),'tab' => $sub_menu ?? '', 'tab_compare' => 'two_factor', 'route_param' => NULL ],--}}
+{{--    ['route' => 'adminCurrencyList', 'title' => __('Fiat Currency'),'tab' => $sub_menu ?? '', 'tab_compare' => 'currency_list', 'route_param' => NULL ],--}}
+{{--    ['route' => 'tradeFeesSettings', 'title' => __('Trade Fees'),'tab' => $sub_menu ?? '', 'tab_compare' => 'trade_fees_settings', 'route_param' => NULL ],--}}
+{{--    ['route' => 'seoManagerAdd', 'title' => __('SEO Manager'),'tab' => $sub_menu ?? '', 'tab_compare' => 'seo_manager', 'route_param' => NULL ],--}}
+{{--    ['route' => 'adminConfiguration', 'title' => __('Configuration'),'tab' => $sub_menu ?? '', 'tab_compare' => 'config', 'route_param' => NULL ],--}}
+{{--]) !!}--}}
 
-{!! subMenuRenderer(__('Landing Settings'),$menu ?? '', 'landing_setting','landing-settings.svg',[
-    ['route' => 'adminLandingSetting', 'title' => __('Landing Page'),'tab' => $sub_menu ?? '', 'tab_compare' => 'landing', 'route_param' => NULL ],
-    ['route' => 'adminCustomPageList', 'title' => __('Custom Pages'),'tab' => $sub_menu ?? '', 'tab_compare' => 'custom_pages', 'route_param' => NULL ],
-    ['route' => 'adminBannerList', 'title' => __('Banner'),'tab' => $sub_menu ?? '', 'tab_compare' => 'banner', 'route_param' => NULL ],
-    ['route' => 'adminFeatureList', 'title' => __('Feature'),'tab' => $sub_menu ?? '', 'tab_compare' => 'feature', 'route_param' => NULL ],
-    ['route' => 'adminSocialMediaList', 'title' => __('Social Media'),'tab' => $sub_menu ?? '', 'tab_compare' => 'media', 'route_param' => NULL ],
-    ['route' => 'adminAnnouncementList', 'title' => __('Announcement'),'tab' => $sub_menu ?? '', 'tab_compare' => 'announcement', 'route_param' => NULL ],
-]) !!}
+                {{--TODO:: Turn off Landing Setting Option--}}
+{{--{!! subMenuRenderer(__('Landing Settings'),$menu ?? '', 'landing_setting','landing-settings.svg',[--}}
+{{--    ['route' => 'adminLandingSetting', 'title' => __('Landing Page'),'tab' => $sub_menu ?? '', 'tab_compare' => 'landing', 'route_param' => NULL ],--}}
+{{--    ['route' => 'adminCustomPageList', 'title' => __('Custom Pages'),'tab' => $sub_menu ?? '', 'tab_compare' => 'custom_pages', 'route_param' => NULL ],--}}
+{{--    ['route' => 'adminBannerList', 'title' => __('Banner'),'tab' => $sub_menu ?? '', 'tab_compare' => 'banner', 'route_param' => NULL ],--}}
+{{--    ['route' => 'adminFeatureList', 'title' => __('Feature'),'tab' => $sub_menu ?? '', 'tab_compare' => 'feature', 'route_param' => NULL ],--}}
+{{--    ['route' => 'adminSocialMediaList', 'title' => __('Social Media'),'tab' => $sub_menu ?? '', 'tab_compare' => 'media', 'route_param' => NULL ],--}}
+{{--    ['route' => 'adminAnnouncementList', 'title' => __('Announcement'),'tab' => $sub_menu ?? '', 'tab_compare' => 'announcement', 'route_param' => NULL ],--}}
+{{--]) !!}--}}
 
 
 {!! subMenuRenderer(__('Notification'),$menu ?? '', 'notification','Notification.svg',[
