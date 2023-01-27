@@ -4026,6 +4026,6 @@ div#DZ_W_Contacts_Body3 {
 .custom_login button:active
 {
     border: none !important;
-    background-color: gray !important;
+    background-color: var(--secondary-dark) !important;
 }
 
