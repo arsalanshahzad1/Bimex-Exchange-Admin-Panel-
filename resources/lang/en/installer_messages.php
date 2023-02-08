@@ -2,7 +2,7 @@
 
 return array (
   'back' => 'Previous',
-  'bimex' =>
+  'edx' =>
   array (
     'templateTitle' => '',
   ),

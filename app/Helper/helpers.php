@@ -2267,7 +2267,7 @@ function broadcastOrderData($order, $orderType, $event, $userId = null)
  */
 function broadcastPublic($eventName, $broadcastData)
 {
-    $chanel = env("PUSHER_PUBLIC_CHANEL_NAME") ?? 'bimex_public_chanel';
+    $chanel = env("PUSHER_PUBLIC_CHANEL_NAME") ?? 'edx_public_chanel';
 //    dispatch(new BroadcastJob($chanel, $eventName, $broadcastData))->onQueue('broadcast-data');
 }
 
@@ -2281,7 +2281,7 @@ function broadcastPublic($eventName, $broadcastData)
  */
 function broadcastPrivate( $eventName, $broadcastData, $userId)
 {
-    $ch = env("PUSHER_PRIVATE_CHANEL_NAME") ?? 'bimex_private_chanel';
+    $ch = env("PUSHER_PRIVATE_CHANEL_NAME") ?? 'edx_private_chanel';
     $channelName = 'private-'.$ch.'.' .($userId);
 //    dispatch(new BroadcastJob($channelName, $eventName, $broadcastData))->onQueue('broadcast-data');
 }

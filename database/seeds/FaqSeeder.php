@@ -12,7 +12,7 @@ class FaqSeeder extends Seeder
      */
     public function run()
     {
-        Faq::firstOrCreate(['question' => 'What is Tradexpro exchange ?'],[
+        Faq::firstOrCreate(['question' => 'What is EDX exchange ?'],[
             'answer' => 'Aenean condimentum nibh vel enim sodales scelerisque. Mauris quisn pellentesque odio, in vulputate turpis. Integer condimentum eni lorem pellentesque euismod. Nam rutrum accumsan nisl vulputate.',
             'author' => 1
             ]

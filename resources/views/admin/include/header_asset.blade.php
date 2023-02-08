@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="description" content="@if(isset(settings()['landing_title'])) {{settings()['landing_title'] }} @else {{__('TradexPro exchange trade Coin Easily')}} @endif">
+<meta name="description" content="@if(isset(settings()['landing_title'])) {{settings()['landing_title'] }} @else {{__('EDX exchange trade Coin Easily')}} @endif">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{allsetting('app_title')}}"/>
@@ -48,5 +48,5 @@
 <link rel="stylesheet" href="{{asset('assets/common/tags-input/bootstrap-tagsinput.css')}}" />
 
 
-    
-    
+
+

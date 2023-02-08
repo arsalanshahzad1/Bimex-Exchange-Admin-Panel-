@@ -14,8 +14,8 @@ class AdminSettingTableSeeder extends Seeder
     {
         AdminSetting::firstOrCreate(['slug'=>'exchange_url'],['value'=>'']);
         AdminSetting::firstOrCreate(['slug'=>'coin_price'],['value'=>'2.50']);
-        AdminSetting::firstOrCreate(['slug'=>'coin_name'],['value'=>'TradexPro']);
-        AdminSetting::firstOrCreate(['slug'=>'app_title'],['value'=>'TradexPro Admin']);
+        AdminSetting::firstOrCreate(['slug'=>'coin_name'],['value'=>'EDX']);
+        AdminSetting::firstOrCreate(['slug'=>'app_title'],['value'=>'EDX Admin']);
         AdminSetting::firstOrCreate(['slug'=>'maximum_withdrawal_daily'],['value'=>'3']);
         AdminSetting::firstOrCreate(['slug'=>'mail_from'],['value'=>'noreply@cpoket.com']);
         AdminSetting::firstOrCreate(['slug'=>'admin_coin_address'],['value'=>'address']);
@@ -147,7 +147,7 @@ class AdminSettingTableSeeder extends Seeder
 
         AdminSetting::firstOrCreate(['slug' => 'swap_status'], ['value' => 1]);
         AdminSetting::firstOrCreate(['slug' => 'maintenance_mode_status'], ['value' => 0]);
-        AdminSetting::firstOrCreate(['slug' => 'maintenance_mode_title'], ['value' => "Tradexpro Exchange is temporarily unavailable due to maintenance"]);
+        AdminSetting::firstOrCreate(['slug' => 'maintenance_mode_title'], ['value' => "EDX Exchange is temporarily unavailable due to maintenance"]);
         AdminSetting::firstOrCreate(['slug' => 'maintenance_mode_text'], ['value' => 'We are working hard to make it the best friendly exchange website. Please check back later. We apologize for any inconvenience']);
         AdminSetting::firstOrCreate(['slug' => 'maintenance_mode_img'], ['value' => '']);
 

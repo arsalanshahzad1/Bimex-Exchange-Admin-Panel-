@@ -662,8 +662,8 @@ class UserService
                 $data['google2fa_secret'] = $google2fa->generateSecretKey();
 
                 $google2fa_url = $google2fa->getQRCodeGoogleUrl(
-                    !empty(allsetting('app_title')) ? allsetting('app_title') : 'Bimex Exchange',
-                    isset($user->email) && !empty($user->email) ? $user->email : 'bimex@email.com',
+                    !empty(allsetting('app_title')) ? allsetting('app_title') : 'EDX Exchange',
+                    isset($user->email) && !empty($user->email) ? $user->email : 'edx@email.com',
                     $data['google2fa_secret']
                 );
                 $data['qrcode'] = $google2fa_url;
