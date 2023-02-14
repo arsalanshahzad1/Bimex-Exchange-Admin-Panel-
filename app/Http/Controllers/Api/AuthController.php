@@ -13,6 +13,7 @@ use App\Http\Services\AuthService;
 use App\Http\Services\Logger;
 use App\Http\Services\MyCommonService;
 use App\Http\Services\User2FAService;
+use App\Http\Services\UserService;
 use App\Model\UserVerificationCode;
 use App\User;
 use Carbon\Carbon;
@@ -20,21 +21,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use PharIo\Version\Exception;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Support\Facades\RateLimiter;
+use League\Uri\Http;
 
 class AuthController extends Controller
 {
     public $service;
     public $myCommonService;
     public $logger;
+    public $user_service;
     public function __construct()
     {
         $this->service = new AuthService;
         $this->myCommonService = new MyCommonService;
         $this->logger = new Logger();
+        $this->user_service = new UserService();
     }
     // sign up api
     public function signUp(SignUpRequest $request)
@@ -48,11 +53,54 @@ class AuthController extends Controller
             return response()->json($result);
         } catch (\Exception $e) {
             $this->logger->log('signUp', $e->getMessage());
-            $response = ['success' => false, 'message' => __('Something went wrong'), 'data' =>(object)[]];
+            $response = ['success' => false, 'message' => $e->getMessage(), 'data' =>(object)[]];
             return response()->json($response);
         }
     }
-
+    public function googleAuth(Request $req){
+        try {
+            $data['success'] = false;
+            $data['message'] = '';
+            $data['user'] = (object)[];
+            $url = 'https://www.googleapis.com/oauth2/v3/userinfo?access_token='.$req->access_token;
+            $json = file_get_contents($url); //,FALSE,$ctx);
+            $jasondata = json_decode($json, TRUE);
+            $google_user = (object)$jasondata;
+            $password_start = "Bimex";
+            $user = User::where('email', $google_user->email)->first();
+            if(!$user){
+                $user = new User;
+                $user->first_name = $google_user->given_name;
+                $user->last_name = $google_user->family_name;
+                $user->email = $google_user->email;
+                $user->is_verified = STATUS_SUCCESS;
+                $user->password = Hash::make($password_start.$google_user->sub);
+                $user->save();
+                $data['request_type'] = 'register';
+                $data['email'] = $google_user->email;
+                $data['message'] = 'User successfully registered.';
+                $data['success'] = true;
+            }
+            else{
+                $data['request_type'] = 'login';
+                $data['message'] = __('Login successful');
+                $data['success'] = true;
+                if (Auth::attempt(['email' => $google_user->email, 'password' => $password_start.$google_user->sub])) {
+                    $token = $user->createToken($google_user->email)->accessToken;
+                    $data['email_verified'] = $user->is_verified;
+                    $data['access_token'] = $token;
+                    $data['access_type'] = 'Bearer';
+                    $data['user'] = User::find($user->id);
+                    $data['user']->photo = show_image_path($user->photo,IMG_USER_PATH);
+                    createUserActivity(Auth::user()->id, USER_ACTIVITY_LOGIN);
+                }
+            }
+            return response()->json($data);
+        } catch (\Exception $e) {
+            $response = ['success' => false, 'message' =>$e->getMessage(), 'data' =>(object)[]];
+            return response()->json($response);
+        }
+    }
     // verify email
     public function verifyEmail(EmailVerifyRequest $request)
     {
@@ -125,7 +173,7 @@ class AuthController extends Controller
                                 }
                                 try {
                                     $data['email_verified'] = $user->is_verified;
-                                    $this->service ->sendVerifyemail($user, $mail_key);
+                                    $this->service->sendVerifyemail($user, $mail_key);
                                     $data['success'] = false;
                                     $data['message'] = __('Your email is not verified yet. Please verify your mail.');
                                     Auth::logout();
@@ -195,13 +243,63 @@ class AuthController extends Controller
             return response()->json($response);
         }
     }
+    public function sendPhoneOtp(Request $request)
+    {
+        try {
+            $user = User::where('email',$request->email)->first();
+            $response = $this->user_service->sendPhoneVerificationSms($user);
+            return response()->json($response);
+        } catch (\Exception $e) {
+            $this->logger->log('sendPhoneVerificationSms', $e->getMessage());
+            $response = ['success' => false,'message' => __('Something went wrong'), 'data' => ''];
+        }
+        return response()->json($response);
+    }
+    public function verifyEmailAndPhone(Request $request)
+    {
+        $response['success'] = false;
+        $response['message'] = __('Invalid Request');
+        try {
+            if (!filter_var($request['email'], FILTER_VALIDATE_EMAIL)) {
+                $response = ['success' => false, 'message' => __('Invalid email address'), 'data' =>(object)[]];
+                return response()->json($response);
+            }
+            $user = User::where('email',$request->email)->first();
+            $phone_response = $this->user_service->phoneVerifyProcess($request, $user);
+            if(!$phone_response['success']){
+                return response()->json($phone_response);
+            }
+            $request->verify_code = $request->email_code;
+            $email_response = $this->service->verifyEmailProcess($request);
+            if(!$email_response['success']){
+                return response()->json($email_response);
+            }
+            if($phone_response['success'] && $email_response['success']){
+                if(Auth::loginUsingId($user->id)){
+                $token = $user->createToken($user->email)->accessToken;
+                $response['success'] = true;
+                $response['access_token'] = $token;
+                $response['access_type'] = 'Bearer';
+                $response['message'] = 'Two step verification completed.';
+                $response['user'] = User::find($user->id);
+                $response['user']->photo = show_image_path($user->photo,IMG_USER_PATH);
+                createUserActivity(Auth::user()->id, USER_ACTIVITY_LOGIN);
+                return response()->json($response);
+                }
+        }
+        } catch (\Exception $e) {
+            $this->logger->log('verifyEmailAndPhone', $e->getMessage());
+            $response = ['success' => false,'message' => __('Something went wrong'), 'data' => ''];
+        }
+        return response()->json($response);
+    }
     //verfiy email resend code
     public function resendVerifyEmailCode(ResendVerificationEmailCodeRequest $request)
     {   
         try{
             $executed = RateLimiter::attempt(
                 'send-message:'.$request->ip(),
-                $perMinute = 1,
+                $perMinute = 5,
                 function(){
                     
                 }
@@ -221,6 +319,23 @@ class AuthController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    // update phone by email
+
+    public function updatePhone(Request $req)
+    {
+        try {
+            $user = User::where('email',$req->email)->first();
+            $user->phone = $req->phone;
+            $user->save();
+            $response = ['success' => true, 'message' => __('Success'), 'data' =>$user];
+            return response()->json($response);
+        } catch (\Exception $e) {
+            $this->logger->log('updatePhone', $e->getMessage());
+            $response = ['success' => false, 'message' => __('Something went wrong'), 'data' =>(object)[]];
+            return response()->json($response);
+        }
     }
 
     // reset password

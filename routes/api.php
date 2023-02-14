@@ -42,10 +42,14 @@ Route::group(['middleware' => 'maintenanceMode'], function (){
         Route::group(['namespace'=>'Api', 'middleware' => []], function () {
             // auth
             Route::get('common-settings', 'LandingController@commonSettings');
+            Route::post('update-phone', 'AuthController@updatePhone');
             Route::post('sign-up', 'AuthController@signUp');
+            Route::post('google-auth', 'AuthController@googleAuth');
             Route::post('sign-in', 'AuthController@signIn');
             Route::post('verify-email', 'AuthController@verifyEmail');
             Route::post('resend-verify-email-code', 'AuthController@resendVerifyEmailCode');
+            Route::post('send-phone-otp', 'AuthController@sendPhoneOtp');
+            Route::post('verify-email-and-phone', 'AuthController@verifyEmailAndPhone');
             Route::post('forgot-password', 'AuthController@forgotPassword');
             Route::post('reset-password', 'AuthController@resetPassword');
             Route::post('g2f-verify', 'AuthController@g2fVerify');

@@ -41,22 +41,21 @@ class AuthService
                     $parentUserId = $parentUser->user_id;
                 }
             }
-            $mail_key = $this->repository->generate_email_verification_key();
+            // $mail_key = $this->repository->generate_email_verification_key();
             $userData = [
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
                 'email' => $request['email'],
+                'phone' => $request['phone'],
                 'role' => USER_ROLE_USER,
                 'password' => Hash::make($request['password']),
             ];
             $user = $this->repository->create($userData);
             if ($user) {
-                $userVerificationData = [
-                    'user_id' => $user->id,
-                    'code' => $mail_key,
-                    'expired_at' => date('Y-m-d', strtotime('+15 days'))
-                ];
-                $userVerification = $this->repository->createUserVerification($userVerificationData);
+                // $userVerificationData = [
+                //     'user_id' => $user->id,
+                //     'code' => $mail_key,
+                //     'expired_at' => date('Y-m-d', strtotime('+15 days'))
+                // ];
+                // $userVerification = $this->repository->createUserVerification($userVerificationData);
                 $wallet = $this->repository->createUserWallet($user->id);
 
                 if ($parentUserId > 0) {
@@ -65,7 +64,7 @@ class AuthService
                     $createdReferral = $referralRepository->createReferralUser($user->id, $parentUserId);
                 }
 
-                $this->sendVerifyemail($user, $mail_key);
+                // $this->sendVerifyemail($user, $mail_key);
                 DB::commit();
                 // all good
                 $response = ['success' => true, 'message' => __('Sign up successful. Please verify your email'), 'data' =>$user];
@@ -74,7 +73,7 @@ class AuthService
         } catch (\Exception $e) {
             DB::rollback();
             $this->logger->log('signUpProcess', $e->getMessage());
-            $response = ['success' => false, 'message' => __('Something went wrong'), 'data' =>(object)[]];
+            $response = ['success' => false, 'message' => $e->getMessage(), 'data' =>(object)[]];
         }
 
         return $response;
@@ -318,7 +317,7 @@ class AuthService
                 $this->sendVerifyemail($user, $mail_key);
 
             }
-            $response = ['success'=>true, 'message'=>'Verification Code send to your mail'];
+            $response = ['success'=>true, 'message'=>'Verification Code send to your mail','data'=>$mail_key];
         } catch (\Exception $e) {
             $this->logger->log('resendVerifyEmailCode', $e->getMessage());
             $response = ['success' => false, 'message' => __('Something went wrong')];
@@ -343,13 +342,13 @@ class AuthService
                         ->where('code', decrypt($token[0]))
                         ->where(['status'=> STATUS_PENDING,'type' => CODE_TYPE_EMAIL])
                         ->whereDate('expired_at', '>', Carbon::now()->format('Y-m-d'))
-                        ->first();
+                        ->orderBy('id', 'desc')->first();
                 } else {
                     $verify = UserVerificationCode::where(['user_id' => $user->id])
-                        ->where('code', $request->verify_code)
+                        ->where('code', $request->email_code)
                         ->where(['status' => STATUS_PENDING, 'type' => CODE_TYPE_EMAIL])
                         ->whereDate('expired_at', '>', Carbon::now()->format('Y-m-d'))
-                        ->first();
+                        ->orderBy('id', 'desc')->first();
                 }
 
                 if ($verify) {
@@ -360,7 +359,7 @@ class AuthService
                     }
                 } else {
                     Auth::logout();
-                    $data = ['success' => false, 'message' => __('Your verify code was expired,you can generate new one')];
+                    $data = ['success' => false, 'message' => __('Your verify code was expired,you can generate new one'),'data'=>$request->email_code];
                 }
             } else {
                 $data = ['success' => false, 'message' => __('Your email not found or token expired')];
