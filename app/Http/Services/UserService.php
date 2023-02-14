@@ -60,7 +60,7 @@ class UserService
                 $code = UserVerificationCode::create([
                     'user_id' => $user->id,
                     'code' => $key,
-                    'expired_at' => date('Y-m-d', strtotime('+1 days')),
+                    'expired_at' => date('Y-m-d', strtotime('+15 days')),
                     'status' => STATUS_PENDING,
                     'type' => CODE_TYPE_PHONE
                 ]);
@@ -70,7 +70,8 @@ class UserService
                 $sendSms = $this->smsService->send("+".$number, $text);
                 $response = [
                     'success' => true,
-                    'message' => __('We sent a verification code in your phone please input this code in this box')
+                    'message' => __('We sent a verification code in your phone please input this code in this box'),
+                    'data' => $code->code
                 ];
             } else {
                 $response = [
@@ -98,12 +99,12 @@ class UserService
         $response['message'] = __('Invalid Request');
         DB::beginTransaction();
         try {
-            if(isset($request->verify_code)) {
+            if(isset($request->phone_code)) {
                 $verify = UserVerificationCode::where(['user_id' => $user->id])
-                    ->where('code', $request->verify_code)
+                    ->where('code', $request->phone_code)
                     ->where(['status' => STATUS_PENDING, 'type' => CODE_TYPE_PHONE])
                     ->whereDate('expired_at', '>', Carbon::now()->format('Y-m-d'))
-                    ->first();
+                    ->orderBy('id', 'desc')->first();
                 if ($verify) {
                     $user->phone_verified = 1;
                     $user->save();
