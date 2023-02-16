@@ -74,6 +74,7 @@ class AuthController extends Controller
                 $user->last_name = $google_user->family_name;
                 $user->email = $google_user->email;
                 $user->is_verified = STATUS_SUCCESS;
+                // $user->is_google = '1';
                 $user->password = Hash::make($password_start.$google_user->sub);
                 $user->save();
                 $data['request_type'] = 'register';
@@ -85,14 +86,21 @@ class AuthController extends Controller
                 $data['request_type'] = 'login';
                 $data['message'] = __('Login successful');
                 $data['success'] = true;
-                if (Auth::attempt(['email' => $google_user->email, 'password' => $password_start.$google_user->sub])) {
-                    $token = $user->createToken($google_user->email)->accessToken;
+                if (Auth::loginUsingId($user->id)) {
+                    $token = $user->createToken($user->email)->accessToken;
                     $data['email_verified'] = $user->is_verified;
                     $data['access_token'] = $token;
                     $data['access_type'] = 'Bearer';
                     $data['user'] = User::find($user->id);
                     $data['user']->photo = show_image_path($user->photo,IMG_USER_PATH);
-                    createUserActivity(Auth::user()->id, USER_ACTIVITY_LOGIN);
+                    if($user->is_verified){
+                        createUserActivity(Auth::user()->id, USER_ACTIVITY_LOGIN);
+                    }
+                    else{
+                        $data['success'] = false;
+                        $data['message'] = __('Please verify your account.');
+                        Auth::logout();
+                    }
                 }
             }
             return response()->json($data);
