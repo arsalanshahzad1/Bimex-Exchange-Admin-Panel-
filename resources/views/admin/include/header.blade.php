@@ -3,9 +3,9 @@
         <div class="row align-items-center justify-content-between">
             <div class="col-xl-1 col-md-2 col-3 top-bar-logo top-bar-logo-hide">
                 <div class="logo">
-                    <a href="{{route('adminDashboard')}}"><img src="{{ image("logo.jpeg") }}"
+                    <a href="{{route('adminDashboard')}}"><img src="{{ image("logo.png") }}"
                                                                class="img-fluid logo-large" alt=""></a>
-                    <a href="{{route('adminDashboard')}}"><img src="{{ image("logo.jpeg")  }}"
+                    <a href="{{route('adminDashboard')}}"><img src="{{ image("logo.png")  }}"
                                                                class="img-fluid logo-small" alt=""></a>
                 </div>
             </div>

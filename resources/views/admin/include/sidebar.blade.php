@@ -2,7 +2,7 @@
     <!-- logo -->
     <div class="logo">
         <a href="{{route('adminDashboard')}}">
-            <img src="{{ image("logo.jpeg") }}" class="img-fluid" alt="">
+            <img src="{{ image("logo.png") }}" class="img-fluid" alt="">
 {{--            <img src="{{show_image(Auth::user()->id,'logo')}}" class="img-fluid" alt="">--}}
         </a>
     </div><!-- /logo -->

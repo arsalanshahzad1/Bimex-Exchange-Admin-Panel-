@@ -42,7 +42,7 @@ class KYCVerification
                         }
                         if($item == KYC_NID_VERIFICATION && !in_array($item, $userVerification))
                         {
-                            return response()->json(['success' => false, 'message' => __('NID is not verified'),'data'=>KYC_NID_VERIFICATION]);
+                            return response()->json(['success' => false, 'message' => __('National Identity Card is not verified'),'data'=>KYC_NID_VERIFICATION]);
                         }
                         if($item == KYC_PASSPORT_VERIFICATION && !in_array($item, $userVerification))
                         {

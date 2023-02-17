@@ -15,6 +15,7 @@ use App\Http\Services\Logger;
 use App\Http\Services\UserService;
 use App\Model\ActivityLog;
 use App\Model\Notification;
+use Illuminate\Http\Request;
 use Illuminate\Http\RequestProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
