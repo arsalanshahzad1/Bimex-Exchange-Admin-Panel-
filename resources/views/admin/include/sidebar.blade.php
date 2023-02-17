@@ -115,7 +115,7 @@
     ['route' => 'progressStatusSettings', 'title' => __('Progress Status Settings'),'tab' => $sub_menu ?? '', 'tab_compare' => 'progress-status-settings', 'route_param' => NULL ],
 ]) !!}
 
-{!! mainMenuRenderer('adminLogs',__('Logs'),$menu ?? '','log','logs.svg') !!}
+{{--{!! mainMenuRenderer('adminLogs',__('Logs'),$menu ?? '','log','logs.svg') !!}--}}
 
 
             </ul>
