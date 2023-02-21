@@ -75,6 +75,12 @@ Route::group(['middleware' => 'maintenanceMode'], function (){
         });
 
         Route::group(['namespace'=>'Api', 'middleware' => ['auth:api']], function () {
+            //Chat
+            Route::post('add-user-to-chat','FriendshipController@store');
+            Route::get('get-all-users','FriendshipController@getAllUsers');
+            Route::get('get-all-chat-list','FriendshipController@index');
+            Route::get('get-single-chat','FriendshipController@getSingleChat');
+            Route::post('chat','FriendshipController@sendChat');
             //logout
             Route::post('log-out-app','AuthController@logOutApp')->name('logOutApp');
         });
@@ -166,6 +172,8 @@ Route::group(['middleware' => 'maintenanceMode'], function (){
             Route::get('user-bank-list','UserBankController@UserbankGet')->name("UserbankGet");
             Route::post('user-bank-save','UserBankController@UserBankSave')->name("UserBankSave");
             Route::post('user-bank-delete','UserBankController@UserBankDelete')->name("UserBankDelete");
+
+
         });
     });
 });

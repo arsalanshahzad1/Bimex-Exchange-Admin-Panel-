@@ -1,5 +1,17 @@
 <?php
 
+//Chat
+Route::group(['prefix' => 'admin', 'namespace' => 'Api', 'middleware' => ['auth', 'admin', 'permission', 'default_lang']], function () {
+    // chat
+    Route::post('add-user-to-chat','FriendshipController@store');
+    Route::get('get-all-users','FriendshipController@getAllUsers');
+    Route::get('get-all-chat-list','FriendshipController@index');
+    Route::get('get-single-chat','FriendshipController@getSingleChat');
+    Route::post('chat','FriendshipController@sendChat');
+    Route::get('testSignals','FriendshipController@testSignals');
+
+});
+
 Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['auth', 'admin', 'permission', 'default_lang']], function () {
 
     // Logs
@@ -478,6 +490,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['aut
         Route::get('addons-settings','AddonsController@addonsSettings')->name('addonsSettings');
         Route::post('addons-settings-save','AddonsController@saveAddonsSettings')->name('saveAddonsSettings');
     });
+
+
 
 });
 
