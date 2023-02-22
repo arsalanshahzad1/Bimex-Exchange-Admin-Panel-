@@ -3178,3 +3178,18 @@ function image($img)
         return defaultImage();
     }
 }
+
+// generate binance signature
+
+function signature($params, $secret) {
+    $_params = array_merge($params, ['timestamp' => getTimestamp()]);
+    $query = http_build_query($_params);
+    return [
+        'sign' => hash_hmac('sha256', $query, $secret),
+        'query' => $query
+    ];
+}
+
+function getTimestamp() {
+    return round(microtime(true) * 1000);
+}

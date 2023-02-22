@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,26 +10,39 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/coin-payment-notifier', 'Api\WalletNotifier@coinPaymentNotifier')->name('coinPaymentNotifier');
-Route::post('bitgo-wallet-webhook','Api\WalletNotifier@bitgoWalletWebhook')->name('bitgoWalletWebhook');
 
-Route::group(['namespace'=>'Api', 'middleware' => 'wallet_notify'], function (){
-    Route::post('wallet-notifier','WalletNotifier@walletNotify');
-    Route::post('wallet-notifier-confirm','WalletNotifier@notifyConfirm');
+/*Broker APIs*/
+Route::post('/subAccount', 'Api\Binance\BrokerController@createSubAccount'); // Create Sub Account
+Route::get('/subAccount', 'Api\Binance\BrokerController@querySubAccount'); // Get All Sub Accounts
+Route::get('/info', 'Api\Binance\BrokerController@accountInformation'); // Broker Account Information
+Route::post('/subAccountApi', 'Api\Binance\BrokerController@createSubAccountApiKey'); // Create SubAccount ApiKey
+Route::get('/subAccountApi', 'Api\Binance\BrokerController@querySubAccountApiKey'); // Get All SubAccount ApiKey
+Route::delete('/subAccountApi', 'Api\Binance\BrokerController@deleteSubAccountApiKey'); // Delete SubAccount ApiKey
+
+// Wallet APIs
+Route::get('/getAllCoinsInfo', 'Api\Binance\WalletController@allCoinInformation'); // All Coins' Information
+Route::get('/deposit-address', 'Api\Binance\WalletController@depositAddress'); // Deposit Address (supporting network)
+
+Route::post('/coin-payment-notifier', 'Api\WalletNotifier@coinPaymentNotifier')->name('coinPaymentNotifier');
+Route::post('bitgo-wallet-webhook', 'Api\WalletNotifier@bitgoWalletWebhook')->name('bitgoWalletWebhook');
+
+Route::group(['namespace' => 'Api', 'middleware' => 'wallet_notify'], function () {
+    Route::post('wallet-notifier', 'WalletNotifier@walletNotify');
+    Route::post('wallet-notifier-confirm', 'WalletNotifier@notifyConfirm');
 });
 // For Two factor
-Route::group(['namespace'=>'Api', 'middleware' => ['api-user','checkApi']], function (){
-    Route::get('two-factor-list','AuthController@twoFactorList')->name("twoFactorListApi");
-    Route::match(['GET','POST'],'/google-two-factor','AuthController@twoFactorGoogleSetup')->name("twoFactorGoogleApi");
-    Route::post('save-two-factor','AuthController@twoFactorSave')->name("twoFactorSaveApi");
-    Route::post('send-two-factor','AuthController@twoFactorSend')->name("twoFactorSendApi");
-    Route::post('check-two-factor','AuthController@twoFactorCheck')->name("twoFactorCheckApi");
+Route::group(['namespace' => 'Api', 'middleware' => ['api-user', 'checkApi']], function () {
+    Route::get('two-factor-list', 'AuthController@twoFactorList')->name("twoFactorListApi");
+    Route::match(['GET', 'POST'], '/google-two-factor', 'AuthController@twoFactorGoogleSetup')->name("twoFactorGoogleApi");
+    Route::post('save-two-factor', 'AuthController@twoFactorSave')->name("twoFactorSaveApi");
+    Route::post('send-two-factor', 'AuthController@twoFactorSend')->name("twoFactorSendApi");
+    Route::post('check-two-factor', 'AuthController@twoFactorCheck')->name("twoFactorCheckApi");
 });
 
 
-Route::group(['middleware' => 'maintenanceMode'], function (){
+Route::group(['middleware' => 'maintenanceMode'], function () {
 
-    Route::group(['namespace'=>'Api\Public', 'prefix' => 'v1/markets'], function () {
+    Route::group(['namespace' => 'Api\Public', 'prefix' => 'v1/markets'], function () {
         Route::get('price/{pair?}', 'PublicController@getExchangePrice')->name('getExchangeTrade');
         Route::get('orderBook/{pair}', 'PublicController@getExchangeOrderBook')->name('getExchangeOrderBook');
         Route::get('trade/{pair}', 'PublicController@getExchangeTrade')->name('getExchangeTrade');
@@ -39,7 +50,7 @@ Route::group(['middleware' => 'maintenanceMode'], function (){
     });
 
     Route::group(['middleware' => ['checkApi']], function () {
-        Route::group(['namespace'=>'Api', 'middleware' => []], function () {
+        Route::group(['namespace' => 'Api', 'middleware' => []], function () {
             // auth
             Route::get('common-settings', 'LandingController@commonSettings');
             Route::post('update-phone', 'AuthController@updatePhone');
@@ -65,7 +76,7 @@ Route::group(['middleware' => 'maintenanceMode'], function (){
             Route::get('faq-list', 'FaqController@faqList');
 
         });
-        Route::group(['namespace'=>'Api\User', 'middleware' => []], function () {
+        Route::group(['namespace' => 'Api\User', 'middleware' => []], function () {
             Route::get('get-exchange-all-orders-app', 'ExchangeController@getExchangeAllOrdersApp')->name('getExchangeAllOrdersApp');
             Route::get('app-get-pair', 'ExchangeController@appExchangeGetAllPair')->name('appExchangeGetAllPair');
             Route::get('app-dashboard/{pair?}', 'ExchangeController@appExchangeDashboard')->name('appExchangeDashboard');
@@ -74,18 +85,18 @@ Route::group(['middleware' => 'maintenanceMode'], function (){
 
         });
 
-        Route::group(['namespace'=>'Api', 'middleware' => ['auth:api']], function () {
+        Route::group(['namespace' => 'Api', 'middleware' => ['auth:api']], function () {
             //Chat
-            Route::post('add-user-to-chat','FriendshipController@store');
-            Route::get('get-all-users','FriendshipController@getAllUsers');
-            Route::get('get-all-chat-list','FriendshipController@index');
-            Route::get('get-single-chat','FriendshipController@getSingleChat');
-            Route::post('chat','FriendshipController@sendChat');
+            Route::post('add-user-to-chat', 'FriendshipController@store');
+            Route::get('get-all-users', 'FriendshipController@getAllUsers');
+            Route::get('get-all-chat-list', 'FriendshipController@index');
+            Route::get('get-single-chat', 'FriendshipController@getSingleChat');
+            Route::post('chat', 'FriendshipController@sendChat');
             //logout
-            Route::post('log-out-app','AuthController@logOutApp')->name('logOutApp');
+            Route::post('log-out-app', 'AuthController@logOutApp')->name('logOutApp');
         });
 
-        Route::group(['namespace'=>'Api\User', 'middleware' => ['auth:api','api-user','last_seen']], function () {
+        Route::group(['namespace' => 'Api\User', 'middleware' => ['auth:api', 'api-user', 'last_seen']], function () {
             // profile
             Route::get('profile', 'ProfileController@profile');
             Route::get('notifications', 'ProfileController@userNotification');
@@ -108,22 +119,22 @@ Route::group(['middleware' => 'maintenanceMode'], function (){
             Route::post('update-currency', 'ProfileController@updateFiatCurrency');
             Route::get('kyc-active-list', 'KycController@kycActiveList');
 
-            Route::group(['middleware'=>'check_demo'], function() {
+            Route::group(['middleware' => 'check_demo'], function () {
                 Route::post('google2fa-setup', 'ProfileController@google2faSetup');
                 Route::get('setup-google2fa-login', 'ProfileController@setupGoogle2faLogin');
             });
 
 
             // coin
-            Route::get('get-coin-list','CoinController@getCoinList');
-            Route::get('get-coin-pair-list','CoinController@getCoinPairList');
+            Route::get('get-coin-list', 'CoinController@getCoinList');
+            Route::get('get-coin-pair-list', 'CoinController@getCoinPairList');
 
             // wallet
-            Route::get('wallet-list','WalletController@walletList');
-            Route::get('wallet-deposit-{id}','WalletController@walletDeposit');
-            Route::get('wallet-withdrawal-{id}','WalletController@walletWithdrawal');
-            Route::post('wallet-withdrawal-process','WalletController@walletWithdrawalProcess')->middleware('kycVerification:kyc_withdrawal_setting_status');
-            Route::post('get-wallet-network-address','WalletController@getWalletNetworkAddress');
+            Route::get('wallet-list', 'WalletController@walletList');
+            Route::get('wallet-deposit-{id}', 'WalletController@walletDeposit');
+            Route::get('wallet-withdrawal-{id}', 'WalletController@walletWithdrawal');
+            Route::post('wallet-withdrawal-process', 'WalletController@walletWithdrawalProcess')->middleware('kycVerification:kyc_withdrawal_setting_status');
+            Route::post('get-wallet-network-address', 'WalletController@getWalletNetworkAddress');
 
             //Dashboard and reports
             Route::get('get-all-buy-orders-app', 'ExchangeController@getExchangeAllBuyOrdersApp')->name('getExchangeAllBuyOrdersApp');
@@ -163,15 +174,15 @@ Route::group(['middleware' => 'maintenanceMode'], function (){
             });
 
             // fiat withdrawal
-            Route::get('fiat-withdrawal','FiatWithdrawalController@fiatWithdrawal')->name('fiatWithdrawal');
-            Route::post('get-fiat-withdrawal-rate','FiatWithdrawalController@getFiatWithdrawalRate')->name('getFiatWithdrawalRate');
-            Route::post('fiat-withdrawal-process','FiatWithdrawalController@fiatWithdrawalProcess')->name('fiatWithdrawalProcess');
+            Route::get('fiat-withdrawal', 'FiatWithdrawalController@fiatWithdrawal')->name('fiatWithdrawal');
+            Route::post('get-fiat-withdrawal-rate', 'FiatWithdrawalController@getFiatWithdrawalRate')->name('getFiatWithdrawalRate');
+            Route::post('fiat-withdrawal-process', 'FiatWithdrawalController@fiatWithdrawalProcess')->name('fiatWithdrawalProcess');
             Route::get('fiat-withdrawal-history', 'FiatWithdrawalController@fiatWithdrawHistory')->name('fiatWithdrawHistory');
 
             // User Bank
-            Route::get('user-bank-list','UserBankController@UserbankGet')->name("UserbankGet");
-            Route::post('user-bank-save','UserBankController@UserBankSave')->name("UserBankSave");
-            Route::post('user-bank-delete','UserBankController@UserBankDelete')->name("UserBankDelete");
+            Route::get('user-bank-list', 'UserBankController@UserbankGet')->name("UserbankGet");
+            Route::post('user-bank-save', 'UserBankController@UserBankSave')->name("UserBankSave");
+            Route::post('user-bank-delete', 'UserBankController@UserBankDelete')->name("UserBankDelete");
 
 
         });
