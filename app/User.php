@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email','g2f_enabled', 'password','role','photo','phone','status',
+        'email','g2f_enabled', 'password','role','photo','phone','status','sub_account_id','broker_email',
         'is_verified','country_code','country','phone_verified','google2fa_secret','email_enabled','phone_enabled','otp_code','reset_code','gender', 'birth_date',
         'language', 'device_id', 'device_type', 'push_notification_status','role_id',
         'email_notification_status',

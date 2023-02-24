@@ -8,15 +8,15 @@ use Illuminate\Support\Facades\Http;
 
 class BrokerController extends Controller
 {
-    private $KEY;
-    private $SECRET;
-    private $BASE_URL;
+    private string $KEY;
+    private string $SECRET;
+    private string $BASE_URL;
 
     public function __construct()
     {
-        $this->KEY = "HSd5UxouxcMHJagTw4PC4anAyVZYl9ZacWoe2b1W5pmjiDcjpcwy2IiL3eWMsmvx";
-        $this->SECRET = "VNqXb1Hc4NoVp6CGwyENPI7kFxRMLAOD0RghbxoiRYU150ezr5nUm4eNfiF1MGdZ";
-        $this->BASE_URL = 'https://api.binance.com/';
+        $this->KEY = env("BROKER_API_KEY");
+        $this->SECRET = env("BROKER_SECRET");
+        $this->BASE_URL = env("BINANCE_BASE_URL");
     }
 
     public function createSubAccount(Request $req)

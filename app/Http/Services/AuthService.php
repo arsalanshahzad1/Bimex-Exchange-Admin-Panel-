@@ -47,6 +47,8 @@ class AuthService
                 'phone' => $request['phone'],
                 'role' => USER_ROLE_USER,
                 'password' => Hash::make($request['password']),
+                'sub_account_id' => $request['sub_account_id'],
+                'broker_email' => $request['broker_email']
             ];
             $user = $this->repository->create($userData);
             if ($user) {

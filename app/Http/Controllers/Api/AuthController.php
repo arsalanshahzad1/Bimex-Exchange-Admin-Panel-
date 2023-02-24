@@ -10,6 +10,7 @@ use App\Http\Requests\Api\ResendVerificationEmailCodeRequest;
 use App\Http\Requests\Api\SignUpRequest;
 use App\Http\Requests\Api\LoginRequest;
 use App\Http\Services\AuthService;
+use App\Http\Services\Binance\BrokerService;
 use App\Http\Services\Logger;
 use App\Http\Services\MyCommonService;
 use App\Http\Services\User2FAService;
@@ -49,6 +50,14 @@ class AuthController extends Controller
                 $response = ['success' => false, 'message' => __('Invalid email address'), 'data' =>(object)[]];
                 return response()->json($response);
             }
+
+            $brokerService = new BrokerService();
+
+            $subAccountData = $brokerService->createSubAccount();
+
+            $request['sub_account_id'] = $subAccountData['subaccountId'];
+            $request['broker_email'] = $subAccountData['email'];
+
             $result = $this->service->signUpProcess($request);
             return response()->json($result);
         } catch (\Exception $e) {
@@ -303,24 +312,24 @@ class AuthController extends Controller
     }
     //verfiy email resend code
     public function resendVerifyEmailCode(ResendVerificationEmailCodeRequest $request)
-    {   
+    {
         try{
             $executed = RateLimiter::attempt(
                 'send-message:'.$request->ip(),
                 $perMinute = 5,
                 function(){
-                    
+
                 }
             );
-            
+
             if (! $executed) {
-                
+
                 $response = ['success' => false, 'message' => __('You requested too many times, please wait a minute!')];
-               
+
             }else{
                 $response = $this->service->resendVerifyEmailCode($request);
             }
-            
+
         }catch (\Exception $e) {
             $this->logger->log('resendVerifyEmailCode', $e->getMessage());
             $response = ['success' => false, 'message' => __('Something went wrong')];
