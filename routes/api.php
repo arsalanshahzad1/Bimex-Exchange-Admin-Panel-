@@ -11,17 +11,20 @@
 |
 */
 
-/*Broker APIs*/
-Route::post('/subAccount', 'Api\Binance\BrokerController@createSubAccount'); // Create Sub Account
-Route::get('/subAccount', 'Api\Binance\BrokerController@querySubAccount'); // Get All Sub Accounts
-Route::get('/info', 'Api\Binance\BrokerController@accountInformation'); // Broker Account Information
-Route::post('/subAccountApi', 'Api\Binance\BrokerController@createSubAccountApiKey'); // Create SubAccount ApiKey
-Route::get('/subAccountApi', 'Api\Binance\BrokerController@querySubAccountApiKey'); // Get All SubAccount ApiKey
-Route::delete('/subAccountApi', 'Api\Binance\BrokerController@deleteSubAccountApiKey'); // Delete SubAccount ApiKey
+Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-user', 'checkApi']], function() {
+    /*Broker APIs*/
+    Route::post('/subAccount', 'Api\Binance\BrokerController@createSubAccount'); // Create Sub Account
+    Route::get('/subAccount', 'Api\Binance\BrokerController@querySubAccount'); // Get All Sub Accounts
+    Route::get('/info', 'Api\Binance\BrokerController@accountInformation'); // Broker Account Information
+    Route::post('/subAccountApi', 'Api\Binance\BrokerController@createSubAccountApiKey'); // Create SubAccount ApiKey
+    Route::get('/subAccountApi', 'Api\Binance\BrokerController@querySubAccountApiKey'); // Get All SubAccount ApiKey
+    Route::delete('/subAccountApi', 'Api\Binance\BrokerController@deleteSubAccountApiKey'); // Delete SubAccount ApiKey
 
 // Wallet APIs
-Route::get('/getAllCoinsInfo', 'Api\Binance\WalletController@allCoinInformation'); // All Coins' Information
-Route::get('/deposit-address', 'Api\Binance\WalletController@depositAddress'); // Deposit Address (supporting network)
+    Route::get('/getAllCoinsInfo', 'WalletController@allCoinInformation'); // All Coins' Information
+    Route::get('/deposit-address', 'WalletController@depositAddress'); // Deposit Address (supporting network)
+
+});
 
 Route::post('/coin-payment-notifier', 'Api\WalletNotifier@coinPaymentNotifier')->name('coinPaymentNotifier');
 Route::post('bitgo-wallet-webhook', 'Api\WalletNotifier@bitgoWalletWebhook')->name('bitgoWalletWebhook');

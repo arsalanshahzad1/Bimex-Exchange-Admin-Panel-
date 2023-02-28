@@ -20,6 +20,9 @@ class WalletController extends Controller
 
     public function allCoinInformation(Request $req)
     {
+//        $user = Auth::user();
+
+
         try {
             $url = $this->BASE_URL . "/sapi/v1/capital/config/getall?";
             $queryParams = $req->all();
