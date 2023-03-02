@@ -20,10 +20,20 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/subAccountApi', 'Api\Binance\BrokerController@querySubAccountApiKey'); // Get All SubAccount ApiKey
     Route::delete('/subAccountApi', 'Api\Binance\BrokerController@deleteSubAccountApiKey'); // Delete SubAccount ApiKey
 
-// Wallet APIs
+    // Wallet APIs
     Route::get('/getAllCoinsInfo', 'WalletController@allCoinInformation'); // All Coins' Information
     Route::get('/deposit-address', 'WalletController@depositAddress'); // Deposit Address (supporting network)
 
+
+
+});
+// public apis binance 
+Route::group(['namespace' => 'Api\Binance', 'middleware' => ['checkApi']], function() {
+    // kline APIs
+    Route::get('/getKlines', 'KlineController@index'); // get kline data
+    // spot APIs
+    Route::get('/getExchangeInfo', 'SpotController@exchangeInfo'); // get exchange info
+    Route::get('/getOrderBook', 'SpotController@orderBook'); // get order book data
 });
 
 Route::post('/coin-payment-notifier', 'Api\WalletNotifier@coinPaymentNotifier')->name('coinPaymentNotifier');
