@@ -24,8 +24,11 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/getAllCoinsInfo', 'WalletController@allCoinInformation'); // All Coins' Information
     Route::get('/deposit-address', 'WalletController@depositAddress'); // Deposit Address (supporting network)
 
-    //Spot Account Trade apis
+    // Spot Account Trade apis
     Route::post('/newOrder', 'SpotController@newOrder');
+    Route::get('/getOpenOrders', 'SpotController@getOpenOrders');
+    Route::get('/getAllOrders', 'SpotController@getAllOrders');
+    Route::get('/getMyTradeHistory', 'SpotController@getMyTradeHistory');
 
 });
 // public apis binance
@@ -35,6 +38,8 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['checkApi']], funct
     // spot APIs
     Route::get('/getExchangeInfo', 'SpotController@exchangeInfo'); // get exchange info
     Route::get('/getOrderBook', 'SpotController@orderBook'); // get order book data
+    Route::get('/get24Ticker', 'SpotController@get24Ticker'); // 24 ticker price
+
 });
 
 Route::post('/coin-payment-notifier', 'Api\WalletNotifier@coinPaymentNotifier')->name('coinPaymentNotifier');
