@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Binance;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\Binance\BrokerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -11,6 +12,7 @@ class BrokerController extends Controller
     private string $KEY;
     private string $SECRET;
     private string $BASE_URL;
+    private BrokerService $broker;
 
     public function __construct()
     {
@@ -186,4 +188,17 @@ class BrokerController extends Controller
         }
     }
 
+    public function apiRestrictions(Request $req)
+    {
+        $params = $req->all();
+        $keys = [
+            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
+            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+        ];
+
+
+        $this->broker = new BrokerService();
+
+        return $this->broker->apiRestrictions($params, $keys);
+    }
 }

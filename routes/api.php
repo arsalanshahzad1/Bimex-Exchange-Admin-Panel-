@@ -20,6 +20,9 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/subAccountApi', 'BrokerController@querySubAccountApiKey'); // Get All SubAccount ApiKey
     Route::delete('/subAccountApi', 'BrokerController@deleteSubAccountApiKey'); // Delete SubAccount ApiKey
 
+    Route::get('/apiRestrictions', 'BrokerController@apiRestrictions'); // Get All SubAccount ApiKey
+
+
     // Wallet APIs
     Route::get('/getAllCoinsInfo', 'WalletController@allCoinInformation'); // All Coins' Information
     Route::get('/deposit-address', 'WalletController@depositAddress'); // Deposit Address (supporting network)
