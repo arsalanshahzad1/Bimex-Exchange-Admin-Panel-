@@ -104,5 +104,73 @@ class BrokerService
         }
     }
 
+    public function apiTradingStatus($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "/sapi/v1/account/apiTradingStatus?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
 
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+
+            if (isset($data["code"])) {
+                return [
+                    'data' => $data,
+                    'success' => false,
+                    'message' => $data['msg']
+                ];
+            }
+            return [
+                'data' => $data,
+                'success' => true,
+                'message' => 'Success.'
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'data' => [],
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function tradeFee($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "/sapi/v1/asset/tradeFee?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+
+            if (isset($data["code"])) {
+                return [
+                    'data' => $data,
+                    'success' => false,
+                    'message' => $data['msg']
+                ];
+            }
+            return [
+                'data' => $data,
+                'success' => true,
+                'message' => 'Success.'
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'data' => [],
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
 }

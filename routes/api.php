@@ -20,7 +20,11 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/subAccountApi', 'BrokerController@querySubAccountApiKey'); // Get All SubAccount ApiKey
     Route::delete('/subAccountApi', 'BrokerController@deleteSubAccountApiKey'); // Delete SubAccount ApiKey
 
-    Route::get('/apiRestrictions', 'BrokerController@apiRestrictions'); // Get All SubAccount ApiKey
+    Route::get('/apiRestrictions', 'BrokerController@apiRestrictions'); // Get API Key Permission
+    Route::get('/apiTradingStatus', 'BrokerController@apiTradingStatus'); // Account API Trading Status
+    Route::get('/tradeFee', 'BrokerController@tradeFee'); // Trade Fee
+
+
 
 
     // Wallet APIs

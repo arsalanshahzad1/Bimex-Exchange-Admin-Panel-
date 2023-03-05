@@ -201,4 +201,31 @@ class BrokerController extends Controller
 
         return $this->broker->apiRestrictions($params, $keys);
     }
+
+    public function apiTradingStatus(Request $req)
+    {
+        $params = $req->all();
+        $keys = [
+            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
+            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+        ];
+
+
+        $this->broker = new BrokerService();
+
+        return $this->broker->apiTradingStatus($params, $keys);
+    }
+
+    public function tradeFee(Request $req)
+    {
+        $params = $req->all();
+        $keys = [
+            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
+            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+        ];
+
+
+        $this->broker = new BrokerService();
+        return $this->broker->tradeFee($params, $keys);
+    }
 }
