@@ -201,4 +201,39 @@ class SpotTradeService
             ];
         }
     }
+
+    /*Broker Spot APIs*/
+
+    // Query Sub Account Spot Asset info
+    public function subAccountSpotSummery($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "/sapi/v1/broker/subAccount/spotSummary?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return [
+                    'data' => [],
+                    'success' => false,
+                    'message' => $data['msg']
+                ];
+            }
+            return [
+                'data' => $data,
+                'success' => true,
+                'message' => 'Success.'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'data' => [],
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
 }

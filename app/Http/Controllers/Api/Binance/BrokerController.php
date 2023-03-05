@@ -228,4 +228,45 @@ class BrokerController extends Controller
         $this->broker = new BrokerService();
         return $this->broker->tradeFee($params, $keys);
     }
+
+    public function myTrades(Request $req)
+    {
+        $params = $req->all();
+        $keys = [
+            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
+            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+        ];
+
+
+        $this->broker = new BrokerService();
+        return $this->broker->myTrades($params, $keys);
+    }
+
+    public function depositHistory(Request $req)
+    {
+        $params = $req->all();
+        $keys = [
+            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
+            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+        ];
+
+
+        $this->broker = new BrokerService();
+        return $this->broker->depositHistory($params, $keys);
+    }
+
+    public function withdrawHistory(Request $req)
+    {
+        $params = $req->all();
+        $keys = [
+            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
+            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+        ];
+
+
+        $this->broker = new BrokerService();
+        return $this->broker->withdrawHistory($params, $keys);
+    }
+
+
 }

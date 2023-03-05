@@ -20,9 +20,16 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/subAccountApi', 'BrokerController@querySubAccountApiKey'); // Get All SubAccount ApiKey
     Route::delete('/subAccountApi', 'BrokerController@deleteSubAccountApiKey'); // Delete SubAccount ApiKey
 
+    // Account configuration
     Route::get('/apiRestrictions', 'BrokerController@apiRestrictions'); // Get API Key Permission
     Route::get('/apiTradingStatus', 'BrokerController@apiTradingStatus'); // Account API Trading Status
     Route::get('/tradeFee', 'BrokerController@tradeFee'); // Trade Fee
+    Route::get('/myTrades', 'BrokerController@myTrades'); // Account Trade List
+    Route::get('/depositHistory', 'BrokerController@depositHistory'); // Deposit History
+    Route::get('/withdrawHistory', 'BrokerController@withdrawHistory'); // Withdraw History
+
+
+    //  Account history
 
 
 
@@ -36,6 +43,7 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/getOpenOrders', 'SpotController@getOpenOrders');
     Route::get('/getAllOrders', 'SpotController@getAllOrders');
     Route::get('/getMyTradeHistory', 'SpotController@getMyTradeHistory');
+    Route::get('/subAccountSpotSummery', 'SpotController@subAccountSpotSummery');
 
 });
 // public apis binance

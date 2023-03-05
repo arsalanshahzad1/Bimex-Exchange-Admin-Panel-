@@ -46,8 +46,8 @@ class SpotController extends Controller
         $params = $req->all();
         // TODO::CHANGED KEYS TO LOGGED USER API KEYS
         $keys = [
-            'api' => 'I9ku4NALLA0kUvNFI5yNgCvdTBpdAwewkpQTSWuQDVqowSxyEgynui3IBIeklwEI',
-            'secret' => 'kiLIE1cuOz0yChZDBywjvSu19yUfkNOlu6qhHYUOGDddj0x6I90cNppATTRAHZuk'
+            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
+            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
         ];
 
         return $this->spot->createOrder($params, $keys);
@@ -74,8 +74,8 @@ class SpotController extends Controller
         ];
         // TODO::CHANGED KEYS TO LOGGED USER API KEYS
         $keys = [
-            'api' => 'I9ku4NALLA0kUvNFI5yNgCvdTBpdAwewkpQTSWuQDVqowSxyEgynui3IBIeklwEI',
-            'secret' => 'kiLIE1cuOz0yChZDBywjvSu19yUfkNOlu6qhHYUOGDddj0x6I90cNppATTRAHZuk'
+            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
+            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
         ];
 
         return $this->spot->getAllOrders($params, $keys);
@@ -95,5 +95,16 @@ class SpotController extends Controller
         return $this->spot->getMyTradeHistory($params, $keys);
     }
 
+    public function subAccountSpotSummery(Request $req)
+    {
+        $params = $req->all();
+        // TODO::CHANGED KEYS TO LOGGED USER API KEYS
+        $keys = [
+            'api' => env('BROKER_API_KEY'),
+            'secret' => env('BROKER_SECRET')
+        ];
+
+        return $this->spot->subAccountSpotSummery($params, $keys);
+    }
 
 }

@@ -173,4 +173,144 @@ class BrokerService
             ];
         }
     }
+
+    public function myTrades($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "api/v3/myTrades?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            return $data;
+            if (isset($data["code"])) {
+                return [
+                    'data' => $data,
+                    'success' => false,
+                    'message' => $data['msg']
+                ];
+            }
+            return [
+                'data' => $data,
+                'success' => true,
+                'message' => 'Success.'
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'data' => [],
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function depositHistory($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/capital/deposit/hisrec?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            return $data;
+            if (isset($data["code"])) {
+                return [
+                    'data' => $data,
+                    'success' => false,
+                    'message' => $data['msg']
+                ];
+            }
+            return [
+                'data' => $data,
+                'success' => true,
+                'message' => 'Success.'
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'data' => [],
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function withdrawHistory($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/capital/withdraw/history?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            return $data;
+            if (isset($data["code"])) {
+                return [
+                    'data' => $data,
+                    'success' => false,
+                    'message' => $data['msg']
+                ];
+            }
+            return [
+                'data' => $data,
+                'success' => true,
+                'message' => 'Success.'
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'data' => [],
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function depositAddress($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/capital/deposit/address?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            return $data;
+            if (isset($data["code"])) {
+                return [
+                    'data' => $data,
+                    'success' => false,
+                    'message' => $data['msg']
+                ];
+            }
+            return [
+                'data' => $data,
+                'success' => true,
+                'message' => 'Success.'
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'data' => [],
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
 }
