@@ -59,14 +59,14 @@ class SpotController extends Controller
 
     public function getOpenOrders(Request $req)
     {
+        $user = Auth::user();
         $params = [
             'symbol'=>$req->symbol,
             // 'origClientOrderId'=>'myOrder1'
         ];
-        // TODO::CHANGED KEYS TO LOGGED USER API KEYS
         $keys = [
-            'api' => 'I9ku4NALLA0kUvNFI5yNgCvdTBpdAwewkpQTSWuQDVqowSxyEgynui3IBIeklwEI',
-            'secret' => 'kiLIE1cuOz0yChZDBywjvSu19yUfkNOlu6qhHYUOGDddj0x6I90cNppATTRAHZuk'
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
         ];
 
         return $this->spot->getOpenOrders($params, $keys);
