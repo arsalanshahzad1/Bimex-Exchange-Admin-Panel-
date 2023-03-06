@@ -21,17 +21,12 @@ class SpotTradeService
             $query = http_build_query($params);
             $response = Http::get($url . $query);
             $data = $response->json();
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success'
-            ];
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, 'Success', $e->getMessage());
         }
     }
 
@@ -42,17 +37,12 @@ class SpotTradeService
             $query = http_build_query($params);
             $response = Http::get($url . $query);
             $data = $response->json();
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success'
-            ];
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, 'Success', $e->getMessage());
         }
     }
     // get 24 ticker
@@ -64,47 +54,33 @@ class SpotTradeService
             $response = Http::get($url . $query);
             $data = $response->json();
             $data = array_slice($data, 0, 10);
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success'
-            ];
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, 'Success', $e->getMessage());
         }
     }
 
     public function createOrder($params = [], $keys = [])
     {
         try {
-            $url = $this->BASE_URL . "api/v3/order?";
+            $url = $this->BASE_URL . "api/v3/order/test?";
             $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];
-            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])->post($url . $query . '&signature=' . $sign);
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->asForm()->post($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {
-                return [
-                    'data' => $data,
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
     // get open orders
@@ -119,23 +95,11 @@ class SpotTradeService
                 ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {
-                return [
-                    'data' => [],
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
     // get all orders
@@ -150,23 +114,11 @@ class SpotTradeService
                 ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {
-                return [
-                    'data' => [],
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
 
@@ -182,23 +134,11 @@ class SpotTradeService
                 ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {
-                return [
-                    'data' => [],
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
 
@@ -216,24 +156,31 @@ class SpotTradeService
                 ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {
-                return [
-                    'data' => [],
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
 
+    // get user account info 
+    public function getAccountInfo($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "api/v3/account?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
 }

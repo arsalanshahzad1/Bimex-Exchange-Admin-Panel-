@@ -10,7 +10,6 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-user', 'checkApi']], function() {
     /*Broker APIs*/
     Route::post('/subAccount', 'BrokerController@createSubAccount'); // Create Sub Account
