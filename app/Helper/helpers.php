@@ -3182,7 +3182,7 @@ function image($img)
 // generate binance signature
 
 function signature($params, $secret) {
-    $_params = array_merge($params, ['timestamp' => getTimestamp()]);
+    $_params = array_merge($params, ['recvWindow'=>5000,'timestamp' => milliseconds()]);
     $query = http_build_query($_params);
     return [
         'sign' => hash_hmac('sha256', $query, $secret),
@@ -3192,4 +3192,20 @@ function signature($params, $secret) {
 
 function getTimestamp() {
     return round(microtime(true) * 1000);
+}
+
+function milliseconds()
+{
+    list($msec, $sec) = explode(' ', microtime());
+
+    return $sec.substr($msec, 2, 3);
+}
+
+function binanceResponse($success,$msg,$data = [])
+{
+    return [
+        'success' => $success,
+        'data' => $data,
+        'message' => $msg
+    ];
 }

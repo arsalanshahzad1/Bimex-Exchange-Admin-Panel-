@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Api\Binance;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Binance\SpotTradeService;
+use App\Http\Services\Binance\TestService;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use TechTailor\BinanceApi\BinanceAPI;
 
 class SpotController extends Controller
 {
@@ -43,20 +48,20 @@ class SpotController extends Controller
 
     public function newOrder(Request $req)
     {
+        $user = Auth::user();
         $params = $req->all();
-        // TODO::CHANGED KEYS TO LOGGED USER API KEYS
         $keys = [
-            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
-            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
         ];
-
         return $this->spot->createOrder($params, $keys);
     }
 
     public function getOpenOrders(Request $req)
     {
         $params = [
-            'symbol'=>$req->symbol
+            'symbol'=>$req->symbol,
+            // 'origClientOrderId'=>'myOrder1'
         ];
         // TODO::CHANGED KEYS TO LOGGED USER API KEYS
         $keys = [
@@ -69,13 +74,13 @@ class SpotController extends Controller
 
     public function getAllOrders(Request $req)
     {
+        $user = Auth::user();
         $params = [
             'symbol'=>$req->symbol
         ];
-        // TODO::CHANGED KEYS TO LOGGED USER API KEYS
         $keys = [
-            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
-            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
         ];
 
         return $this->spot->getAllOrders($params, $keys);
@@ -83,13 +88,13 @@ class SpotController extends Controller
 
     public function getMyTradeHistory(Request $req)
     {
+        $user = Auth::user();
         $params = [
             'symbol'=>$req->symbol
         ];
-        // TODO::CHANGED KEYS TO LOGGED USER API KEYS
         $keys = [
-            'api' => 'I9ku4NALLA0kUvNFI5yNgCvdTBpdAwewkpQTSWuQDVqowSxyEgynui3IBIeklwEI',
-            'secret' => 'kiLIE1cuOz0yChZDBywjvSu19yUfkNOlu6qhHYUOGDddj0x6I90cNppATTRAHZuk'
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
         ];
 
         return $this->spot->getMyTradeHistory($params, $keys);
@@ -98,13 +103,24 @@ class SpotController extends Controller
     public function subAccountSpotSummery(Request $req)
     {
         $params = $req->all();
-        // TODO::CHANGED KEYS TO LOGGED USER API KEYS
         $keys = [
             'api' => env('BROKER_API_KEY'),
             'secret' => env('BROKER_SECRET')
         ];
-
         return $this->spot->subAccountSpotSummery($params, $keys);
     }
+
+    // public function getAccountInfo(Request $req)
+    // {
+    //     $user = Auth::user();
+    //     $params = [
+    //         'symbol'=>$req->symbol
+    //     ];
+    //     $keys = [
+    //         'api' => $user->api_key,
+    //         'secret' => $user->secret_key
+    //     ];
+    //     return $this->spot->getAccountInfo($params, $keys);
+    // }
 
 }
