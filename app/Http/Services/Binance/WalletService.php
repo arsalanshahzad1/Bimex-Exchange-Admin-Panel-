@@ -17,7 +17,8 @@ class WalletService
         $this->BASE_URL = env("BINANCE_BASE_URL");
     }
 
-    public function allCoinsInformation($params = []) {
+    public function allCoinsInformation($params = [])
+    {
         $url = $this->BASE_URL . "/sapi/v1/capital/config/getall?";
         $hash = signature($params, $this->SECRET);
         $query = $hash['query'];
@@ -36,9 +37,30 @@ class WalletService
         return $response->json();
     }
 
-    public function depositAddress($params = [],$keys = []) {
+    public function depositAddress($params = [], $keys = [])
+    {
         try {
             $url = $this->BASE_URL . "/sapi/v1/capital/deposit/address?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+
+    // get user account info 
+    public function getAccountInfo($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "api/v3/account?";
             $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];

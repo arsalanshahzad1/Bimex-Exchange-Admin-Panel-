@@ -36,6 +36,7 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     // Wallet APIs
     Route::get('/getAllCoinsInfo', 'WalletController@allCoinInformation'); // All Coins' Information
     Route::get('/deposit-address', 'WalletController@depositAddress'); // Deposit Address (supporting network)
+    Route::get('/getAccountInfo', 'WalletController@getAccountInfo'); // get wallet coins info
 
     // Spot Account Trade apis
     Route::post('/newOrder', 'SpotController@newOrder');

@@ -66,7 +66,7 @@ class SpotTradeService
     public function createOrder($params = [], $keys = [])
     {
         try {
-            $url = $this->BASE_URL . "api/v3/order/test?";
+            $url = $this->BASE_URL . "api/v3/order?";
             $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];
@@ -149,26 +149,6 @@ class SpotTradeService
     {
         try {
             $url = $this->BASE_URL . "/sapi/v1/broker/subAccount/spotSummary?";
-            $hash = signature($params, $keys['secret']);
-            $query = $hash['query'];
-            $sign = $hash['sign'];
-            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
-                ->get($url . $query . '&signature=' . $sign);
-            $data = $response->json();
-            if (isset($data["code"])) {
-                return binanceResponse(false, $data['msg'], []);
-            }
-            return binanceResponse(true, 'Success.', $data);
-        } catch (\Exception $e) {
-            return binanceResponse(false, $e->getMessage(), []);
-        }
-    }
-
-    // get user account info 
-    public function getAccountInfo($params = [], $keys = [])
-    {
-        try {
-            $url = $this->BASE_URL . "api/v3/account?";
             $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];
