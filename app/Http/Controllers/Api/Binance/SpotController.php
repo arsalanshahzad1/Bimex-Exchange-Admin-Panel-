@@ -110,17 +110,4 @@ class SpotController extends Controller
         return $this->spot->subAccountSpotSummery($params, $keys);
     }
 
-    // public function getAccountInfo(Request $req)
-    // {
-    //     $user = Auth::user();
-    //     $params = [
-    //         'symbol'=>$req->symbol
-    //     ];
-    //     $keys = [
-    //         'api' => $user->api_key,
-    //         'secret' => $user->secret_key
-    //     ];
-    //     return $this->spot->getAccountInfo($params, $keys);
-    // }
-
 }

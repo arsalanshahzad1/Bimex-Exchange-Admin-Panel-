@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Binance;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Binance\BrokerService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class BrokerController extends Controller
@@ -190,13 +191,12 @@ class BrokerController extends Controller
 
     public function apiRestrictions(Request $req)
     {
+        $user = Auth::user();
         $params = $req->all();
         $keys = [
-            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
-            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
         ];
-
-
         $this->broker = new BrokerService();
 
         return $this->broker->apiRestrictions($params, $keys);
@@ -204,66 +204,60 @@ class BrokerController extends Controller
 
     public function apiTradingStatus(Request $req)
     {
+        $user = Auth::user();
         $params = $req->all();
         $keys = [
-            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
-            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
         ];
-
-
         $this->broker = new BrokerService();
-
         return $this->broker->apiTradingStatus($params, $keys);
     }
 
     public function tradeFee(Request $req)
     {
+        $user = Auth::user();
         $params = $req->all();
         $keys = [
-            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
-            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
         ];
-
-
         $this->broker = new BrokerService();
         return $this->broker->tradeFee($params, $keys);
     }
 
     public function myTrades(Request $req)
     {
+        $user = Auth::user();
         $params = $req->all();
         $keys = [
-            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
-            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
         ];
-
-
         $this->broker = new BrokerService();
         return $this->broker->myTrades($params, $keys);
     }
 
     public function depositHistory(Request $req)
     {
+        $user = Auth::user();
         $params = $req->all();
         $keys = [
-            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
-            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
         ];
-
-
         $this->broker = new BrokerService();
         return $this->broker->depositHistory($params, $keys);
     }
 
     public function withdrawHistory(Request $req)
     {
+        $user = Auth::user();
         $params = $req->all();
         $keys = [
-            'api' => '8fRCkYGVq0CBGUUNXvO1OJ3iikDTfPSdYcmEJwN2OBQqOFT6QBtz1OpIIBHvufo4',
-            'secret' => 'CuCn5BIjjymufWfJA6cIeHiy5LGS2EPEpIHitzAK65NXAXatiuiIio75ogDnparQ'
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
         ];
-
-
         $this->broker = new BrokerService();
         return $this->broker->withdrawHistory($params, $keys);
     }

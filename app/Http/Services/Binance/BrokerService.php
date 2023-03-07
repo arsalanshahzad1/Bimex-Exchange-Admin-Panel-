@@ -81,26 +81,12 @@ class BrokerService
                 ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
 
-
             if (isset($data["code"])) {
-                return [
-                    'data' => $data,
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
-
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
 
@@ -118,24 +104,11 @@ class BrokerService
 
 
             if (isset($data["code"])) {
-                return [
-                    'data' => $data,
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
-
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
 
@@ -151,26 +124,12 @@ class BrokerService
                 ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
 
-
             if (isset($data["code"])) {
-                return [
-                    'data' => $data,
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
-
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
 
@@ -186,26 +145,12 @@ class BrokerService
                 ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
 
-            return $data;
             if (isset($data["code"])) {
-                return [
-                    'data' => $data,
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
-
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
 
@@ -220,27 +165,12 @@ class BrokerService
             $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
                 ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
-
-            return $data;
             if (isset($data["code"])) {
-                return [
-                    'data' => $data,
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
-
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
 
@@ -255,27 +185,12 @@ class BrokerService
             $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
                 ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
-
-            return $data;
             if (isset($data["code"])) {
-                return [
-                    'data' => $data,
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
-
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
 
@@ -291,26 +206,12 @@ class BrokerService
                 ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
 
-            return $data;
             if (isset($data["code"])) {
-                return [
-                    'data' => $data,
-                    'success' => false,
-                    'message' => $data['msg']
-                ];
+                return binanceResponse(false, $data['msg'], []);
             }
-            return [
-                'data' => $data,
-                'success' => true,
-                'message' => 'Success.'
-            ];
-
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return [
-                'data' => [],
-                'success' => false,
-                'message' => $e->getMessage()
-            ];
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
 }

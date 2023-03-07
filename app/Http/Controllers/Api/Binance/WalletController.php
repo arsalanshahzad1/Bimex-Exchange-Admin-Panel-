@@ -91,4 +91,17 @@ class WalletController extends Controller
             return response()->json($response);
         }
     }
+    // get user account coins
+    public function getAccountInfo(Request $req)
+    {
+        $user = Auth::user();
+        $params = [
+            // 'symbol'=>$req->symbol
+        ];
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->wallet->getAccountInfo($params, $keys);
+    }
 }
