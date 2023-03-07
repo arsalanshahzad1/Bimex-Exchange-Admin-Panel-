@@ -75,4 +75,46 @@ class WalletService
             return binanceResponse(false, $e->getMessage(), []);
         }
     }
+
+    // apply for withdraw
+    public function applyForWithdraw($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/capital/withdraw/apply?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                'X-MBX-APIKEY' => $keys['api']
+            ])->asForm()->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+
+    // apply for withdraw
+    public function transfer($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/futures/transfer?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                'X-MBX-APIKEY' => $keys['api']
+            ])->asForm()->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
 }
