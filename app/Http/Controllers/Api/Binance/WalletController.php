@@ -104,4 +104,26 @@ class WalletController extends Controller
         ];
         return $this->wallet->getAccountInfo($params, $keys);
     }
+    // apply for withdraw
+    public function applyForWithdraw(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->wallet->applyForWithdraw($params, $keys);
+    }
+    // transfer
+    public function transfer(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->wallet->transfer($params, $keys);
+    }
 }
