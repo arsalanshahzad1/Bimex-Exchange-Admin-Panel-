@@ -29,6 +29,38 @@ class FutureTradeService
             return binanceResponse(false, 'Success', $e->getMessage());
         }
     }
+    // indexPriceKlines
+    public function getIndexPriceKlines($params = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/indexPriceKlines?";
+            $query = http_build_query($params);
+            $response = Http::get($url . $query);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, 'Success', $e->getMessage());
+        }
+    }
+    // markPriceKlines
+    public function getMarkPriceKlines($params = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/markPriceKlines?";
+            $query = http_build_query($params);
+            $response = Http::get($url . $query);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, 'Success', $e->getMessage());
+        }
+    }
     // get exchange info 
     public function getExchangeInfo($params = [])
     {
@@ -91,6 +123,27 @@ class FutureTradeService
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
             return binanceResponse(false, 'Success', $e->getMessage());
+        }
+    }
+    // create new order 
+    public function createOrder($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/order?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->asForm()->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
         }
     }
     // get order book

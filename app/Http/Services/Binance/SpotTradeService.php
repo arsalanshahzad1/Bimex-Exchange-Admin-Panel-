@@ -94,6 +94,7 @@ class SpotTradeService
             return binanceResponse(false, 'Success', $e->getMessage());
         }
     }
+    // create new order 
     public function createOrder($params = [], $keys = [])
     {
         try {
