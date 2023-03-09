@@ -13,7 +13,23 @@ class SpotTradeService
     {
         $this->BASE_URL = env("BINANCE_BASE_URL");
     }
-
+    // get chart data 
+    public function getKline($params = [])
+    {
+        try {
+            $url = $this->BASE_URL . "api/v3/klines?";
+            $query = http_build_query($params);
+            $response = Http::get($url . $query);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, 'Success', $e->getMessage());
+        }
+    }
+    // get exchange info 
     public function getExchangeInfo($params = [])
     {
         try {
@@ -30,6 +46,7 @@ class SpotTradeService
         }
     }
 
+    // get order book
     public function getOrderBook($params = [])
     {
         try {
@@ -53,7 +70,6 @@ class SpotTradeService
             $query = http_build_query($params);
             $response = Http::get($url . $query);
             $data = $response->json();
-            $data = array_slice($data, 0, 10);
             if (isset($data["code"])) {
                 return binanceResponse(false, $data['msg'], []);
             }
@@ -62,7 +78,22 @@ class SpotTradeService
             return binanceResponse(false, 'Success', $e->getMessage());
         }
     }
-
+    // get price ticker
+    public function getPriceTicker($params = [])
+    {
+        try {
+            $url = $this->BASE_URL . "api/v3/ticker/price?";
+            $query = http_build_query($params);
+            $response = Http::get($url . $query);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, 'Success', $e->getMessage());
+        }
+    }
     public function createOrder($params = [], $keys = [])
     {
         try {
@@ -132,6 +163,22 @@ class SpotTradeService
             $sign = $hash['sign'];
             $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
                 ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    // get market trade history
+    public function getMarketTradeHistory($params = [])
+    {
+        try {
+            $url = $this->BASE_URL . "api/v3/trades?";
+            $query = http_build_query($params);
+            $response = Http::get($url . $query);
             $data = $response->json();
             if (isset($data["code"])) {
                 return binanceResponse(false, $data['msg'], []);
