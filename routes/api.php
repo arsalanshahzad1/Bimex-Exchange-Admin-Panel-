@@ -47,16 +47,31 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/getMyTradeHistory', 'SpotController@getMyTradeHistory');
     Route::get('/subAccountSpotSummery', 'SpotController@subAccountSpotSummery');
 
+    Route::group(['prefix' => 'future'], function () {
+    });
+
 });
 // public apis binance
 Route::group(['namespace' => 'Api\Binance', 'middleware' => ['checkApi']], function () {
-    // kline APIs
-    Route::get('/getKlines', 'KlineController@index'); // get kline data
     // spot APIs
+    Route::get('/getKlines', 'SpotController@getChartData'); // get chart data
     Route::get('/getExchangeInfo', 'SpotController@exchangeInfo'); // get exchange info
     Route::get('/getOrderBook', 'SpotController@orderBook'); // get order book data
     Route::get('/get24Ticker', 'SpotController@get24Ticker'); // 24 ticker price
+    Route::get('/getPriceTicker', 'SpotController@getPriceTicker'); // get ticker price
+    Route::get('/getMarketTrade', 'SpotController@getMarketTradeHistory'); // get market trade history
 
+    
+    // future apis 
+    Route::group(['prefix' => 'future'], function () {
+        Route::get('/get24Ticker', 'FutureController@get24Ticker'); // 24 ticker price
+        Route::get('/getPriceTicker', 'FutureController@getPriceTicker'); // get ticker price
+        Route::get('/getOrderBook', 'FutureController@orderBook'); // get order book data
+        Route::get('/getMarketTrade', 'FutureController@getMarketTradeHistory'); // get market trade history
+        Route::get('/getKlines', 'FutureController@getChartData'); // get chart data
+        Route::get('/getExchangeInfo', 'FutureController@exchangeInfo'); // get exchange info
+        Route::get('/pairPremiumIndex', 'FutureController@pairPremiumIndex'); // pair premium index
+    });
 });
 
 Route::post('/coin-payment-notifier', 'Api\WalletNotifier@coinPaymentNotifier')->name('coinPaymentNotifier');
