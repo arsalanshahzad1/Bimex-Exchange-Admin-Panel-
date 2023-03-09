@@ -48,6 +48,7 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/subAccountSpotSummery', 'SpotController@subAccountSpotSummery');
 
     Route::group(['prefix' => 'future'], function () {
+        Route::post('/newOrder', 'FutureController@newOrder'); // add new order
     });
 
 });
@@ -68,6 +69,9 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['checkApi']], funct
         Route::get('/getPriceTicker', 'FutureController@getPriceTicker'); // get ticker price
         Route::get('/getOrderBook', 'FutureController@orderBook'); // get order book data
         Route::get('/getMarketTrade', 'FutureController@getMarketTradeHistory'); // get market trade history
+        Route::get('/getKlines', 'FutureController@getChartData'); // get chart data
+        Route::get('/getIndexPriceKlines', 'FutureController@getIndexPriceChartData'); // get index price chart data
+        Route::get('/getMarkPriceKlines', 'FutureController@getMarkChartData'); // get mark chart data
         Route::get('/getKlines', 'FutureController@getChartData'); // get chart data
         Route::get('/getExchangeInfo', 'FutureController@exchangeInfo'); // get exchange info
         Route::get('/pairPremiumIndex', 'FutureController@pairPremiumIndex'); // pair premium index

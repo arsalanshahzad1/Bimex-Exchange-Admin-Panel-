@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Binance;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Binance\FutureTradeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FutureController extends Controller
 {
@@ -18,11 +19,35 @@ class FutureController extends Controller
     public function getChartData(Request $req)
     {
         $response = $this->future->getKline([
-            'symbol'=>$req->pair,
-            'interval'=>$req->interval,
-            'limit'=>1000,
-            'startTime'=>$req->start_time,
-            'endTime'=>$req->end_time,
+            'symbol' => $req->pair,
+            'interval' => $req->interval,
+            'limit' => 1000,
+            'startTime' => $req->start_time,
+            'endTime' => $req->end_time,
+        ]);
+        return response()->json($response);
+    }
+    // get chart data 
+    public function getIndexPriceChartData(Request $req)
+    {
+        $response = $this->future->getIndexPriceKlines([
+            'pair' => $req->pair,
+            'interval' => $req->interval,
+            'limit' => 1000,
+            'startTime' => $req->start_time,
+            'endTime' => $req->end_time,
+        ]);
+        return response()->json($response);
+    }
+    // get chart data 
+    public function getMarkChartData(Request $req)
+    {
+        $response = $this->future->getMarkPriceKlines([
+            'symbol' => $req->pair,
+            'interval' => $req->interval,
+            'limit' => 1000,
+            'startTime' => $req->start_time,
+            'endTime' => $req->end_time,
         ]);
         return response()->json($response);
     }
@@ -30,7 +55,7 @@ class FutureController extends Controller
     public function exchangeInfo(Request $req)
     {
         $params = [];
-        if($req->symbol){
+        if ($req->symbol) {
             $params['symbol'] = $req->symbol;
         }
         $response = $this->future->getExchangeInfo($params);
@@ -40,7 +65,7 @@ class FutureController extends Controller
     public function pairPremiumIndex(Request $req)
     {
         $params = [];
-        if($req->symbol){
+        if ($req->symbol) {
             $params['symbol'] = $req->symbol;
         }
         $response = $this->future->getPairPremiumIndex($params);
@@ -50,13 +75,13 @@ class FutureController extends Controller
     public function get24Ticker(Request $req)
     {
         $params = [];
-        if($req->symbol){
+        if ($req->symbol) {
             $params['symbol'] = str_replace('_', '', $req->symbol);
         }
         $response = $this->future->get24Ticker($params);
-        if($response['success']){
+        if ($response['success']) {
             $collect =  collect($response['data']);
-            if($req->search){
+            if ($req->search) {
                 $response['data'] = $collect->filter(function ($item) use ($req) {
                     $str = $item['symbol'];
                     $search = substr($str, -strlen($req->search));
@@ -65,7 +90,7 @@ class FutureController extends Controller
                         return true;
                     }
                 });
-                $response['data'] = array_values(json_decode($response['data'],true));
+                $response['data'] = array_values(json_decode($response['data'], true));
             }
         }
         $response['data'] = array_slice($response['data'], 0, count($response['data']) <= 10 ? count($response['data']) : 10);
@@ -79,6 +104,17 @@ class FutureController extends Controller
         ]);
         return response()->json($response);
     }
+    // store new order 
+    public function newOrder(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->future->createOrder($params, $keys);
+    }
     // get order book 
     public function orderBook(Request $req)
     {
@@ -91,7 +127,7 @@ class FutureController extends Controller
     public function getMarketTradeHistory(Request $req)
     {
         $params = [
-            'symbol'=>$req->symbol
+            'symbol' => $req->symbol
         ];
         return $this->future->getMarketTradeHistory($params);
     }
