@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Binance;
+namespace App\Http\Services\Binance\Spot;
 
 use Illuminate\Support\Facades\Http;
 
@@ -113,6 +113,25 @@ class WalletService
                 return binanceResponse(false, $data['msg'], []);
             }
             return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    // Daily Account Snapshot
+    public function getAccountSnapshot($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/accountSnapshot?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"]) && $data["code"] != 200) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data['snapshotVos']);
         } catch (\Exception $e) {
             return binanceResponse(false, $e->getMessage(), []);
         }

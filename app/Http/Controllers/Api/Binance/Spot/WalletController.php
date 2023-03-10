@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Binance;
+namespace App\Http\Controllers\Api\Binance\Spot;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\Binance\WalletService;
+use App\Http\Services\Binance\Spot\WalletService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -125,5 +125,16 @@ class WalletController extends Controller
             'secret' => $user->secret_key
         ];
         return $this->wallet->transfer($params, $keys);
+    }
+    // Daily Account Snapshot
+    public function getAccountSnapshot(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->wallet->getAccountSnapshot($params, $keys);
     }
 }
