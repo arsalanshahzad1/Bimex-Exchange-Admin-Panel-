@@ -125,27 +125,7 @@ class FutureTradeService
             return binanceResponse(false, 'Success', $e->getMessage());
         }
     }
-    // create new order 
-    public function createOrder($params = [], $keys = [])
-    {
-        try {
-            $url = $this->BASE_URL . "fapi/v1/order?";
-            $hash = signature($params, $keys['secret']);
-            $query = $hash['query'];
-            $sign = $hash['sign'];
-            $response = Http::withHeaders([
-                "Content-Type" => "application/json",
-                'X-MBX-APIKEY' => $keys['api']
-            ])->asForm()->post($url . $query . '&signature=' . $sign);
-            $data = $response->json();
-            if (isset($data["code"])) {
-                return binanceResponse(false, $data['msg'], []);
-            }
-            return binanceResponse(true, 'Success.', $data);
-        } catch (\Exception $e) {
-            return binanceResponse(false, $e->getMessage(), []);
-        }
-    }
+
     // get order book
     public function getOrderBook($params = [])
     {
@@ -178,5 +158,4 @@ class FutureTradeService
             return binanceResponse(false, $e->getMessage(), []);
         }
     }
-
 }

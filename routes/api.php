@@ -26,29 +26,42 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/myTrades', 'BrokerController@myTrades'); // Account Trade List
     Route::get('/depositHistory', 'BrokerController@depositHistory'); // Deposit History
     Route::get('/withdrawHistory', 'BrokerController@withdrawHistory'); // Withdraw History
-
-
-    //  Account history
-
-
-
-
-    // Wallet APIs
-    Route::get('/getAllCoinsInfo', 'WalletController@allCoinInformation'); // All Coins' Information
-    Route::get('/deposit-address', 'WalletController@depositAddress'); // Deposit Address (supporting network)
-    Route::get('/getAccountInfo', 'WalletController@getAccountInfo'); // get wallet coins info
-    Route::post('/applyForWithdraw', 'WalletController@applyForWithdraw'); // apply for withdraw
-    Route::post('/transfer', 'WalletController@transfer'); // transfer
     
     // Spot Account Trade apis
-    Route::post('/newOrder', 'SpotController@newOrder');
-    Route::get('/getOpenOrders', 'SpotController@getOpenOrders');
-    Route::get('/getAllOrders', 'SpotController@getAllOrders');
+    Route::group(['namespace' => 'Spot'], function () {
+        Route::post('/newOrder', 'OrderController@newOrder');
+        Route::delete('/cancelOrder', 'OrderController@cancelOrder'); // cancel order
+        Route::delete('/cancelAllOrder', 'OrderController@cancelAllOrder'); // cancel all order
+        Route::get('/getOpenOrders', 'OrderController@getOpenOrders'); // user open orders
+        Route::get('/getAllOrders', 'OrderController@getAllOrders'); // user all orders
+        // Wallet APIs
+        Route::get('/getAllCoinsInfo', 'WalletController@allCoinInformation'); // All Coins' Information
+        Route::get('/deposit-address', 'WalletController@depositAddress'); // Deposit Address (supporting network)
+        Route::get('/getAccountInfo', 'WalletController@getAccountInfo'); // get wallet coins info
+        Route::post('/applyForWithdraw', 'WalletController@applyForWithdraw'); // apply for withdraw
+        Route::post('/transfer', 'WalletController@transfer'); // transfer
+        Route::get('/getAccountSnapshot', 'WalletController@getAccountSnapshot'); // Daily Account Snapshot
+    });
     Route::get('/getMyTradeHistory', 'SpotController@getMyTradeHistory');
     Route::get('/subAccountSpotSummery', 'SpotController@subAccountSpotSummery');
 
     Route::group(['prefix' => 'future'], function () {
-        Route::post('/newOrder', 'FutureController@newOrder'); // add new order
+        Route::group(['namespace' => 'Future'], function () {
+            Route::post('/newOrder', 'OrderController@newOrder'); // add new order
+            Route::delete('/cancelOrder', 'OrderController@cancelOrder'); // cancel order
+            Route::delete('/cancelAllOrder', 'OrderController@cancelAllOrder'); // cancel all order
+            Route::post('/autoCancelAllOrder', 'OrderController@autoCancelAllOrder'); // auto cancel all order
+            Route::get('/getOpenOrders', 'OrderController@getOpenOrders'); // user open orders
+            Route::get('/getAllOrders', 'OrderController@getAllOrders'); // user all orders
+            Route::post('/changePositionMode', 'SettingController@changePositionMode'); // changePositionMode
+            Route::get('/getPositionMode', 'SettingController@getPositionMode'); // getPositionMode
+            Route::post('/changeMultiAssetMode', 'SettingController@changeMultiAssetMode'); // changeMultiAssetMode
+            Route::get('/getMultiAssetMode', 'SettingController@getMultiAssetMode'); // getMultiAssetMode
+            Route::post('/changeInitialLeverage', 'SettingController@changeInitialLeverage'); // changeInitialLeverage
+            Route::post('/changeMarginType', 'SettingController@changeMarginType'); // Change Margin Type
+            Route::get('/getFutureAccountBalance', 'WalletController@getFutureAccountBalance'); // getFutureAccountBalance
+            Route::get('/getAccountInfo', 'WalletController@getAccountInfo'); // get wallet coins info
+        });
     });
 
 });

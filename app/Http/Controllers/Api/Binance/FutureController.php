@@ -104,17 +104,6 @@ class FutureController extends Controller
         ]);
         return response()->json($response);
     }
-    // store new order 
-    public function newOrder(Request $req)
-    {
-        $user = Auth::user();
-        $params = $req->all();
-        $keys = [
-            'api' => $user->api_key,
-            'secret' => $user->secret_key
-        ];
-        return $this->future->createOrder($params, $keys);
-    }
     // get order book 
     public function orderBook(Request $req)
     {
@@ -131,4 +120,5 @@ class FutureController extends Controller
         ];
         return $this->future->getMarketTradeHistory($params);
     }
+    
 }

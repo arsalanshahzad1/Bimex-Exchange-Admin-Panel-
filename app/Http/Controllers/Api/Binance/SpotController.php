@@ -82,46 +82,6 @@ class SpotController extends Controller
         ]);
         return response()->json($response);
     }
-    // store new order 
-    public function newOrder(Request $req)
-    {
-        $user = Auth::user();
-        $params = $req->all();
-        $keys = [
-            'api' => $user->api_key,
-            'secret' => $user->secret_key
-        ];
-        return $this->spot->createOrder($params, $keys);
-    }
-    // get user open orders
-    public function getOpenOrders(Request $req)
-    {
-        $user = Auth::user();
-        $params = [
-            'symbol'=>$req->symbol,
-            // 'origClientOrderId'=>'myOrder1'
-        ];
-        $keys = [
-            'api' => $user->api_key,
-            'secret' => $user->secret_key
-        ];
-
-        return $this->spot->getOpenOrders($params, $keys);
-    }
-    // get user all orders
-    public function getAllOrders(Request $req)
-    {
-        $user = Auth::user();
-        $params = [
-            'symbol'=>$req->symbol
-        ];
-        $keys = [
-            'api' => $user->api_key,
-            'secret' => $user->secret_key
-        ];
-
-        return $this->spot->getAllOrders($params, $keys);
-    }
     // get user trade history
     public function getMyTradeHistory(Request $req)
     {
