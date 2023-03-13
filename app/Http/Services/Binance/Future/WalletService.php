@@ -54,4 +54,23 @@ class WalletService
             return binanceResponse(false, $e->getMessage(), []);
         }
     }
+    // get user income history
+    public function getIncomeHistory($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/income?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
 }

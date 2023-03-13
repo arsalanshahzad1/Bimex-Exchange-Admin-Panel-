@@ -103,4 +103,81 @@ class SettingController extends Controller
         ];
         return $this->setting->getPositionMargin($params, $keys);
     }
+    // Get Position Information
+    public function getPositionInformation(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->setting->getPositionInformation($params, $keys);
+    }
+    // Get Leverage Brackets
+    public function getLeverageBrackets(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->setting->getLeverageBrackets($params, $keys);
+    }
+    // Get Position ADL
+    public function getPositionADL(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->setting->getPositionADL($params, $keys);
+    }
+    // Get Trading rules
+    public function getTradingRules(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->setting->getTradingRules($params, $keys);
+    }
+    // User Commission Rate
+    public function getCommission(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->setting->getCommission($params, $keys);
+    }
+    // Get Download Id For Futures Transaction History
+    public function getDownloadID(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->setting->getDownloadID($params, $keys);
+    }
+    // Get Download Link
+    public function getDownloadLink(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->setting->getDownloadLink($params, $keys);
+    }
 }

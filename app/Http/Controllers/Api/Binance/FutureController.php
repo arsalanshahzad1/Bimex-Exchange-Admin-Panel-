@@ -20,7 +20,7 @@ class FutureController extends Controller
     {
         $response = $this->future->getKline([
             'symbol' => $req->pair,
-            'interval' => $req->interval,
+            'interval' => getInverval($req->interval),
             'limit' => 1000,
             'startTime' => $req->start_time,
             'endTime' => $req->end_time,
@@ -32,7 +32,7 @@ class FutureController extends Controller
     {
         $response = $this->future->getIndexPriceKlines([
             'pair' => $req->pair,
-            'interval' => $req->interval,
+            'interval' => getInverval($req->interval),
             'limit' => 1000,
             'startTime' => $req->start_time,
             'endTime' => $req->end_time,
@@ -44,7 +44,7 @@ class FutureController extends Controller
     {
         $response = $this->future->getMarkPriceKlines([
             'symbol' => $req->pair,
-            'interval' => $req->interval,
+            'interval' => getInverval($req->interval),
             'limit' => 1000,
             'startTime' => $req->start_time,
             'endTime' => $req->end_time,

@@ -164,14 +164,161 @@ class SettingService
     public function getPositionMargin($params = [], $keys = [])
     {
         try {
-            $url = $this->BASE_URL . "fapi/v1/positionMargin?";
+            $url = $this->BASE_URL . "fapi/v1/positionMargin/history?";
             $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];
             $response = Http::withHeaders([
                 "Content-Type" => "application/json",
                 'X-MBX-APIKEY' => $keys['api']
-            ])->asForm()->post($url . $query . '&signature=' . $sign);
+            ])->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    // Get Position Information
+    public function getPositionInformation($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v2/positionRisk?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    // Get Leverage Brackets
+    public function getLeverageBrackets($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/leverageBracket?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    // Get Position ADL
+    public function getPositionADL($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/adlQuantile?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    // Get Trading rules
+    public function getTradingRules($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/apiTradingStatus?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    // User Commission Rate
+    public function getCommission($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/commissionRate?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    // Get Download Id For Futures Transaction History
+    public function getDownloadID($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/income/asyn?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    // Get Download Link
+    public function getDownloadLink($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/income/asyn/id?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {
                 return binanceResponse(false, $data['msg'], []);

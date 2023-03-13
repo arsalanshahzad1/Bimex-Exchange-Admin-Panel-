@@ -53,14 +53,26 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
             Route::post('/autoCancelAllOrder', 'OrderController@autoCancelAllOrder'); // auto cancel all order
             Route::get('/getOpenOrders', 'OrderController@getOpenOrders'); // user open orders
             Route::get('/getAllOrders', 'OrderController@getAllOrders'); // user all orders
+            Route::get('/getForceOrders', 'OrderController@getForceOrders'); // user force orders
+            Route::get('/getMyTrades', 'OrderController@getMyTrades'); // get my trades
             Route::post('/changePositionMode', 'SettingController@changePositionMode'); // changePositionMode
             Route::get('/getPositionMode', 'SettingController@getPositionMode'); // getPositionMode
             Route::post('/changeMultiAssetMode', 'SettingController@changeMultiAssetMode'); // changeMultiAssetMode
             Route::get('/getMultiAssetMode', 'SettingController@getMultiAssetMode'); // getMultiAssetMode
             Route::post('/changeInitialLeverage', 'SettingController@changeInitialLeverage'); // changeInitialLeverage
             Route::post('/changeMarginType', 'SettingController@changeMarginType'); // Change Margin Type
+            Route::post('/modifyPositionMargin', 'SettingController@modifyPositionMargin'); // Modify position margin
+            Route::get('/getPositionMargin', 'SettingController@getPositionMargin'); // Get position margin
+            Route::get('/getPositionInformation', 'SettingController@getPositionInformation'); // Get position information
+            Route::get('/getLeverageBrackets', 'SettingController@getLeverageBrackets'); // Get Leverage Brackets
+            Route::get('/getPositionADL', 'SettingController@getPositionADL'); // Get Position ADL
+            Route::get('/getTradingRules', 'SettingController@getTradingRules'); // Get Trading Rules
+            Route::get('/getCommission', 'SettingController@getCommission'); // User Commission Rate
+            Route::get('/getDownloadID', 'SettingController@getDownloadID'); // Get Download Id For Futures Transaction History
+            Route::get('/getDownloadLink', 'SettingController@getDownloadLink'); // Get Download Link
             Route::get('/getFutureAccountBalance', 'WalletController@getFutureAccountBalance'); // getFutureAccountBalance
             Route::get('/getAccountInfo', 'WalletController@getAccountInfo'); // get wallet coins info
+            Route::get('/getIncomeHistory', 'WalletController@getIncomeHistory'); // get user income history
         });
     });
 
