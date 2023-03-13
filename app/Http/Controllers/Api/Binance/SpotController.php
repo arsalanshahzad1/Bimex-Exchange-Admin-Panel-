@@ -24,7 +24,7 @@ class SpotController extends Controller
     {
         $response = $this->spot->getKline([
             'symbol'=>$req->pair,
-            'interval'=>'1h',
+            'interval'=>getInverval($req->interval),
             'limit'=>1000,
             'startTime'=>$req->start_time,
             'endTime'=>$req->end_time,

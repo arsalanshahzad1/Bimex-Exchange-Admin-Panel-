@@ -29,14 +29,23 @@ class WalletController extends Controller
     public function getAccountInfo(Request $req)
     {
         $user = Auth::user();
-        $params = [
-            // 'symbol'=>$req->symbol
-        ];
+        $params = $req->all();
         $keys = [
             'api' => $user->api_key,
             'secret' => $user->secret_key
         ];
         return $this->wallet->getAccountInfo($params, $keys);
+    }
+    // get user income history
+    public function getIncomeHistory(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->wallet->getIncomeHistory($params, $keys);
     }
 
 }

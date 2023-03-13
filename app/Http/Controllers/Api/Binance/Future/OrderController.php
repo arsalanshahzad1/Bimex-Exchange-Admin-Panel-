@@ -63,9 +63,7 @@ class OrderController extends Controller
     public function getOpenOrders(Request $req)
     {
         $user = Auth::user();
-        $params = [
-            'symbol' => $req->symbol,
-        ];
+        $params = $req->all();
         $keys = [
             'api' => $user->api_key,
             'secret' => $user->secret_key
@@ -77,14 +75,36 @@ class OrderController extends Controller
     public function getAllOrders(Request $req)
     {
         $user = Auth::user();
-        $params = [
-            'symbol' => $req->symbol
-        ];
+        $params = $req->all();
         $keys = [
             'api' => $user->api_key,
             'secret' => $user->secret_key
         ];
 
         return $this->order->getAllOrders($params, $keys);
+    }
+    // get my trades
+    public function getMyTrades(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+
+        return $this->order->getMyTrades($params, $keys);
+    }
+    // get user force order
+    public function getForceOrders(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+
+        return $this->order->getForceOrders($params, $keys);
     }
 }

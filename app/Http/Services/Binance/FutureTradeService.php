@@ -72,6 +72,7 @@ class FutureTradeService
             if (isset($data["code"])) {
                 return binanceResponse(false, $data['msg'], []);
             }
+            $data['symbols'] = collect($data['symbols'])->firstWhere('symbol', $params['symbol']);
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
             return binanceResponse(false, 'Success', $e->getMessage());
@@ -158,4 +159,5 @@ class FutureTradeService
             return binanceResponse(false, $e->getMessage(), []);
         }
     }
+
 }

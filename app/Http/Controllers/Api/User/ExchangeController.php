@@ -258,9 +258,9 @@ class ExchangeController extends Controller
                 'trade_coin_id' => $tradeCoinId,
             ]);
         }
-        $interval = $request->input('interval', 1440);
         $baseCoinId = $request->base_coin_id;
         $tradeCoinId = $request->trade_coin_id;
+        $interval = $request->input('interval', 1440);
         $startTime = $request->input('start_time', strtotime(now()) - 864000);
         $endTime = $request->input('end_time', strtotime(now()));
         $chartService = new TradingViewChartService();
