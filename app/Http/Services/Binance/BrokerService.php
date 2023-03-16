@@ -21,7 +21,7 @@ class BrokerService
     public function createSubAccount($params = [])
     {
         try {
-            $url = $this->BASE_URL . "/sapi/v1/broker/subAccount?";
+            $url = $this->BASE_URL . "sapi/v1/broker/subAccount?";
             $hash = signature($params, $this->SECRET);
             $query = $hash['query'];
             $sign = $hash['sign'];
@@ -46,7 +46,7 @@ class BrokerService
     public function createSubAccountApiKey($params = [])
     {
         try {
-            $url = $this->BASE_URL . "/sapi/v1/broker/subAccountApi?";
+            $url = $this->BASE_URL . "sapi/v1/broker/subAccountApi?";
             $hash = signature($params, $this->SECRET);
             $query = $hash['query'];
             $sign = $hash['sign'];
@@ -72,7 +72,7 @@ class BrokerService
     public function apiRestrictions($params = [], $keys = [])
     {
         try {
-            $url = $this->BASE_URL . "/sapi/v1/account/apiRestrictions?";
+            $url = $this->BASE_URL . "sapi/v1/account/apiRestrictions?";
             $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];
@@ -93,7 +93,7 @@ class BrokerService
     public function apiTradingStatus($params = [], $keys = [])
     {
         try {
-            $url = $this->BASE_URL . "/sapi/v1/account/apiTradingStatus?";
+            $url = $this->BASE_URL . "sapi/v1/account/apiTradingStatus?";
             $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];
@@ -115,7 +115,7 @@ class BrokerService
     public function tradeFee($params = [], $keys = [])
     {
         try {
-            $url = $this->BASE_URL . "/sapi/v1/asset/tradeFee?";
+            $url = $this->BASE_URL . "sapi/v1/asset/tradeFee?";
             $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];
@@ -168,7 +168,7 @@ class BrokerService
             if (isset($data["code"])) {
                 return binanceResponse(false, $data['msg'], []);
             }
-            return binanceResponse(true, 'Success.', $data);
+            return binanceResponse(true, 'Success.', $data ? $data : []);
         } catch (\Exception $e) {
             return binanceResponse(false, $e->getMessage(), []);
         }
