@@ -73,4 +73,5 @@ class WalletService
             return binanceResponse(false, $e->getMessage(), []);
         }
     }
+
 }

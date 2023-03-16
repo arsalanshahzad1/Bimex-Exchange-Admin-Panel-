@@ -75,6 +75,9 @@ class FutureController extends Controller
     public function get24Ticker(Request $req)
     {
         $params = [];
+        if($req->windowSize){
+            $params['windowSize'] = $req->windowSize;
+        }
         if ($req->symbol) {
             $params['symbol'] = str_replace('_', '', $req->symbol);
         }

@@ -51,18 +51,23 @@ class AuthController extends Controller
                 return response()->json($response);
             }
 
-            $brokerService = new BrokerService();
+            // $brokerService = new BrokerService();
 
-            $subAccountData = $brokerService->createSubAccount();
-            $apiKeyData = $brokerService->createSubAccountApiKey([
-                "subAccountId" => $subAccountData['subaccountId'],
-                "canTrade" => true
-            ]);
+            // $subAccountData = $brokerService->createSubAccount();
+            // $apiKeyData = $brokerService->createSubAccountApiKey([
+            //     "subAccountId" => $subAccountData['subaccountId'],
+            //     "canTrade" => true
+            // ]);
 
-            $request['sub_account_id'] = $subAccountData['subaccountId'];
-            $request['broker_email'] = $subAccountData['email'];
-            $request['api_key'] = $apiKeyData['apiKey'];
-            $request['secret_key'] = $apiKeyData['secretKey'];
+            // $request['sub_account_id'] = $subAccountData['subaccountId'];
+            // $request['broker_email'] = $subAccountData['email'];
+            // $request['api_key'] = $apiKeyData['apiKey'];
+            // $request['secret_key'] = $apiKeyData['secretKey'];
+
+            $request['sub_account_id'] = 'test';
+            $request['broker_email'] = 'test@gmail.com';
+            $request['api_key'] = 'test';
+            $request['secret_key'] = 'test';
 
             $result = $this->service->signUpProcess($request);
             return response()->json($result);

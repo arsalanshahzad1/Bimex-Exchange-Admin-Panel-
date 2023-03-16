@@ -137,4 +137,15 @@ class WalletController extends Controller
         ];
         return $this->wallet->getAccountSnapshot($params, $keys);
     }
+    // get spot & fiat balance
+    public function getSpotAndFiatBalance(Request $req){
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->wallet->getSpotAndFiatBalance($params, $keys);
+    }
+    
 }
