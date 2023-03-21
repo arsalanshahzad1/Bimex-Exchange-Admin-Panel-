@@ -26,6 +26,18 @@ class OrderController extends Controller
         ];
         return $this->order->createOrder($params, $keys);
     }
+    // store multiple order 
+    public function createMultipleOrder(Request $req)
+    {
+        $user = Auth::user();
+        // return json_decode($req->batchOrders);
+        $params['batchOrders'] = $req->batchOrders;
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->order->createMultipleOrder($params, $keys);
+    }
     // cancel order 
     public function cancelOrder(Request $req)
     {
