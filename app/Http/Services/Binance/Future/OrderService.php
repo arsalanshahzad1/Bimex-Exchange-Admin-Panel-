@@ -31,6 +31,27 @@ class OrderService
             ])->asForm()->post($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], $data);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    // create multiple order 
+    public function createMultipleOrder($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/batchOrders?";
+            $hash = signature($params, $this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $this->KEY
+            ])->asForm()->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
                 return binanceResponse(false, $data['msg'], []);
             }
             return binanceResponse(true, 'Success.', $data);

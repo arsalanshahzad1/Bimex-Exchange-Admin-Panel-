@@ -73,6 +73,5 @@ class EmailVerifyRequest extends FormRequest
                 ->errorBag($this->errorBag)
                 ->redirectTo($this->getRedirectUrl());
         }
-
     }
 }
