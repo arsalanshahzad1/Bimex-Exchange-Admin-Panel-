@@ -44,12 +44,14 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
         Route::get('/getSpotAndFiatBalance', 'WalletController@getSpotAndFiatBalance'); // get spot & fiat balance
     
     });
+    Route::post('/buyCrypto', 'SpotController@buyCrypto');
     Route::get('/getMyTradeHistory', 'SpotController@getMyTradeHistory');
     Route::get('/subAccountSpotSummery', 'SpotController@subAccountSpotSummery');
 
     Route::group(['prefix' => 'future'], function () {
         Route::group(['namespace' => 'Future'], function () {
             Route::post('/newOrder', 'OrderController@newOrder'); // add new order
+            Route::post('/createMultipleOrder', 'OrderController@createMultipleOrder'); // store multiple orders
             Route::delete('/cancelOrder', 'OrderController@cancelOrder'); // cancel order
             Route::delete('/cancelAllOrder', 'OrderController@cancelAllOrder'); // cancel all order
             Route::post('/autoCancelAllOrder', 'OrderController@autoCancelAllOrder'); // auto cancel all order
