@@ -22,13 +22,18 @@ class SpotController extends Controller
     // get chart data 
     public function getChartData(Request $req)
     {
-        $response = $this->spot->getKline([
+        $params = [
             'symbol'=>$req->pair,
             'interval'=>getInverval($req->interval),
             'limit'=>1000,
-            'startTime'=>$req->start_time,
-            'endTime'=>$req->end_time,
-        ]);
+        ];
+        if($req->start_time){
+            $params['startTime'] = $req->start_time;
+        }
+        if($req->end_time){
+            $params['endTime'] = $req->end_time;
+        }
+        $response = $this->spot->getKline($params);
         return response()->json($response);
     }
     // get exchange pais info 
