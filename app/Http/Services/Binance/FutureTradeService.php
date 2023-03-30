@@ -26,7 +26,7 @@ class FutureTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
     // indexPriceKlines
@@ -42,7 +42,7 @@ class FutureTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
     // markPriceKlines
@@ -58,7 +58,7 @@ class FutureTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
     // get exchange info 
@@ -75,7 +75,7 @@ class FutureTradeService
             $data['symbols'] = collect($data['symbols'])->firstWhere('symbol', $params['symbol']);
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
     // get coin premium index 
@@ -91,7 +91,7 @@ class FutureTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
     // get 24 ticker
@@ -107,7 +107,7 @@ class FutureTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
     // get price ticker
@@ -123,7 +123,7 @@ class FutureTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
 
@@ -140,7 +140,7 @@ class FutureTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
     // get market trade history

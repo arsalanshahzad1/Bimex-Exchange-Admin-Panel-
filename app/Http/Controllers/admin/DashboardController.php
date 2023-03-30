@@ -24,6 +24,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Services\Binance\Admin\AnalyticsService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -58,11 +59,11 @@ class DashboardController extends Controller
     // admin dashboard
     public function adminDashboard()
     {
+        $analytics = new AnalyticsService();
         $data['title'] = __('Admin Dashboard');
-        $total_coins = Wallet::join('coins','coins.id','=','wallets.coin_id')
-            ->selectRaw('sum(balance * coin_price) as totalUsd')
-            ->first()->totalUsd;
-        $data['total_coin'] = convert_currency($total_coins,'BTC','USDT');
+        // dd($analytics->test([]));
+        $total_coin = $analytics->getTotalUserCoin([]);
+        $data['total_coin'] = $total_coin['success'] ? $total_coin['data'] : 0;
         $data['total_transaction'] = Transaction::sum('amount');
         $buy_fees = Transaction::sum('buy_fees');
         $sell_fees = Transaction::sum('sell_fees');

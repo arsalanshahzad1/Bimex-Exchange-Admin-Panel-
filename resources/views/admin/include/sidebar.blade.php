@@ -20,10 +20,10 @@
     ['route' => 'adminUserIdVerificationPending', 'title' => __('Kyc Verification'),'tab' => $sub_menu ?? '', 'tab_compare' => 'pending_id', 'route_param' => NULL ],
 ]) !!}
 
-{!! subMenuRenderer(__('Coin'),$menu ?? '', 'coin','coin.svg',[
+{{-- {!! subMenuRenderer(__('Coin'),$menu ?? '', 'coin','coin.svg',[
     ['route' => 'adminCoinList', 'title' => __('Coin List'),'tab' => $sub_menu ?? '', 'tab_compare' => 'coin_list', 'route_param' => NULL ],
     ['route' => 'coinPairs', 'title' => __('Coin Pairs'),'tab' => $sub_menu ?? '', 'tab_compare' => 'coin_pair', 'route_param' => NULL ],
-]) !!}
+]) !!} --}}
 
 {!! subMenuRenderer(__('Admin and Role'),$menu ?? '', 'role','coin.svg',[
     ['route' => 'adminList', 'title' => __('Admin'),'tab' => $sub_menu ?? '', 'tab_compare' => 'admin_list', 'route_param' => NULL ],
@@ -31,18 +31,18 @@
 ]) !!}
 
 {!! subMenuRenderer(__('User Wallet'),$menu ?? '', 'wallet','wallet.svg',[
-    ['route' => 'adminWalletList', 'title' => __('Wallet List'),'tab' => $sub_menu ?? '', 'tab_compare' => 'personal', 'route_param' => NULL ],
-    ['route' => 'adminSendWallet', 'title' => __('Send Wallet Coin'),'tab' => $sub_menu ?? '', 'tab_compare' => 'send_wallet', 'route_param' => NULL ],
+    ['route' => 'adminWalletList', 'title' => __('Wallet List'),'tab' => $sub_menu ?? '', 'tab_compare' => 'personal', 'route_param' => NULL ]
+    {{-- ['route' => 'adminSendWallet', 'title' => __('Send Wallet Coin'),'tab' => $sub_menu ?? '', 'tab_compare' => 'send_wallet', 'route_param' => NULL ],
     ['route' => 'adminWalletSendList', 'title' => __('Send Coin History'),'tab' => $sub_menu ?? '', 'tab_compare' => 'send_coin_list', 'route_param' => NULL ],
-    ['route' => 'adminSwapCoinHistory', 'title' => __('Swap Coin History'),'tab' => $sub_menu ?? '', 'tab_compare' => 'swap_coin_history', 'route_param' => NULL ],
+    ['route' => 'adminSwapCoinHistory', 'title' => __('Swap Coin History'),'tab' => $sub_menu ?? '', 'tab_compare' => 'swap_coin_history', 'route_param' => NULL ] --}}
 ]) !!}
 
-{!! subMenuRenderer(__('Deposit/Withdrawal'),$menu ?? '', 'transaction','Transaction-1.svg',[
+{{-- {!! subMenuRenderer(__('Deposit/Withdrawal'),$menu ?? '', 'transaction','Transaction-1.svg',[
     ['route' => 'adminTransactionHistory', 'title' => __('All Transaction'),'tab' => $sub_menu ?? '', 'tab_compare' => 'transaction_all', 'route_param' => NULL ],
     ['route' => 'adminPendingWithdrawal', 'title' => __('Pending Withdrawal'),'tab' => $sub_menu ?? '', 'tab_compare' => 'transaction_withdrawal', 'route_param' => NULL ],
     ['route' => 'adminPendingDeposit', 'title' => __('Pending Deposit'),'tab' => $sub_menu ?? '', 'tab_compare' => 'transaction_deposit', 'route_param' => NULL ],
     ['route' => 'adminCheckDeposit', 'title' => __('Check Deposit'),'tab' => $sub_menu ?? '', 'tab_compare' => 'check_deposit', 'route_param' => NULL ],
-]) !!}
+]) !!} --}}
 
 {!! subMenuRenderer(__('Addons'),$menu ?? '', 'addons','Transaction-1.svg',[
     ['route' => 'addonsLists', 'title' => __('Addons Lists'),'tab' => $sub_menu ?? '', 'tab_compare' => 'addons_list', 'route_param' => NULL ],
@@ -69,11 +69,11 @@
     ['route' => 'adminFiatCurrencyList', 'title' => __('Withdrawal Currency'),'tab' => $sub_menu ?? '', 'tab_compare' => 'currency_list', 'route_param' => NULL ],
 ]) !!}
 
-{!! subMenuRenderer(__('Admin Token'),$menu ?? '', 'deposit','deposit.svg',[
+{{-- {!! subMenuRenderer(__('Admin Token'),$menu ?? '', 'deposit','deposit.svg',[
     ['route' => 'adminPendingDepositHistory', 'title' => __('Pending Token Report'),'tab' => $sub_menu ?? '', 'tab_compare' => 'pending', 'route_param' => NULL ],
     ['route' => 'adminGasSendHistory', 'title' => __('Gas Sent Report'),'tab' => $sub_menu ?? '', 'tab_compare' => 'gas', 'route_param' => NULL ],
     ['route' => 'adminTokenReceiveHistory', 'title' => __('Token Received Report'),'tab' => $sub_menu ?? '', 'tab_compare' => 'token', 'route_param' => NULL ],
-]) !!}
+]) !!} --}}
 
                 {{--TODO:: Turn off Setting Option--}}
 {!! subMenuRenderer(__('Settings'),$menu ?? '', 'setting','settings.svg',[

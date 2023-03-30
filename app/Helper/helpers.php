@@ -3182,11 +3182,11 @@ function image($img)
 // generate binance signature
 
 function signature($params, $secret) {
-    $_params = array_merge($params, ['recvWindow'=>5000,'timestamp' => milliseconds()]);
+    $_params = array_merge($params, ['recvWindow'=>60000,'timestamp' => milliseconds()]);
     $query = http_build_query($_params);
     return [
         'sign' => hash_hmac('sha256', $query, $secret),
-        'query' => $query
+        'query' => $query,
     ];
 }
 
