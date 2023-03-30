@@ -10,6 +10,8 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/stripe', 'Api\Binance\StripeController@stripe'); // stripe payment
+Route::post('/stripe-crypto', 'Api\Binance\StripeController@index'); // stripe payment
 Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-user', 'checkApi']], function() {
     /*Broker APIs*/
     Route::post('/subAccount', 'BrokerController@createSubAccount'); // Create Sub Account
@@ -44,7 +46,6 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
         Route::get('/getSpotAndFiatBalance', 'WalletController@getSpotAndFiatBalance'); // get spot & fiat balance
     
     });
-    Route::post('/buyCrypto', 'SpotController@buyCrypto');
     Route::get('/getMyTradeHistory', 'SpotController@getMyTradeHistory');
     Route::get('/subAccountSpotSummery', 'SpotController@subAccountSpotSummery');
 
@@ -90,6 +91,9 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['checkApi']], funct
     Route::get('/get24Ticker', 'SpotController@get24Ticker'); // 24 ticker price
     Route::get('/getPriceTicker', 'SpotController@getPriceTicker'); // get ticker price
     Route::get('/getMarketTrade', 'SpotController@getMarketTradeHistory'); // get market trade history
+    Route::get('/socket', 'SpotController@socket');
+    Route::get('/socket-connection', 'SocketController@index');
+
 
     
     // future apis 

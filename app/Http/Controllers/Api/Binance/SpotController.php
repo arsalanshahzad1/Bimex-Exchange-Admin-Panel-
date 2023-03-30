@@ -120,46 +120,39 @@ class SpotController extends Controller
         return $this->spot->subAccountSpotSummery($params, $keys);
     }
 
-    public function buyCrypto(Request $request) {
-        try {
-        // Set up the API endpoint URL
-        $url = 'https://testnet.binance.vision/v3/payments/binance/pay';
-    
-        // Set up the headers
-        $headers = [
-            'Content-Type' => 'application/json',
-            'X-MBX-APIKEY' => 'HSd5UxouxcMHJagTw4PC4anAyVZYl9ZacWoe2b1W5pmjiDcjpcwy2IiL3eWMsmvx'
+    public function socket(Request $req)
+    {
+        // try {
+        //     $timestamps = milliseconds();
+        //     $params = [
+        //         'method'=>'POST',
+        //         'path'=>'/api/v3/userDataStream',
+        //         'data'=>'',
+        //         'recvWindow'=>5000,
+        //         'timestamp'=>$timestamps
+        //     ];
+        //     $signature = hash_hmac('sha256', http_build_query($params), env('BROKER_SECRET'));
+        //     $data = [
+        //         'signature' => $signature,
+        //         'recvWindow' => 5000,
+        //         'timestamp'=>$timestamps,
+        //         'api_key' => env('BROKER_API_KEY')
+        //     ];
+        //     return binanceResponse(true, 'Success.', $data);
+        // } catch (\Exception $e) {
+        //     return binanceResponse(false, $e->getMessage(), []);
+        // }
+        $params = [
+            'symbol' => 'BTCUSDT'
         ];
-    
-        // Set up the request parameters
-        $payload = [
-            'coin' => 'BTC', // The cryptocurrency you want to buy
-            'amount' => 100, // The amount of cryptocurrency you want to buy (in USD)
-            'currency' => 'USD', // The currency you are using to make the purchase
-            'return_url' => 'https://yourwebsite.com/return', // The URL to redirect users to after the purchase is complete
-            'card_number' => 'your_card_number', // The credit/debit card number
-            'card_expiry_month' => 'your_card_expiry_month', // The credit/debit card expiry month (in MM format)
-            'card_expiry_year' => 'your_card_expiry_year', // The credit/debit card expiry year (in YYYY format)
-            'card_cvv' => 'your_card_cvv', // The credit/debit card CVV number
-            'card_holder_name' => 'your_card_holder_name', // The name of the card holder
-            'card_holder_email' => 'your_card_holder_email', // The email of the card holder
+        $hash = signature($params, env('BROKER_API_SECRET'));
+        $query = $hash['query'];
+        $sign = $hash['sign'];
+        $data = [
+            'signature' => $sign,
+            'query' => $query,
+            'api_key' => env('BROKER_API_KEY')
         ];
-    
-        // Send the request
-        $response = Http::withHeaders($headers)->post($url, $payload);
-    
-        // Check the response status code
-        if ($response->status() == 200) {
-            // The purchase was successful, handle the response data as needed
-            $responseData = $response->json();
-            return response()->json(['success'=>true,'data'=>$responseData]);
-        } else {
-            // The purchase was unsuccessful, handle the error as needed
-            $errorData = $response->json();
-            return response()->json(['success'=>false,'data'=>$errorData]);
-        }
-        } catch (\Exception $e) {
-            return $e;
-        }
+        return binanceResponse(true, 'Success.', $data);
     }
 }

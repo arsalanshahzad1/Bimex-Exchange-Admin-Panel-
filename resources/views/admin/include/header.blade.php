@@ -251,20 +251,9 @@
 </div>
 
 <!--    CHAT BOX STARTED    -->
-<div class="chatbox" >
+{{-- <div class="chatbox" >
     <div class="chatbox-close" ></div>
     <div class="custom-tab-1" >
-{{--        <ul class="nav nav-tabs" role="tablist">--}}
-{{--            <li class="nav-item" role="presentation">--}}
-{{--                <a class="nav-link" data-bs-toggle="tab" href="#notes" aria-selected="false" role="tab" tabindex="-1">Notes</a>--}}
-{{--            </li>--}}
-{{--            <li class="nav-item" role="presentation">--}}
-{{--                <a class="nav-link" data-bs-toggle="tab" href="#alerts" aria-selected="false" role="tab" tabindex="-1">Alerts</a>--}}
-{{--            </li>--}}
-{{--            <li class="nav-item" role="presentation">--}}
-{{--                <a class="nav-link active" data-bs-toggle="tab" href="#chat" aria-selected="true" role="tab">Chat</a>--}}
-{{--            </li>--}}
-{{--        </ul>--}}
         <div class="tab-content" >
             <div class="tab-pane fade active show" id="chat" role="tabpanel" >
                 <div class="card mb-sm-3 mb-md-0 contacts_card dz-chat-user-box" >
@@ -637,196 +626,11 @@
                     </div>
                 </div>
             </div>
-
             <!--     CHAT SCREEN       -->
             <div class="tab-pane fade active show" id="chat" role="tabpanel" >
 
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!--    CHAT BOX END    -->
-
-
-{{--  CHAT SCREEN STARTED   --}}
-{{--<div class="chatbox active" >--}}
-{{--    <div class="chatbox-close" ></div>--}}
-{{--    <div class="custom-tab-1" >--}}
-{{--        <ul class="nav nav-tabs" role="tablist">--}}
-{{--            <li class="nav-item" role="presentation">--}}
-{{--                <a class="nav-link" data-bs-toggle="tab" href="#notes" aria-selected="false" role="tab" tabindex="-1">Notes</a>--}}
-{{--            </li>--}}
-{{--            <li class="nav-item" role="presentation">--}}
-{{--                <a class="nav-link" data-bs-toggle="tab" href="#alerts" aria-selected="false" role="tab" tabindex="-1">Alerts</a>--}}
-{{--            </li>--}}
-{{--            <li class="nav-item" role="presentation">--}}
-{{--                <a class="nav-link active" data-bs-toggle="tab" href="#chat" aria-selected="true" role="tab">Chat</a>--}}
-{{--            </li>--}}
-{{--        </ul>--}}
-{{--        <div class="tab-content" >--}}
-{{--            <div class="tab-pane fade active show" id="chat" role="tabpanel" >--}}
-{{--                <div class="card chat dz-chat-history-box" >--}}
-{{--                    <div class="card-header chat-list-header text-center" >--}}
-{{--                        <a href="javascript:void(0);" class="dz-chat-history-back">--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20">--}}
-{{--                                <path d="m8 18-8-8 8-8 1.417 1.417L2.833 10l6.584 6.583Z"/>--}}
-{{--                            </svg>                        </a>--}}
-{{--                        <div >--}}
-{{--                            <h6 class="mb-1">Chat with Khelesh</h6>--}}
-{{--                            <p class="mb-0 text-success">Online</p>--}}
-{{--                        </div>--}}
-{{--                        <div class="dropdown" >--}}
-{{--                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false" class="">--}}
-{{--                                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">--}}
-{{--                                    <path d="M6 14q-.825 0-1.412-.588Q4 12.825 4 12t.588-1.413Q5.175 10 6 10t1.412.587Q8 11.175 8 12q0 .825-.588 1.412Q6.825 14 6 14Zm6 0q-.825 0-1.412-.588Q10 12.825 10 12t.588-1.413Q11.175 10 12 10t1.413.587Q14 11.175 14 12q0 .825-.587 1.412Q12.825 14 12 14Zm6 0q-.825 0-1.413-.588Q16 12.825 16 12t.587-1.413Q17.175 10 18 10q.825 0 1.413.587Q20 11.175 20 12q0 .825-.587 1.412Q18.825 14 18 14Z"/>--}}
-{{--                                </svg>--}}
-{{--                            </a>--}}
-{{--                            <ul class="dropdown-menu dropdown-menu-end" style="">--}}
-{{--                                <li class="dropdown-item"><i class="fa fa-user-circle text-primary me-2"></i> View profile</li>--}}
-{{--                                <li class="dropdown-item"><i class="fa fa-users text-primary me-2"></i> Add to btn-close friends</li>--}}
-{{--                                <li class="dropdown-item"><i class="fa fa-plus text-primary me-2"></i> Add to group</li>--}}
-{{--                                <li class="dropdown-item"><i class="fa fa-ban text-primary me-2"></i> Block</li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="card-body msg_card_body dz-scroll" id="DZ_W_Contacts_Body3">--}}
-{{--                        <div class="d-flex justify-content-start mb-4" >--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="msg_cotainer" >--}}
-{{--                                Hi, how are you samim?--}}
-{{--                                <span class="msg_time">8:40 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-end mb-4" >--}}
-{{--                            <div class="msg_cotainer_send" >--}}
-{{--                                Hi Khalid i am good tnx how about you?--}}
-{{--                                <span class="msg_time_send">8:55 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-start mb-4" >--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="msg_cotainer" >--}}
-{{--                                I am good too, thank you for your chat template--}}
-{{--                                <span class="msg_time">9:00 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-end mb-4" >--}}
-{{--                            <div class="msg_cotainer_send" >--}}
-{{--                                You are welcome--}}
-{{--                                <span class="msg_time_send">9:05 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-start mb-4" >--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="msg_cotainer" >--}}
-{{--                                I am looking for your next templates--}}
-{{--                                <span class="msg_time">9:07 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-end mb-4" >--}}
-{{--                            <div class="msg_cotainer_send" >--}}
-{{--                                Ok, thank you have a good day--}}
-{{--                                <span class="msg_time_send">9:10 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-start mb-4" >--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="msg_cotainer" >--}}
-{{--                                Bye, see you--}}
-{{--                                <span class="msg_time">9:12 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-start mb-4" >--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="msg_cotainer" >--}}
-{{--                                Hi, how are you samim?--}}
-{{--                                <span class="msg_time">8:40 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-end mb-4" >--}}
-{{--                            <div class="msg_cotainer_send" >--}}
-{{--                                Hi Khalid i am good tnx how about you?--}}
-{{--                                <span class="msg_time_send">8:55 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-start mb-4" >--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="msg_cotainer" >--}}
-{{--                                I am good too, thank you for your chat template--}}
-{{--                                <span class="msg_time">9:00 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-end mb-4" >--}}
-{{--                            <div class="msg_cotainer_send" >--}}
-{{--                                You are welcome--}}
-{{--                                <span class="msg_time_send">9:05 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-start mb-4" >--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="msg_cotainer" >--}}
-{{--                                I am looking for your next templates--}}
-{{--                                <span class="msg_time">9:07 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-end mb-4" >--}}
-{{--                            <div class="msg_cotainer_send" >--}}
-{{--                                Ok, thank you have a good day--}}
-{{--                                <span class="msg_time_send">9:10 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex justify-content-start mb-4" >--}}
-{{--                            <div class="img_cont_msg" >--}}
-{{--                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="msg_cotainer" >--}}
-{{--                                Bye, see you--}}
-{{--                                <span class="msg_time">9:12 AM, Today</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="card-footer type_msg" >--}}
-{{--                        <div class="input-group" >--}}
-{{--                            <textarea class="form-control" placeholder="Type your message..."></textarea>--}}
-{{--                            <div class="input-group-append" >--}}
-{{--                                <button type="button" class="btn btn-primary"><i class="fa fa-location-arrow"></i></button>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}

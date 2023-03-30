@@ -26,7 +26,7 @@ class SpotTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
     // get exchange info 
@@ -42,7 +42,7 @@ class SpotTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ class SpotTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
     // get 24 ticker
@@ -75,7 +75,7 @@ class SpotTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
     // get price ticker
@@ -91,7 +91,7 @@ class SpotTradeService
             }
             return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
-            return binanceResponse(false, 'Success', $e->getMessage());
+            return binanceResponse(false, 'Error', $e->getMessage());
         }
     }
 

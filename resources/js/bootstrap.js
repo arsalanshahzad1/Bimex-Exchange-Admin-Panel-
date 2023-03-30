@@ -51,14 +51,25 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import Echo from 'laravel-echo'
 
 window.Pusher = require('pusher-js');
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'test',
-    wsHost: window.location.hostname,
-    wsPort: 6006,
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: 'b075746e303703cd3e40',
+//     wsHost: window.location.hostname,
+//     wsPort: 6001,
+//     wssPort: 443,
+//     disableStats: true,
+//     enabledTransports: ['ws', 'wss'],
+//     authEndpoint : 'http://' + window.location.hostname + '/broadcasting/auth'
+// });
+window.Echo = new Echo( {
+    broadcaster: "pusher",
+    key: "b075746e303703cd3e40",
+    wsHost: 'localhost',
+    // wsHost:'45.55.35.46',
+    wsPort: 6001,
     wssPort: 443,
+    forceTLS: false,
+    cluster: "ap1",
     disableStats: true,
-    enabledTransports: ['ws', 'wss'],
-    authEndpoint : 'http://' + window.location.hostname + '/broadcasting/auth'
-
-});
+    enabledTransports: [ "ws", "wss" ],
+} );

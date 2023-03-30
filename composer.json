@@ -28,6 +28,7 @@
         "laravel/passport": "^10.2",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.2",
         "mews/purifier": "^3.2",
         "nwidart/laravel-modules": "6.0",
@@ -39,7 +40,7 @@
         "sdtech/coinpayments-laravel": "^1.0",
         "sdtech/project-installer": "^1.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "stripe/stripe-php": "^9.6",
+        "stripe/stripe-php": "^10.11",
         "symfony/symfony": "5.4.x",
         "yajra/laravel-datatables": "^1.5",
         "yajra/laravel-datatables-oracle": "~9.0"

@@ -22,9 +22,8 @@
                     <div class="status-card-inner">
                         <div class="content">
                             <p>{{__('Total User Coin')}}</p>
-{{--                            <h3>{{number_format($total_coin,2)}} BTC</h3>--}}
-                            <h3>{{number_format(2999,2)}} BTC</h3>
-                            <a href="{{ route('adminUserCoinList') }}" class=" mt-3 btn btn-sm btn-warning">{{__("Show More")}}</a>
+                            <h3>{{number_format($total_coin,8)}} BTC</h3>
+                            {{-- <a href="{{ route('adminUserCoinList') }}" class=" mt-3 btn btn-sm btn-warning">{{__("Show More")}}</a> --}}
                         </div>
                         <div class="icon">
                             <img src="{{asset('assets/admin/images/status-icons/money.svg')}}" class="img-fluid" alt="">

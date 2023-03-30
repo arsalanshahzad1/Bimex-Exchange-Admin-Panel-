@@ -26,13 +26,14 @@ class Friendship extends Model
 
     public static function getChatList($user_id)
     {
+        $message_list = [];
         $friendship_id = Friend::where('user_id',$user_id)->pluck('friendship_id');
         $messages = Message::with(['friend' => function($q) use($user_id) {
             $q->where('user_id', '!=', $user_id); // '=' is optional
         }])
         ->whereIn('friendship_id',$friendship_id)
         ->orderBy('id','desc')->get();
-        $message_list = $messages->unique('friendship_id');
+        $message_list = $messages->unique('friendship_id')->values()->all();
         return $message_list;
     }
 
