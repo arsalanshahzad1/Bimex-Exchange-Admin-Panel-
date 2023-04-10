@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Binance;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Binance\FutureTradeService;
+use App\Model\Favourite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -96,7 +97,15 @@ class FutureController extends Controller
                 $response['data'] = array_values(json_decode($response['data'], true));
             }
         }
-        $response['data'] = array_slice($response['data'], 0, count($response['data']) <= 10 ? count($response['data']) : 10);
+        $symbols = $response['data'];
+        $response['data'] = [];
+        if($req->type){
+            $response['data']['favourites'] = Favourite::where([
+                'ip_address' => $req->ip(),
+                'type' => Favourite::CONSTRAINT[$req->type]
+            ])->get()->pluck('pair');
+        }
+        $response['data']['symbols'] = array_slice($symbols, 0, count($symbols) <= 10 ? count($symbols) : 10);
         return response()->json($response);
     }
     // get price ticker 

@@ -139,6 +139,8 @@ Route::group(['middleware' => 'maintenanceMode'], function () {
 
     Route::group(['middleware' => ['checkApi']], function () {
         Route::group(['namespace' => 'Api', 'middleware' => []], function () {
+            // favourite 
+            Route::post('add-or-remove-pair-favourite', 'FavouriteController@storeOrRemove');
             // auth
             Route::get('common-settings', 'LandingController@commonSettings');
             Route::post('update-phone', 'AuthController@updatePhone');

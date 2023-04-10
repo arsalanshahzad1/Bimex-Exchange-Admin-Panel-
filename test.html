@@ -9,87 +9,14 @@
     <link rel="stylesheet" href="onramp.css" />
     <script src="https://js.stripe.com/v3/"></script>
     <script src="https://crypto-js.stripe.com/crypto-onramp-outer.js"></script>
-    <script src="onramp.js" defer></script>
     <script>
-        // This is a public sample test API key.
-        // Don’t submit any personally identifiable information in requests made with this key.
-        // Sign in to see your own test API key embedded in code samples.
-        const stripeOnramp = StripeOnramp("pk_test_TYooMQauvdEDq54NiTphI7jx");
-
-        let session;
-
-        initialize();
-
-        async function initialize() {
-            // Fetches an onramp session and captures the client secret
-            const response = await fetch(
-                "{{url('api/stripe-crypto')}}",
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: {
-                        destination_currency: "usdc",
-                        destination_exchange_amount: "13.37",
-                        destination_network: "ethereum",
-                    },
-                });
-            const { clientSecret } = await response.json();
-
-            session = stripeOnramp
-                .createSession({
-                    clientSecret,
-                    appearance: {
-                        theme: "dark",
-                    }
-                })
-                .addEventListener('onramp_session_updated', (e) => {
-                    showMessage(`OnrampSession is now in ${e.payload.session.status} state.`)
-                })
-                .mount("#onramp-element");
-        }
-
-        // ------- UI helpers -------
-
-        function showMessage(messageText) {
-            const messageContainer = document.querySelector("#onramp-message");
-
-            messageContainer.textContent = messageText;
-        }
+    document.addEventListener("DOMContentLoaded", () => {
+        const stripeOnramp = StripeOnramp("pk_test_51MrELiBeSIRIvHDZVavz7r26u7CoprtFeyQkYEo9xyG8suxIDazGW0i2Ve7OMI02FxNnDOtg5nxuaku8fuvftyLE008BMTGtzA");
+        const clientSecret = "sk_test_51MrELiBeSIRIvHDZKzeMyGqVuWIYtkR04YZZQMkJAoKIsdCTxFtovOFf6XLrRUqCgmm0HA4cEiadq3u43uKs9HAJ00D0BwqbMz";
+        const onrampSession = stripeOnramp.createSession({clientSecret});
+        onrampSession.mount("#onramp-element");
+    });
     </script>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 16px;
-            -webkit-font-smoothing: antialiased;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            height: 100vh;
-            width: 100vw;
-        }
-
-        #root {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #onramp-message {
-            color: rgb(105, 115, 134);
-            font-size: 16px;
-            line-height: 20px;
-            padding-top: 12px;
-            text-align: center;
-        }
-
-        #onramp-element {
-            min-width: min(450px, 60vw);
-            margin-top: 24px;
-        }
-    </style>
 </head>
 
 <body>
@@ -99,7 +26,6 @@
             <!--Stripe injects the Onramp widget-->
         </div>
     </div>
-  
 </body>
 
 </html>
