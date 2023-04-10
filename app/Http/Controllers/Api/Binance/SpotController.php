@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Binance;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Binance\SpotTradeService;
 use App\Http\Services\Binance\TestService;
+use App\Model\Favourite;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -61,6 +62,22 @@ class SpotController extends Controller
         if($req->symbol){
             $params['symbol'] = str_replace('_', '', $req->symbol);
         }
+        if($req->symbols){
+            $fav = Favourite::where([
+                'ip_address' => $req->ip(),
+                'type' => Favourite::CONSTRAINT[$req->type]
+            ])->get()->pluck('pair');
+            if(count($fav) > 0){
+                $params['symbols'] = $fav;
+            }
+            else{
+                return response()->json([
+                    'success'=>true,
+                    'message'=>'not found.',
+                    'data' => []
+                ]);
+            }
+        }
         $response = $this->spot->get24Ticker($params);
         if($response['success']){
             $collect =  collect($response['data']);
@@ -76,7 +93,15 @@ class SpotController extends Controller
                 $response['data'] = array_values(json_decode($response['data'],true));
             }
         }
-        $response['data'] = array_slice($response['data'], 0, 10);
+        $symbols = $response['data'];
+        $response['data'] = [];
+        if($req->type){
+            $response['data']['favourites'] = Favourite::where([
+                'ip_address' => $req->ip(),
+                'type' => Favourite::CONSTRAINT[$req->type]
+            ])->get()->pluck('pair');
+        }
+        $response['data']['symbols'] = array_slice($symbols, 0, 10);
         return response()->json($response);
     }
     // get price ticker 

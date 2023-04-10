@@ -15,7 +15,7 @@ class StripeController extends Controller
     public function index(Request $req)
     {
         try {
-            $stripe = new StripeClient('sk_test_51MS2xUA1P4gq7s2vctXPbl1cnHu6MOZYLc7bhzeDe8BNHC0tiKljI7fbCQuC1jGmTNXiTXZjGcXM5pX6vzpM8YBd00MisjWrbq');
+            $stripe = new StripeClient('sk_test_51MrELiBeSIRIvHDZKzeMyGqVuWIYtkR04YZZQMkJAoKIsdCTxFtovOFf6XLrRUqCgmm0HA4cEiadq3u43uKs9HAJ00D0BwqbMz');
             // Create an OnrampSession with amount and currency
             $params = [
               'transaction_details' => [

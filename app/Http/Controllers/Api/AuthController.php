@@ -114,6 +114,10 @@ class AuthController extends Controller
                     $data['user'] = User::find($user->id);
                     $data['user']->photo = show_image_path($user->photo,IMG_USER_PATH);
                     if($user->is_verified){
+                        if ($user->g2f_enabled == STATUS_ACTIVE) {
+                            $data['g2f_enabled'] = $user->g2f_enabled;
+                            $data['message'] = __('Please verify two factor authentication to get access ');
+                        }
                         createUserActivity(Auth::user()->id, USER_ACTIVITY_LOGIN);
                     }
                     else{
