@@ -26,37 +26,81 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/myTrades', 'BrokerController@myTrades'); // Account Trade List
     Route::get('/depositHistory', 'BrokerController@depositHistory'); // Deposit History
     Route::get('/withdrawHistory', 'BrokerController@withdrawHistory'); // Withdraw History
-
-
-    //  Account history
-
-
-
-
-    // Wallet APIs
-    Route::get('/getAllCoinsInfo', 'WalletController@allCoinInformation'); // All Coins' Information
-    Route::get('/deposit-address', 'WalletController@depositAddress'); // Deposit Address (supporting network)
-    Route::get('/getAccountInfo', 'WalletController@getAccountInfo'); // get wallet coins info
-    Route::post('/applyForWithdraw', 'WalletController@applyForWithdraw'); // apply for withdraw
-    Route::post('/transfer', 'WalletController@transfer'); // transfer
     
     // Spot Account Trade apis
-    Route::post('/newOrder', 'SpotController@newOrder');
-    Route::get('/getOpenOrders', 'SpotController@getOpenOrders');
-    Route::get('/getAllOrders', 'SpotController@getAllOrders');
+    Route::group(['namespace' => 'Spot'], function () {
+        Route::post('/newOrder', 'OrderController@newOrder');
+        Route::delete('/cancelOrder', 'OrderController@cancelOrder'); // cancel order
+        Route::delete('/cancelAllOrder', 'OrderController@cancelAllOrder'); // cancel all order
+        Route::get('/getOpenOrders', 'OrderController@getOpenOrders'); // user open orders
+        Route::get('/getAllOrders', 'OrderController@getAllOrders'); // user all orders
+        // Wallet APIs
+        Route::get('/getAllCoinsInfo', 'WalletController@allCoinInformation'); // All Coins' Information
+        Route::get('/deposit-address', 'WalletController@depositAddress'); // Deposit Address (supporting network)
+        Route::get('/getAccountInfo', 'WalletController@getAccountInfo'); // get wallet coins info
+        Route::post('/applyForWithdraw', 'WalletController@applyForWithdraw'); // apply for withdraw
+        Route::post('/transfer', 'WalletController@transfer'); // transfer
+        Route::get('/getAccountSnapshot', 'WalletController@getAccountSnapshot'); // Daily Account Snapshot
+    });
     Route::get('/getMyTradeHistory', 'SpotController@getMyTradeHistory');
     Route::get('/subAccountSpotSummery', 'SpotController@subAccountSpotSummery');
+
+    Route::group(['prefix' => 'future'], function () {
+        Route::group(['namespace' => 'Future'], function () {
+            Route::post('/newOrder', 'OrderController@newOrder'); // add new order
+            Route::delete('/cancelOrder', 'OrderController@cancelOrder'); // cancel order
+            Route::delete('/cancelAllOrder', 'OrderController@cancelAllOrder'); // cancel all order
+            Route::post('/autoCancelAllOrder', 'OrderController@autoCancelAllOrder'); // auto cancel all order
+            Route::get('/getOpenOrders', 'OrderController@getOpenOrders'); // user open orders
+            Route::get('/getAllOrders', 'OrderController@getAllOrders'); // user all orders
+            Route::get('/getForceOrders', 'OrderController@getForceOrders'); // user force orders
+            Route::get('/getMyTrades', 'OrderController@getMyTrades'); // get my trades
+            Route::post('/changePositionMode', 'SettingController@changePositionMode'); // changePositionMode
+            Route::get('/getPositionMode', 'SettingController@getPositionMode'); // getPositionMode
+            Route::post('/changeMultiAssetMode', 'SettingController@changeMultiAssetMode'); // changeMultiAssetMode
+            Route::get('/getMultiAssetMode', 'SettingController@getMultiAssetMode'); // getMultiAssetMode
+            Route::post('/changeInitialLeverage', 'SettingController@changeInitialLeverage'); // changeInitialLeverage
+            Route::post('/changeMarginType', 'SettingController@changeMarginType'); // Change Margin Type
+            Route::post('/modifyPositionMargin', 'SettingController@modifyPositionMargin'); // Modify position margin
+            Route::get('/getPositionMargin', 'SettingController@getPositionMargin'); // Get position margin
+            Route::get('/getPositionInformation', 'SettingController@getPositionInformation'); // Get position information
+            Route::get('/getLeverageBrackets', 'SettingController@getLeverageBrackets'); // Get Leverage Brackets
+            Route::get('/getPositionADL', 'SettingController@getPositionADL'); // Get Position ADL
+            Route::get('/getTradingRules', 'SettingController@getTradingRules'); // Get Trading Rules
+            Route::get('/getCommission', 'SettingController@getCommission'); // User Commission Rate
+            Route::get('/getDownloadID', 'SettingController@getDownloadID'); // Get Download Id For Futures Transaction History
+            Route::get('/getDownloadLink', 'SettingController@getDownloadLink'); // Get Download Link
+            Route::get('/getFutureAccountBalance', 'WalletController@getFutureAccountBalance'); // getFutureAccountBalance
+            Route::get('/getAccountInfo', 'WalletController@getAccountInfo'); // get wallet coins info
+            Route::get('/getIncomeHistory', 'WalletController@getIncomeHistory'); // get user income history
+        });
+    });
 
 });
 // public apis binance
 Route::group(['namespace' => 'Api\Binance', 'middleware' => ['checkApi']], function () {
-    // kline APIs
-    Route::get('/getKlines', 'KlineController@index'); // get kline data
     // spot APIs
+    Route::get('/getKlines', 'SpotController@getChartData'); // get chart data
     Route::get('/getExchangeInfo', 'SpotController@exchangeInfo'); // get exchange info
     Route::get('/getOrderBook', 'SpotController@orderBook'); // get order book data
     Route::get('/get24Ticker', 'SpotController@get24Ticker'); // 24 ticker price
+    Route::get('/getPriceTicker', 'SpotController@getPriceTicker'); // get ticker price
+    Route::get('/getMarketTrade', 'SpotController@getMarketTradeHistory'); // get market trade history
 
+    
+    // future apis 
+    Route::group(['prefix' => 'future'], function () {
+        Route::get('/get24Ticker', 'FutureController@get24Ticker'); // 24 ticker price
+        Route::get('/getPriceTicker', 'FutureController@getPriceTicker'); // get ticker price
+        Route::get('/getOrderBook', 'FutureController@orderBook'); // get order book data
+        Route::get('/getMarketTrade', 'FutureController@getMarketTradeHistory'); // get market trade history
+        Route::get('/getKlines', 'FutureController@getChartData'); // get chart data
+        Route::get('/getIndexPriceKlines', 'FutureController@getIndexPriceChartData'); // get index price chart data
+        Route::get('/getMarkPriceKlines', 'FutureController@getMarkChartData'); // get mark chart data
+        Route::get('/getKlines', 'FutureController@getChartData'); // get chart data
+        Route::get('/getExchangeInfo', 'FutureController@exchangeInfo'); // get exchange info
+        Route::get('/pairPremiumIndex', 'FutureController@pairPremiumIndex'); // pair premium index
+    });
 });
 
 Route::post('/coin-payment-notifier', 'Api\WalletNotifier@coinPaymentNotifier')->name('coinPaymentNotifier');

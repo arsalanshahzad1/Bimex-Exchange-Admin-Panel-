@@ -19,6 +19,19 @@ class SpotController extends Controller
     {
         $this->spot = new SpotTradeService();
     }
+    // get chart data 
+    public function getChartData(Request $req)
+    {
+        $response = $this->spot->getKline([
+            'symbol'=>$req->pair,
+            'interval'=>getInverval($req->interval),
+            'limit'=>1000,
+            'startTime'=>$req->start_time,
+            'endTime'=>$req->end_time,
+        ]);
+        return response()->json($response);
+    }
+    // get exchange pais info 
     public function exchangeInfo(Request $req)
     {
         $params = [];
@@ -28,14 +41,15 @@ class SpotController extends Controller
         $response = $this->spot->getExchangeInfo($params);
         return response()->json($response);
     }
+    // get order book 
     public function orderBook(Request $req)
     {
         $response = $this->spot->getOrderBook([
-            'symbol' => str_replace('_', '', $req->symbol)
+            'symbol' => $req->symbol
         ]);
         return response()->json($response);
     }
-
+    // get 24 ticker 
     public function get24Ticker(Request $req)
     {
         $params = [];
@@ -43,49 +57,32 @@ class SpotController extends Controller
             $params['symbol'] = str_replace('_', '', $req->symbol);
         }
         $response = $this->spot->get24Ticker($params);
+        if($response['success']){
+            $collect =  collect($response['data']);
+            if($req->search){
+                $response['data'] = $collect->filter(function ($item) use ($req) {
+                    $str = $item['symbol'];
+                    $search = substr($str, -strlen($req->search));
+                    $coin = substr($str, strlen($req->search));
+                    if ($search == $req->search) {
+                        return true;
+                    }
+                });
+                $response['data'] = array_values(json_decode($response['data'],true));
+            }
+        }
+        $response['data'] = array_slice($response['data'], 0, 10);
         return response()->json($response);
     }
-
-    public function newOrder(Request $req)
+    // get price ticker 
+    public function getPriceTicker(Request $req)
     {
-        $user = Auth::user();
-        $params = $req->all();
-        $keys = [
-            'api' => $user->api_key,
-            'secret' => $user->secret_key
-        ];
-        return $this->spot->createOrder($params, $keys);
+        $response = $this->spot->getPriceTicker([
+            'symbol' => $req->symbol
+        ]);
+        return response()->json($response);
     }
-
-    public function getOpenOrders(Request $req)
-    {
-        $user = Auth::user();
-        $params = [
-            'symbol'=>$req->symbol,
-            // 'origClientOrderId'=>'myOrder1'
-        ];
-        $keys = [
-            'api' => $user->api_key,
-            'secret' => $user->secret_key
-        ];
-
-        return $this->spot->getOpenOrders($params, $keys);
-    }
-
-    public function getAllOrders(Request $req)
-    {
-        $user = Auth::user();
-        $params = [
-            'symbol'=>$req->symbol
-        ];
-        $keys = [
-            'api' => $user->api_key,
-            'secret' => $user->secret_key
-        ];
-
-        return $this->spot->getAllOrders($params, $keys);
-    }
-
+    // get user trade history
     public function getMyTradeHistory(Request $req)
     {
         $user = Auth::user();
@@ -99,7 +96,15 @@ class SpotController extends Controller
 
         return $this->spot->getMyTradeHistory($params, $keys);
     }
-
+    // get market trade history
+    public function getMarketTradeHistory(Request $req)
+    {
+        $params = [
+            'symbol'=>$req->symbol
+        ];
+        return $this->spot->getMarketTradeHistory($params);
+    }
+    
     public function subAccountSpotSummery(Request $req)
     {
         $params = $req->all();
