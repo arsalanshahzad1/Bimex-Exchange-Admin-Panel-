@@ -51,23 +51,23 @@ class AuthController extends Controller
                 return response()->json($response);
             }
 
-            // $brokerService = new BrokerService();
+            $brokerService = new BrokerService();
 
-            // $subAccountData = $brokerService->createSubAccount();
-            // $apiKeyData = $brokerService->createSubAccountApiKey([
-            //     "subAccountId" => $subAccountData['subaccountId'],
-            //     "canTrade" => true
-            // ]);
+            $subAccountData = $brokerService->createSubAccount();
+            $apiKeyData = $brokerService->createSubAccountApiKey([
+                "subAccountId" => $subAccountData['subaccountId'],
+                "canTrade" => true
+            ]);
 
-            // $request['sub_account_id'] = $subAccountData['subaccountId'];
-            // $request['broker_email'] = $subAccountData['email'];
-            // $request['api_key'] = $apiKeyData['apiKey'];
-            // $request['secret_key'] = $apiKeyData['secretKey'];
+            $request['sub_account_id'] = $subAccountData['subaccountId'];
+            $request['broker_email'] = $subAccountData['email'];
+            $request['api_key'] = $apiKeyData['apiKey'];
+            $request['secret_key'] = $apiKeyData['secretKey'];
 
-            $request['sub_account_id'] = 'test';
-            $request['broker_email'] = 'test@gmail.com';
-            $request['api_key'] = 'test';
-            $request['secret_key'] = 'test';
+            // $request['sub_account_id'] = 'test';
+            // $request['broker_email'] = 'test@gmail.com';
+            // $request['api_key'] = 'I9ku4NALLA0kUvNFI5yNgCvdTBpdAwewkpQTSWuQDVqowSxyEgynui3IBIeklwEI';
+            // $request['secret_key'] = 'kiLIE1cuOz0yChZDBywjvSu19yUfkNOlu6qhHYUOGDddj0x6I90cNppATTRAHZuk';
 
             $result = $this->service->signUpProcess($request);
             return response()->json($result);
@@ -149,15 +149,16 @@ class AuthController extends Controller
     // login process
     public function signIn(LoginRequest $request)
     {
-        try {
+        //try {
             $data['success'] = false;
             $data['message'] = '';
             $data['user'] = (object)[];
             $user = User::where('email', $request->email)->first();
-
+            
             if (!empty($user)) {
                 if($user->role == USER_ROLE_USER) {
                     if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                       
                         $token = $user->createToken($request->email)->accessToken;
                         //Check email verification
                         if ($user->status == STATUS_SUCCESS) {
@@ -251,11 +252,11 @@ class AuthController extends Controller
                 $data['message'] = __("You have no account,please register new account");
                 return response()->json($data);
             }
-        } catch (\Exception $e) {
-            $this->logger->log('signIn', $e->getMessage());
-            $response = ['success' => false, 'message' => __('Something went wrong'), 'data' =>[]];
-            return response()->json($response);
-        }
+        // } catch (\Exception $e) {
+        //     $this->logger->log('signIn', $e->getMessage());
+        //     $response = ['success' => false, 'message' => __('Something went wrong111'), 'data' =>[]];
+        //     return response()->json($response);
+        // }
 
     }
 

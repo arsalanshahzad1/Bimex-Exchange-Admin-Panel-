@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\Binance\Spot\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Model\VerificationDetails;
 
 class OrderController extends Controller
 {
@@ -19,6 +20,24 @@ class OrderController extends Controller
     public function newOrder(Request $req)
     {
         $user = Auth::user();
+        $kyc=true;
+        $verificationDetails=VerificationDetails::where('user_id',$user->id)->get();
+        if(count($verificationDetails)>0){
+            foreach ($verificationDetails as $value) {
+            if($value->status != STATUS_SUCCESS)
+            {
+                $kyc=false;
+                break;
+            }
+            }
+        }
+        else{
+            $kyc=false;
+        }
+        if($kyc==false)
+        {
+            return binanceResponse(false,"Your KYC isn't Verified Yet!", []);
+        }
         $params = $req->all();
         $keys = [
             'api' => $user->api_key,

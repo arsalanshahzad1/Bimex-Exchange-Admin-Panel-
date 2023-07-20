@@ -34,7 +34,10 @@ class LandingController extends Controller
     public function commonSettings()
     {
         $settings = allsetting();
+       
         $data = getUserCurrencyApi();
+        // print_r($settings);
+        // die;
         $data['app_title'] = $settings['app_title'] ?? __('EDX Exchange');
         $data['copyright_text'] = $settings['copyright_text'] ?? '';
         $data['exchange_url'] = $settings['exchange_url'] ?? '';

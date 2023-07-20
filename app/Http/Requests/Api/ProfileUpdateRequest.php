@@ -30,8 +30,8 @@ class ProfileUpdateRequest extends FormRequest
             // 'first_name' => ['required', 'string', 'max:150'],
             // 'last_name' => ['required', 'string', 'max:150'],
             // 'phone' => ['required', 'numeric'],
-            'country' => ['required'],
-            'gender' => ['required'],
+            // 'country' => ['required'],
+            // 'gender' => ['required'],
         ];
         if ($this->birth_date) {
             $rules['birth_date'] = 'date';

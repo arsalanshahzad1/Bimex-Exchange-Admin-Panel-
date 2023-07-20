@@ -2679,6 +2679,8 @@ function getUserCurrencyApi()
     $data['currency'] = 'USD';
     $data['currency_symbol'] = '$';
     $data['currency_rate'] = 1;
+    // print_r("1");
+    // die;
     if(Auth::guard('api')->check()) {
         $currency = CurrencyList::where(['code' => auth('api')->user()->currency])->first();
         if($currency) {

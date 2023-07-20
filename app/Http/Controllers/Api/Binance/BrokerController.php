@@ -30,7 +30,6 @@ class BrokerController extends Controller
             $hash = signature($queryParams, $this->SECRET);
             $query = $hash['query'];
             $sign = $hash['sign'];
-
             $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
                 ->post($url . $query . '&signature=' . $sign);
 

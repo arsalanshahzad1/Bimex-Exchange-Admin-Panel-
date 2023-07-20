@@ -24,8 +24,6 @@ class WalletController extends Controller
 
     public function allCoinInformation(Request $req)
     {
-        
-        
         try {
             $user = Auth::user();
             $url = $this->BASE_URL . "/sapi/v1/capital/config/getall?";
@@ -33,7 +31,6 @@ class WalletController extends Controller
             $hash = signature($queryParams, $this->SECRET);
             $query = $hash['query'];
             $sign = $hash['sign'];
-
             $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
                 ->get($url . $query . '&signature=' . $sign);
 

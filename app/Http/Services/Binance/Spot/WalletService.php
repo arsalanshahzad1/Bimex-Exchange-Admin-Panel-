@@ -3,6 +3,7 @@
 namespace App\Http\Services\Binance\Spot;
 
 use Illuminate\Support\Facades\Http;
+use App\Http\Services\Binance\SpotTradeService;
 
 class WalletService
 {
@@ -35,6 +36,62 @@ class WalletService
         }
 
         return $response->json();
+    }
+    public function getSpotAndFiatBalance($params = [], $keys = [])
+    {
+        try {
+            $spotTotalBalance = 0;
+            $fiatTotalBalance = 0;
+            $response = [];
+            $wallet_type = explode(",", $params['type']);
+            $spot = new SpotTradeService();
+            $wallet = $this->getAccountInfo([], $keys)['data'];
+            $balances = $wallet['balances'];
+            $pairs = $spot->get24Ticker([])['data'];
+            $prices = collect($pairs)->keyBy('symbol')->map(function ($price) {
+                return $price['lastPrice'];
+            });
+            $btcPrice = $prices->get('BTCUSDT', 0);
+            if (in_array('SPOT', $wallet_type)) {
+                // get spot balance 
+                $spotTotalBalance = array_reduce($balances, function ($total, $balance) use ($prices) {
+                    $symbol = "{$balance['asset']}BTC";
+                    $price = $prices->get($symbol, 0);
+                    return $total + ($balance['free'] + $balance['locked']) * $price;
+                }, 0);
+                $response['spotBalance'] = $spotTotalBalance;
+                $response['spotBalanceInDollar'] = $spotTotalBalance * $btcPrice;
+            }
+            if (in_array('FIAT', $wallet_type)) {
+                // get fiat balance 
+                $btcBalance = 0;
+                $usdtBalance = 0;
+                $fiat_balances = collect($balances)
+                    ->filter(function ($balance) use ($btcBalance, $usdtBalance) {
+                        if ($balance['asset'] == 'BTC' && $balance['asset'] == 'USDT') {
+                            if ($balance['asset'] !== 'BTC') {
+                                $btcBalance = $balance['free'] + $balance['locked'];
+                            } else if ($balance['asset'] !== 'USDT') {
+                                $usdtBalance = $balance['free'] + $balance['locked'];
+                            }
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    });
+                $fiatTotalBalance = $fiat_balances->sum(function ($balance) use ($prices) {
+                    $symbol = "{$balance['asset']}BTC";
+                    $price = $prices->get($symbol, 0);
+                    return ($balance['free'] + $balance['locked']) * $price;
+                });
+                $fiatTotalBalance += $usdtBalance * (1 / $btcPrice) + $btcBalance;
+                $response['fiatBalance'] = $fiatTotalBalance;
+                $response['fiatBalanceInDollar'] = $fiatTotalBalance * $btcPrice;
+            }
+            return binanceResponse(true, 'Success.', $response);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
     }
 
     public function depositAddress($params = [], $keys = [])
@@ -132,6 +189,26 @@ class WalletService
                 return binanceResponse(false, $data['msg'], []);
             }
             return binanceResponse(true, 'Success.', $data['snapshotVos']);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    public function depositSubAddress($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/capital/deposit/subAddress?";
+            $hash = signature($params, $this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
         } catch (\Exception $e) {
             return binanceResponse(false, $e->getMessage(), []);
         }

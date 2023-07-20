@@ -50,7 +50,7 @@ class BrokerService
             $hash = signature($params, $this->SECRET);
             $query = $hash['query'];
             $sign = $hash['sign'];
-
+           
             $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
                 ->post($url . $query . '&signature=' . $sign);
 
@@ -198,6 +198,26 @@ class BrokerService
     {
         try {
             $url = $this->BASE_URL . "sapi/v1/capital/deposit/address?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    public function depositSubAddress($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/capital/deposit/subaddress?";
             $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];

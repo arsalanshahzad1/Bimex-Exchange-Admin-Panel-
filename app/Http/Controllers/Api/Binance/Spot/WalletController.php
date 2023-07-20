@@ -21,19 +21,27 @@ class WalletController extends Controller
         $this->BASE_URL = env("BINANCE_BASE_URL");
         $this->wallet = new WalletService;
     }
-
+    // get spot & fiat balance
+    public function getSpotAndFiatBalance(Request $req){
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->wallet->getSpotAndFiatBalance($params, $keys);
+    }
     public function allCoinInformation(Request $req)
     {
-        
-        
+
         try {
             $user = Auth::user();
             $url = $this->BASE_URL . "/sapi/v1/capital/config/getall?";
             $queryParams = $req->all();
+            $queryParams['recvWindow']=5000;
             $hash = signature($queryParams, $this->SECRET);
             $query = $hash['query'];
             $sign = $hash['sign'];
-
             $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
                 ->get($url . $query . '&signature=' . $sign);
 
@@ -57,12 +65,13 @@ class WalletController extends Controller
         $user = Auth::user();
         $params = [
             'coin'=>$req->coin,
+            'email'=>$user->broker_email
         ];
         $keys = [
             'api' => $user->api_key,
             'secret' => $user->secret_key
         ];
-        return $this->wallet->depositAddress($params, $keys);
+        return $this->wallet->depositSubAddress($params, $keys);
     }
 
     public function depositHistory(Request $req)

@@ -41,6 +41,7 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
         Route::post('/applyForWithdraw', 'WalletController@applyForWithdraw'); // apply for withdraw
         Route::post('/transfer', 'WalletController@transfer'); // transfer
         Route::get('/getAccountSnapshot', 'WalletController@getAccountSnapshot'); // Daily Account Snapshot
+        Route::get('/getSpotAndFiatBalance', 'WalletController@getSpotAndFiatBalance');
     });
     Route::get('/getMyTradeHistory', 'SpotController@getMyTradeHistory');
     Route::get('/subAccountSpotSummery', 'SpotController@subAccountSpotSummery');

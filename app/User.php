@@ -23,7 +23,7 @@ class User extends Authenticatable
         'is_verified','country_code','country','phone_verified','google2fa_secret','email_enabled','phone_enabled','otp_code','reset_code','gender', 'birth_date',
         'language', 'device_id', 'device_type', 'push_notification_status','role_id',
         'email_notification_status',
-        'currency','last_seen'
+        'currency','last_seen','kyc_verified'
     ];
 
     /**

@@ -233,8 +233,10 @@ class UserController extends Controller
     public function adminUserVerificationActive($id,$type)
     {
         try {
+            User::where('id',decrypt($id))->first()->update(['kyc_verified',1]);
             if ($type == 'nid'){
                 $verified = ['nid_front','nid_back','nid_selfie'];
+
                 VerificationDetails::where('user_id',decrypt($id))
                     ->whereIn('field_name',$verified)->update(['status'=>STATUS_SUCCESS]);
 
