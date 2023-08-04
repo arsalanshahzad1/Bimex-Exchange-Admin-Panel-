@@ -37,6 +37,17 @@ class OrderController extends Controller
         ];
         return $this->order->cancelOrder($params, $keys);
     }
+    //modify order
+    public function modifyOrder(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        return $this->order->modifyOrder($params, $keys);
+    }
     // cancel all order 
     public function cancelAllOrder(Request $req)
     {

@@ -54,10 +54,36 @@ class AuthController extends Controller
             $brokerService = new BrokerService();
 
             $subAccountData = $brokerService->createSubAccount();
+            $futureEnable=$brokerService->enableFutureStatus([
+                "subAccountId" => $subAccountData['subaccountId'],
+                "futures" => true
+            ]);
+            $tes=$brokerService->apiRestrictionRegister([
+                "subAccountId" => $subAccountData['subaccountId'],
+                "canTrade" => true,
+                "futuresTrade"=>true,
+                "marginTrade"=>true	
+            ]);
+           
             $apiKeyData = $brokerService->createSubAccountApiKey([
                 "subAccountId" => $subAccountData['subaccountId'],
                 "canTrade" => true
             ]);
+
+            $newtes=$brokerService->ipAddRestriction([
+                "email"=>$subAccountData['email'],
+                "subAccountApiKey"=>$apiKeyData['apiKey'],
+                "status"=>2,
+                "ipAddress"=>"139.59.79.52"
+            ]);
+            
+            $brokerService->enableUniversalTransfer([
+                "subAccountId" => $subAccountData['subaccountId'],
+                "subAccountApiKey"=>$apiKeyData['apiKey'],
+                "canUniversalTransfer" => true
+            ]);
+            // print_r($newtes);
+            // die;
 
             $request['sub_account_id'] = $subAccountData['subaccountId'];
             $request['broker_email'] = $subAccountData['email'];
@@ -163,6 +189,14 @@ class AuthController extends Controller
                         //Check email verification
                         if ($user->status == STATUS_SUCCESS) {
                             if (!empty($user->is_verified)) {
+                                $brokerService = new BrokerService();
+                                $res=$brokerService->ipAddRestriction([
+                                    "email"=>$user->broker_email,
+                                    "subAccountApiKey"=>$user->api_key,
+                                    "status"=>2,
+                                    "ipAddress"=>"139.59.79.52"
+                                ]);
+
                                 $data['success'] = true;
                                 $data['message'] = __('Login successful');
                                 $data['email_verified'] = $user->is_verified;
@@ -187,7 +221,14 @@ class AuthController extends Controller
                                 $data['user'] = $user;
                                 $data['user']->photo = show_image_path($user->photo,IMG_USER_PATH);
                                 createUserActivity(Auth::user()->id, USER_ACTIVITY_LOGIN);
-
+                                $brokerService = new BrokerService();
+                                $brokerService->apiPermissionService([
+                                    "subAccountId"=>$user->sub_account_id,
+                                    "subAccountApiKey"=>$user->api_key,
+                                    "futuresTrade"=>true,
+                                    "canTrade"=>true,
+                                    "marginTrade"=>false
+                                ]);
                                 return response()->json($data);
                             } else {
                                 $existsToken = User::join('user_verification_codes','user_verification_codes.user_id','users.id')

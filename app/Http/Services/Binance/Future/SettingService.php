@@ -10,12 +10,14 @@ class SettingService
     private string $KEY;
     private string $SECRET;
     private string $BASE_URL;
+    private string $BASE_SPOT_URL;
 
     public function __construct()
     {
         $this->KEY = env("BROKER_API_KEY");
         $this->SECRET = env("BROKER_SECRET");
         $this->BASE_URL = env("BINANCE_FUTURE_BASE_URL");
+        $this->BASE_SPOT_URL = env("BINANCE_BASE_URL");
     }
     // changePositionMode 
     public function changePositionMode($params = [], $keys = [])
@@ -30,7 +32,7 @@ class SettingService
                 'X-MBX-APIKEY' => $keys['api']
             ])->asForm()->post($url . $query . '&signature=' . $sign);
             $data = $response->json();
-            if (isset($data["code"])) {
+            if (isset($data["code"]) && $data['code']!=200) {
                 return binanceResponse(false, $data['msg'], []);
             }
             return binanceResponse(true, 'Success.', $data);
@@ -131,7 +133,7 @@ class SettingService
                 'X-MBX-APIKEY' => $keys['api']
             ])->asForm()->post($url . $query . '&signature=' . $sign);
             $data = $response->json();
-            if (isset($data["code"])) {
+            if (isset($data["code"]) && $data['code']!=200) {
                 return binanceResponse(false, $data['msg'], []);
             }
             return binanceResponse(true, 'Success.', $data);
@@ -186,6 +188,26 @@ class SettingService
     {
         try {
             $url = $this->BASE_URL . "fapi/v2/positionRisk?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    public function getTransactionHistory($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/userTrades?";
             $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];

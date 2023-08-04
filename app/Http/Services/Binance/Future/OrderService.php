@@ -22,14 +22,16 @@ class OrderService
     {
         try {
             $url = $this->BASE_URL . "fapi/v1/order?";
-            $hash = signature($params, $this->SECRET);
+            $hash = signature($params, $keys['secret']);
             $query = $hash['query'];
             $sign = $hash['sign'];
             $response = Http::withHeaders([
                 "Content-Type" => "application/json",
-                'X-MBX-APIKEY' => $this->KEY
+                'X-MBX-APIKEY' => $keys['api']
             ])->asForm()->post($url . $query . '&signature=' . $sign);
             $data = $response->json();
+            //print_r($data);
+
             if (isset($data["code"])) {
                 return binanceResponse(false, $data['msg'], []);
             }
@@ -59,6 +61,27 @@ class OrderService
             return binanceResponse(false, $e->getMessage(), []);
         }
     }
+    //modify order
+    public function modifyOrder($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "fapi/v1/order?";
+            $hash = signature($params, $keys['secret']);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                "Content-Type" => "application/json",
+                'X-MBX-APIKEY' => $keys['api']
+            ])->asForm()->put($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
     // cancel all order 
     public function cancelAllOrder($params = [], $keys = [])
     {
@@ -72,7 +95,7 @@ class OrderService
                 'X-MBX-APIKEY' => $keys['api']
             ])->asForm()->delete($url . $query . '&signature=' . $sign);
             $data = $response->json();
-            if (isset($data["code"])) {
+            if (isset($data["code"]) && $data['code']!=200) {
                 return binanceResponse(false, $data['msg'], []);
             }
             return binanceResponse(true, 'Success.', $data);

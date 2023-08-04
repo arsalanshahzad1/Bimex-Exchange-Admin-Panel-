@@ -261,5 +261,17 @@ class BrokerController extends Controller
         return $this->broker->withdrawHistory($params, $keys);
     }
 
+    public function withdrawSpotHistory(Request $req)
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        $this->broker = new BrokerService();
+        return binanceResponse(true,"Success.",$user->withdraw_request);
+    }
+
 
 }

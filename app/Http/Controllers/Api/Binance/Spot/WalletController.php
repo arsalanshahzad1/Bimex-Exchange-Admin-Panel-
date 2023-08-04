@@ -7,6 +7,8 @@ use App\Http\Services\Binance\Spot\WalletService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use App\WithdrawRequestMain;
+
 class WalletController extends Controller
 {
     private string $KEY;
@@ -27,7 +29,8 @@ class WalletController extends Controller
         $params = $req->all();
         $keys = [
             'api' => $user->api_key,
-            'secret' => $user->secret_key
+            'secret' => $user->secret_key,
+            'sub_account_id'=>$user->sub_account_id
         ];
         return $this->wallet->getSpotAndFiatBalance($params, $keys);
     }
@@ -39,10 +42,10 @@ class WalletController extends Controller
             $url = $this->BASE_URL . "/sapi/v1/capital/config/getall?";
             $queryParams = $req->all();
             $queryParams['recvWindow']=5000;
-            $hash = signature($queryParams, $this->SECRET);
+            $hash = signature($queryParams, $user->secret_key);
             $query = $hash['query'];
             $sign = $hash['sign'];
-            $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $user->api_key])
                 ->get($url . $query . '&signature=' . $sign);
 
             $data = $response->json();
@@ -113,11 +116,51 @@ class WalletController extends Controller
         ];
         return $this->wallet->getAccountInfo($params, $keys);
     }
+
+    public function getBalanceInfo(Request $req)
+    {
+        $user = Auth::user();
+        $params = [
+            // 'symbol'=>$req->symbol
+        ];
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        $info =$this->wallet->getAccountInfo($params, $keys);
+        $response=array();
+        foreach($info['data']['balances'] as $balance)
+        {
+            if(strtolower($req->coin1)==strtolower($balance['asset'])){
+                array_push($response,$balance);    
+            }
+            if(strtolower($req->coin2)==strtolower($balance['asset'])){
+                array_push($response,$balance);    
+            }
+
+        }
+        return binanceResponse(true,"Success!",$response);
+    }
     // apply for withdraw
     public function applyForWithdraw(Request $req)
     {
         $user = Auth::user();
         $params = $req->all();
+        $transfer=$this->wallet->applyForWithdrawTransfer([
+            "asset"=>$params['coin'],
+            "amount"=>$params['amount'],
+            "type"=>$params['walletType'],
+            "fromId"=>$user->sub_account_id
+        ]);
+        if($transfer==true){
+            WithdrawRequestMain::create([
+                "user_id"=>$user->id,
+                "asset"=>$params['coin'],
+                "amount"=>$params['amount'],
+                "address"=>$params['address']
+            ]);
+        }
+        
         $keys = [
             'api' => $user->api_key,
             'secret' => $user->secret_key
@@ -129,6 +172,7 @@ class WalletController extends Controller
     {
         $user = Auth::user();
         $params = $req->all();
+        $params['email']=$user->broker_email;
         $keys = [
             'api' => $user->api_key,
             'secret' => $user->secret_key
@@ -145,5 +189,16 @@ class WalletController extends Controller
             'secret' => $user->secret_key
         ];
         return $this->wallet->getAccountSnapshot($params, $keys);
+    }
+    public function enableSwitch(Request $req) 
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        //return "HERE";
+        return $this->wallet->enableWithdraw($params, $keys);
     }
 }

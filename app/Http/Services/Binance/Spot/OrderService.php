@@ -8,9 +8,14 @@ use Illuminate\Support\Facades\Http;
 class OrderService
 {
     private $BASE_URL;
+    private string $KEY;
+    private string $SECRET;
+
 
     public function __construct()
     {
+        $this->KEY = env("BROKER_API_KEY");
+        $this->SECRET = env("BROKER_SECRET");
         $this->BASE_URL = env("BINANCE_BASE_URL");
     }
     // create new order 

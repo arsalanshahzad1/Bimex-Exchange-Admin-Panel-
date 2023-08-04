@@ -26,6 +26,7 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::get('/myTrades', 'BrokerController@myTrades'); // Account Trade List
     Route::get('/depositHistory', 'BrokerController@depositHistory'); // Deposit History
     Route::get('/withdrawHistory', 'BrokerController@withdrawHistory'); // Withdraw History
+    Route::get('/withdrawSpotHistory', 'BrokerController@withdrawSpotHistory'); // Withdraw History
     
     // Spot Account Trade apis
     Route::group(['namespace' => 'Spot'], function () {
@@ -40,8 +41,11 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
         Route::get('/getAccountInfo', 'WalletController@getAccountInfo'); // get wallet coins info
         Route::post('/applyForWithdraw', 'WalletController@applyForWithdraw'); // apply for withdraw
         Route::post('/transfer', 'WalletController@transfer'); // transfer
+        Route::post('/transfer', 'WalletController@transfer'); // transfer
         Route::get('/getAccountSnapshot', 'WalletController@getAccountSnapshot'); // Daily Account Snapshot
         Route::get('/getSpotAndFiatBalance', 'WalletController@getSpotAndFiatBalance');
+        Route::post('/enableSwitch', 'WalletController@enableSwitch');
+        Route::get('/getBalanceInfo', 'WalletController@getBalanceInfo'); // get wallet coins info
     });
     Route::get('/getMyTradeHistory', 'SpotController@getMyTradeHistory');
     Route::get('/subAccountSpotSummery', 'SpotController@subAccountSpotSummery');
@@ -49,6 +53,7 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
     Route::group(['prefix' => 'future'], function () {
         Route::group(['namespace' => 'Future'], function () {
             Route::post('/newOrder', 'OrderController@newOrder'); // add new order
+            Route::put('/modifyOrder', 'OrderController@modifyOrder'); // cancel order
             Route::delete('/cancelOrder', 'OrderController@cancelOrder'); // cancel order
             Route::delete('/cancelAllOrder', 'OrderController@cancelAllOrder'); // cancel all order
             Route::post('/autoCancelAllOrder', 'OrderController@autoCancelAllOrder'); // auto cancel all order
@@ -65,6 +70,8 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
             Route::post('/modifyPositionMargin', 'SettingController@modifyPositionMargin'); // Modify position margin
             Route::get('/getPositionMargin', 'SettingController@getPositionMargin'); // Get position margin
             Route::get('/getPositionInformation', 'SettingController@getPositionInformation'); // Get position information
+            Route::get('/getTransactionHistory', 'SettingController@getTransactionHistory'); // Get position information
+            Route::get('/getAllFutureHistory', 'SettingController@getAllFutureHistory'); // Get all information
             Route::get('/getLeverageBrackets', 'SettingController@getLeverageBrackets'); // Get Leverage Brackets
             Route::get('/getPositionADL', 'SettingController@getPositionADL'); // Get Position ADL
             Route::get('/getTradingRules', 'SettingController@getTradingRules'); // Get Trading Rules
@@ -73,6 +80,7 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
             Route::get('/getDownloadLink', 'SettingController@getDownloadLink'); // Get Download Link
             Route::get('/getFutureAccountBalance', 'WalletController@getFutureAccountBalance'); // getFutureAccountBalance
             Route::get('/getAccountInfo', 'WalletController@getAccountInfo'); // get wallet coins info
+            Route::get('/getAccountInfoNew', 'WalletController@getAccountInfoNew'); // get wallet coins info
             Route::get('/getIncomeHistory', 'WalletController@getIncomeHistory'); // get user income history
         });
     });

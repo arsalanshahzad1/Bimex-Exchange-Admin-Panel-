@@ -22,7 +22,7 @@ class SmsService
         try {
             $this->twilio->message($number, $message);
         } catch (\Exception $e) {
-            Log::info('sms send problem -- '.$e->getMessage());
+            Log::info('sms send problem -- '.$e);
             return false;
         }
 

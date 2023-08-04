@@ -89,6 +89,26 @@ class BrokerService
             return binanceResponse(false, $e->getMessage(), []);
         }
     }
+    public function apiRestrictionRegister($params = [])
+    {
+        try {
+            $url = $this->BASE_URL . "/sapi/v1/account/apiRestrictions?";
+            $hash = signature($params, $this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
+                ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
 
     public function apiTradingStatus($params = [], $keys = [])
     {
@@ -224,6 +244,104 @@ class BrokerService
 
             $response = Http::withHeaders(['X-MBX-APIKEY' => $keys['api']])
                 ->get($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    public function ipAddRestriction($params = [])
+    {
+        try {
+            $url = $this->BASE_URL . "/sapi/v2/sub-account/subAccountApi/ipRestriction?";
+            $hash = signature($params, $this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
+                ->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    public function enableFutureStatus($params=[],$keys=[])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/broker/subAccount/futures?";
+            $hash = signature($params, $this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
+                ->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    public function apiPermissionService($params=[])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/broker/subAccountApi/permission?";
+            $hash = signature($params, $this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
+                ->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    public function enableUniversalTransfer($params=[],$keys=[])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/broker/subAccountApi/permission/universalTransfer?";
+            $hash = signature($params, $this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+    public function enableIP($params=[],$keys=[])
+    {
+        try {
+            $url = $this->BASE_URL . "/sapi/v2/sub-account/subAccountApi/ipRestriction?";
+            $hash = signature($params, $this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])->post($url . $query . '&signature=' . $sign);
             $data = $response->json();
 
             if (isset($data["code"])) {

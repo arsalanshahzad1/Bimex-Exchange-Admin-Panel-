@@ -37,6 +37,18 @@ class WalletService
 
         return $response->json();
     }
+    public function enableWithdraw($params=[],$keys=[])
+    {
+        $url = $this->BASE_URL . "/sapi/v1/account/enableFastWithdrawSwitch?";
+        $hash = signature($params, $keys['secret']);
+        $query = $hash['query'];
+        $sign = $hash['sign'];
+        $response = Http::withHeaders([
+            'X-MBX-APIKEY' => $keys['api']
+        ])->asForm()->post($url . $query . '&signature=' . $sign);
+        $data = $response->json();
+        return $data;
+    }
     public function getSpotAndFiatBalance($params = [], $keys = [])
     {
         try {
@@ -46,6 +58,7 @@ class WalletService
             $wallet_type = explode(",", $params['type']);
             $spot = new SpotTradeService();
             $wallet = $this->getAccountInfo([], $keys)['data'];
+            $newwallet = $this->getAccountInfoNew(["subAccountId"=>$keys['sub_account_id']], $keys)['data'];
             $balances = $wallet['balances'];
             $pairs = $spot->get24Ticker([])['data'];
             $prices = collect($pairs)->keyBy('symbol')->map(function ($price) {
@@ -54,13 +67,20 @@ class WalletService
             $btcPrice = $prices->get('BTCUSDT', 0);
             if (in_array('SPOT', $wallet_type)) {
                 // get spot balance 
-                $spotTotalBalance = array_reduce($balances, function ($total, $balance) use ($prices) {
+                $spotTotalBalance = array_reduce($balances, function ($total, $balance) use ($prices,$btcPrice) {
                     $symbol = "{$balance['asset']}BTC";
                     $price = $prices->get($symbol, 0);
-                    return $total + ($balance['free'] + $balance['locked']) * $price;
+                    $checkLocal=$balance['free'] + $balance['locked'];
+                    $total=$total + ($balance['free'] + $balance['locked']) * $price;
+                    if($checkLocal>0 && $price<=0)
+                    {
+                        $total=$balance['free'] + $balance['locked'];
+                        $total=$total/$btcPrice;
+                    }
+                    return $total;
                 }, 0);
-                $response['spotBalance'] = $spotTotalBalance;
-                $response['spotBalanceInDollar'] = $spotTotalBalance * $btcPrice;
+                $response['spotBalance'] = $newwallet['data'][0]['totalBalanceOfBtc'];
+                $response['spotBalanceInDollar'] = ($newwallet['data'][0]['totalBalanceOfBtc']) * $btcPrice;
             }
             if (in_array('FIAT', $wallet_type)) {
                 // get fiat balance 
@@ -132,18 +152,17 @@ class WalletService
             return binanceResponse(false, $e->getMessage(), []);
         }
     }
+    
 
-    // apply for withdraw
-    public function applyForWithdraw($params = [], $keys = [])
+    public function getAccountInfoNew($params = [], $keys = [])
     {
         try {
-            $url = $this->BASE_URL . "sapi/v1/capital/withdraw/apply?";
-            $hash = signature($params, $keys['secret']);
+            $url = $this->BASE_URL . "/sapi/v1/broker/subAccount/spotSummary?";
+            $hash = signature($params, $this->SECRET);
             $query = $hash['query'];
             $sign = $hash['sign'];
-            $response = Http::withHeaders([
-                'X-MBX-APIKEY' => $keys['api']
-            ])->asForm()->post($url . $query . '&signature=' . $sign);
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
+                ->get($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {
                 return binanceResponse(false, $data['msg'], []);
@@ -155,15 +174,77 @@ class WalletService
     }
 
     // apply for withdraw
-    public function transfer($params = [], $keys = [])
+    public function applyForWithdraw($params = [], $keys = [])
     {
         try {
-            $url = $this->BASE_URL . "sapi/v1/futures/transfer?";
-            $hash = signature($params, $keys['secret']);
+            $url = $this->BASE_URL . "sapi/v1/capital/withdraw/apply?";
+            $hash = signature($params, $this->SECRET);
             $query = $hash['query'];
             $sign = $hash['sign'];
             $response = Http::withHeaders([
-                'X-MBX-APIKEY' => $keys['api']
+                'X-MBX-APIKEY' => $this->KEY
+            ])->asForm()->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+
+    public function applyForWithdrawTransfer($params = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/broker/transfer?";
+            $hash = signature($params, $this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                'X-MBX-APIKEY' => $this->KEY
+            ])->asForm()->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return false;
+            }
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+
+    // apply for withdraw
+    public function transfer($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/sub-account/futures/transfer?";
+            $hash = signature($params,$this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                'X-MBX-APIKEY' => $this->KEY
+            ])->asForm()->post($url . $query . '&signature=' . $sign);
+            $data = $response->json();
+            if (isset($data["code"])) {
+                return binanceResponse(false, $data['msg'], []);
+            }
+            return binanceResponse(true, 'Success.', $data);
+        } catch (\Exception $e) {
+            return binanceResponse(false, $e->getMessage(), []);
+        }
+    }
+
+    public function newtransfer($params = [], $keys = [])
+    {
+        try {
+            $url = $this->BASE_URL . "sapi/v1/broker/transfer?";
+            $hash = signature($params,$this->SECRET);
+            $query = $hash['query'];
+            $sign = $hash['sign'];
+            $response = Http::withHeaders([
+                'X-MBX-APIKEY' => $this->KEY
             ])->asForm()->post($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {

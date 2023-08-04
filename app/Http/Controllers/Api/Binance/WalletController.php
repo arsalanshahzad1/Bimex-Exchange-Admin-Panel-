@@ -28,10 +28,10 @@ class WalletController extends Controller
             $user = Auth::user();
             $url = $this->BASE_URL . "/sapi/v1/capital/config/getall?";
             $queryParams = $req->all();
-            $hash = signature($queryParams, $this->SECRET);
+            $hash = signature($queryParams, $user->secret_key);
             $query = $hash['query'];
             $sign = $hash['sign'];
-            $response = Http::withHeaders(['X-MBX-APIKEY' => $this->KEY])
+            $response = Http::withHeaders(['X-MBX-APIKEY' => $user->api_key])
                 ->get($url . $query . '&signature=' . $sign);
 
             $data = $response->json();
@@ -117,10 +117,22 @@ class WalletController extends Controller
     {
         $user = Auth::user();
         $params = $req->all();
+        $params['email']=$user->broker_email;
         $keys = [
             'api' => $user->api_key,
             'secret' => $user->secret_key
         ];
         return $this->wallet->transfer($params, $keys);
+    }
+    public function enableSwitch(Request $req) 
+    {
+        $user = Auth::user();
+        $params = $req->all();
+        $keys = [
+            'api' => $user->api_key,
+            'secret' => $user->secret_key
+        ];
+        //return "HERE";
+        return $this->wallet->enableWithdraw($params, $keys);
     }
 }

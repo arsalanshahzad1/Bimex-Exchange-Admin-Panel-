@@ -81,11 +81,11 @@ class WalletService
     {
         try {
             $url = $this->BASE_URL . "sapi/v1/capital/withdraw/apply?";
-            $hash = signature($params, $keys['secret']);
+            $hash = signature($params, $this->SECRET);
             $query = $hash['query'];
             $sign = $hash['sign'];
             $response = Http::withHeaders([
-                'X-MBX-APIKEY' => $keys['api']
+                'X-MBX-APIKEY' => $this->KEY
             ])->asForm()->post($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {
@@ -101,12 +101,12 @@ class WalletService
     public function transfer($params = [], $keys = [])
     {
         try {
-            $url = $this->BASE_URL . "sapi/v1/futures/transfer?";
-            $hash = signature($params, $keys['secret']);
+            $url = $this->BASE_URL . "sapi/v1/sub-account/futures/transfer?";
+            $hash = signature($params, $this->SECRET);
             $query = $hash['query'];
             $sign = $hash['sign'];
             $response = Http::withHeaders([
-                'X-MBX-APIKEY' => $keys['api']
+                'X-MBX-APIKEY' => $this->KEY
             ])->asForm()->post($url . $query . '&signature=' . $sign);
             $data = $response->json();
             if (isset($data["code"])) {

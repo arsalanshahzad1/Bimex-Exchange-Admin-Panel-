@@ -44,9 +44,9 @@ class UserRepository
         if (env('APP_MODE') == 'demo') {
             return ['success' => false, 'message' => __('Currently disable only for demo')];
         }
-        $response['success'] = false;
-        $response['user'] = (object)[];
-        $response['message'] = __('Invalid Request');
+        $response['success'] = true;
+        $response['user'] = $this->userProfile($user_id)['user'];
+        $response['message'] = __('Profile updated successfully');
         try {
             $user = User::find($user_id);
             $userData = [];
