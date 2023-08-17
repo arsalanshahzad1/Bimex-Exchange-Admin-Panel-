@@ -3226,7 +3226,7 @@ function getInverval($key)
         "360"=>"6h",
         "1D"=>"1d",
         "1W"=>"1w",
-        "1M"=>"1M",
+        "1M"=>"1M"
     ];
     return $array[$key];
 }

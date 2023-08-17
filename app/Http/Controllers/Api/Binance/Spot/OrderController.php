@@ -22,14 +22,11 @@ class OrderController extends Controller
         $user = Auth::user();
         $kyc=true;
         $verificationDetails=VerificationDetails::where('user_id',$user->id)->get();
-        if(count($verificationDetails)>0){
-            foreach ($verificationDetails as $value) {
-            if($value->status != STATUS_SUCCESS)
-            {
-                $kyc=false;
-                break;
-            }
-            }
+        $drivecheck=checkUserKyc($user->id,KYC_DRIVING_REQUIRED,'Profile');
+        $passportcheck=checkUserKyc($user->id,KYC_PASSPORT_REQUIRED,'Profile');
+        $nidcheck=checkUserKyc($user->id,KYC_NID_REQUIRED,'Profile');
+        if($nidcheck['success']==true && $passportcheck['success']==true && $drivecheck['success']==true){
+            $kyc=true;
         }
         else{
             $kyc=false;

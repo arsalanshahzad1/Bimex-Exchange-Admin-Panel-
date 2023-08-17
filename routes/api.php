@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\Binance\SpotController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -10,6 +12,7 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/getMyTradeHistory', [SpotController::class,'getMyTradeHistory']);
 Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-user', 'checkApi']], function() {
     /*Broker APIs*/
     Route::post('/subAccount', 'BrokerController@createSubAccount'); // Create Sub Account
@@ -47,7 +50,7 @@ Route::group(['namespace' => 'Api\Binance', 'middleware' => ['auth:api','api-use
         Route::post('/enableSwitch', 'WalletController@enableSwitch');
         Route::get('/getBalanceInfo', 'WalletController@getBalanceInfo'); // get wallet coins info
     });
-    Route::get('/getMyTradeHistory', 'SpotController@getMyTradeHistory');
+   
     Route::get('/subAccountSpotSummery', 'SpotController@subAccountSpotSummery');
 
     Route::group(['prefix' => 'future'], function () {

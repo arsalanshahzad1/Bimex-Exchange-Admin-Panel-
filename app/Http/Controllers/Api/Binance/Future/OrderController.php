@@ -19,6 +19,19 @@ class OrderController extends Controller
     public function newOrder(Request $req)
     {
         $user = Auth::user();
+        $drivecheck=checkUserKyc($user->id,KYC_DRIVING_REQUIRED,'Profile');
+        $passportcheck=checkUserKyc($user->id,KYC_PASSPORT_REQUIRED,'Profile');
+        $nidcheck=checkUserKyc($user->id,KYC_NID_REQUIRED,'Profile');
+        if($nidcheck['success']==true && $passportcheck['success']==true && $drivecheck['success']==true){
+            $kyc=true;
+        }
+        else{
+            $kyc=false;
+        }
+        if($kyc==false)
+        {
+            return binanceResponse(false,"Your KYC isn't Verified Yet!", []);
+        }
         $params = $req->all();
         $keys = [
             'api' => $user->api_key,

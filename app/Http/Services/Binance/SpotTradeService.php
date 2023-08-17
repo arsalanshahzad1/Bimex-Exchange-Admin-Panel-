@@ -17,8 +17,9 @@ class SpotTradeService
     public function getKline($params = [])
     {
         try {
-            $url = $this->BASE_URL . "api/v3/klines?";
+            $url = $this->BASE_URL . "api/v3/uiKlines?";
             $query = http_build_query($params);
+            //print_r($url . $query);
             $response = Http::get($url . $query);
             $data = $response->json();
             if (isset($data["code"])) {

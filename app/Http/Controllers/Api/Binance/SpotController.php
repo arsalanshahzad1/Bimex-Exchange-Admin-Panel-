@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use TechTailor\BinanceApi\BinanceAPI;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class SpotController extends Controller
 {
@@ -23,12 +24,14 @@ class SpotController extends Controller
     // get chart data 
     public function getChartData(Request $req)
     {
+        $startTime=$req->start_time;
+        $endTime=$req->end_time;
         $response = $this->spot->getKline([
             'symbol'=>$req->pair,
             'interval'=>getInverval($req->interval),
             'limit'=>1000,
-            'startTime'=>$req->start_time,
-            'endTime'=>$req->end_time,
+            //'startTime'=>$startTime,
+            'endTime'=>$endTime,
         ]);
         return response()->json($response);
     }
@@ -144,7 +147,12 @@ class SpotController extends Controller
     // get user trade history
     public function getMyTradeHistory(Request $req)
     {
-        $user = Auth::user();
+        $token = $req->bearerToken();
+
+        if($token==NULL && empty($token)){
+            return binanceResponse(true,'Success.',[]);
+        }
+        $user = Auth('api')->user();
         $params = [
             'symbol'=>$req->symbol
         ];

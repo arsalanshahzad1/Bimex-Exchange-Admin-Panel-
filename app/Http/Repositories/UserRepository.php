@@ -175,6 +175,15 @@ class UserRepository
                 $data['user']->photo = imageSrcUser($user->photo,IMG_USER_VIEW_PATH);
                 $data['user']->online_status = lastSeenStatus($user->id)['data'];
                 $data['user']->country_name = !empty($user->country) ? country(strtoupper($user->country)) : '';
+                $drivecheck=checkUserKyc($user->id,KYC_DRIVING_REQUIRED,'Profile');
+                $passportcheck=checkUserKyc($user->id,KYC_PASSPORT_REQUIRED,'Profile');
+                $nidcheck=checkUserKyc($user->id,KYC_NID_REQUIRED,'Profile');
+                if($nidcheck['success']==true && $passportcheck['success']==true && $drivecheck['success']==true){
+                    $data['user']->kyc=true;
+                }
+                else{
+                    $data['user']->kyc=false;
+                }
                 $data['activityLog'] = ActivityLog::where('user_id', $user_id)->where('action',USER_ACTIVITY_LOGIN)->latest()->take(5)->get();
                 $data['success'] = true;
                 $data['message'] = __('Successful');
