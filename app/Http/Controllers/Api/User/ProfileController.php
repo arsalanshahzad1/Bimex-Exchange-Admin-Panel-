@@ -118,12 +118,14 @@ class ProfileController extends Controller
      */
     public function uploadNid(verificationNid $request)
     {
-        try {
+        
+try{
             $response = $this->service->nidUploadProcess($request, Auth::user());
-        } catch (\Exception $e) {
-            $this->logger->log('uploadNid', $e->getMessage());
-            $response = ['success' => false,'message' => __('Something went wrong'), 'data' => ''];
-        }
+   
+} catch (\Exception $e) {
+           $this->logger->log('uploadNid', $e->getMessage());
+           $response = ['success' => false,'message' => __('Something went wrong'), 'data' => ''];
+   }    
         return response()->json($response);
     }
 

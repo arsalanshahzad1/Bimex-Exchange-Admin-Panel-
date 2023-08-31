@@ -27,7 +27,7 @@ class ProfileController extends Controller
         if (env('APP_MODE') == 'demo') {
             return redirect()->back()->with('dismiss',__('Currently disable only for demo'));
         }
-        $rules['file_one'] = 'required|image|max:3048|mimes:jpg,jpeg,png,jpg,gif,svg|max:2048';
+        $rules['file_one'] = 'required|image|mimes:jpg,jpeg,png,jpg,gif,svg|max:10240';
 
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {

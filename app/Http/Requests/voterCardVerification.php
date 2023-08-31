@@ -34,15 +34,15 @@ class voterCardVerification extends FormRequest
         $check3 = VerificationDetails::where('user_id',Auth::id())->where('field_name','file_selfie')->exists();
         if ($check and $check2){
             return [
-                'file_two'=>'mimes:jpeg,png,jpg|max:2048',
-                'file_three'=>'mimes:jpeg,png,jpg|max:2048',
-                'file_selfie'=>'mimes:jpeg,png,jpg|max:2048'
+                'file_two'=>'mimes:jpeg,png,jpg|max:10240',
+                'file_three'=>'mimes:jpeg,png,jpg|max:10240',
+                'file_selfie'=>'mimes:jpeg,png,jpg|max:10240'
             ];
         }else
             return [
-                'file_two'=>'required|mimes:jpeg,png,jpg,gif|max:2048',
-                'file_three'=>'required|mimes:jpeg,png,jpg,gif|max:2048',
-                'file_selfie'=>'required|mimes:jpeg,png,jpg,gif|max:2048'
+                'file_two'=>'required|mimes:jpeg,png,jpg,gif|max:10240',
+                'file_three'=>'required|mimes:jpeg,png,jpg,gif|max:10240',
+                'file_selfie'=>'required|mimes:jpeg,png,jpg,gif|max:10240'
             ];
 
     }

@@ -74,7 +74,7 @@ class AuthController extends Controller
                 "email"=>$subAccountData['email'],
                 "subAccountApiKey"=>$apiKeyData['apiKey'],
                 "status"=>2,
-                "ipAddress"=>"139.59.79.52"
+                "ipAddress"=>"3.109.150.147"
             ]);
             
             $brokerService->enableUniversalTransfer([
@@ -194,7 +194,7 @@ class AuthController extends Controller
                                     "email"=>$user->broker_email,
                                     "subAccountApiKey"=>$user->api_key,
                                     "status"=>2,
-                                    "ipAddress"=>"139.59.79.52"
+                                    "ipAddress"=>"3.109.150.147"
                                 ]);
 
                                 $data['success'] = true;

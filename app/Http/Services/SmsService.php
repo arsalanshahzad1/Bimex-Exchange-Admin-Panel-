@@ -10,9 +10,9 @@ class SmsService
 
     public function __construct()
     {
-        $sid = allsetting('twillo_secret_key');
-        $token = allsetting('twillo_auth_token');
-        $from = allsetting('twillo_number');
+        $sid = "AC1d25b63f9d2cda9ffb894e24b1cbd495";
+        $token = "c9afdbd458c28c338875f2fc4c60e374";
+        $from = "+13613016204";
 
         $this->twilio = new Twilio($sid, $token, $from);
     }
