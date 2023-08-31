@@ -1,0 +1,57 @@
+<!-- guzzle  -->
+public function createOrder(Request $request)
+    {
+        try {
+            $client = new Client();
+        $keys = [
+            'api' => 'I9ku4NALLA0kUvNFI5yNgCvdTBpdAwewkpQTSWuQDVqowSxyEgynui3IBIeklwEI',
+            'secret' => 'kiLIE1cuOz0yChZDBywjvSu19yUfkNOlu6qhHYUOGDddj0x6I90cNppATTRAHZuk'
+        ];
+        // Create a timestamp in milliseconds
+        $timestamp = round(microtime(true) * 1000);
+
+        // Create the query string
+        $queryString = http_build_query([
+            'symbol' => $request->input('symbol'),
+            'side' => $request->input('side'),
+            'type' => $request->input('type'),
+            'timeInForce' => $request->input('timeInForce'),
+            'quantity' => $request->input('quantity'),
+            'price' => $request->input('price'),
+            'timestamp' => $timestamp,
+        ]);
+
+        // Create the signature using HMAC SHA256
+        $signature = hash_hmac('sha256', $queryString, $keys['secret']);
+
+        // Send the API request with the signature in the headers
+        $response = $client->request('POST', 'https://api.binance.com/api/v3/order', [
+            'headers' => [
+                'X-MBX-APIKEY' => $keys['api'],
+            ],
+            'form_params' => [
+                'symbol' => $request->input('symbol'),
+                'side' => $request->input('side'),
+                'type' => $request->input('type'),
+                'timeInForce' => $request->input('timeInForce'),
+                'quantity' => $request->input('quantity'),
+                'price' => $request->input('price'),
+                'timestamp' => $timestamp,
+                'signature' => $signature,
+            ],
+        ]);
+
+        // Parse the API response
+        $statusCode = $response->getStatusCode();
+        $body = $response->getBody();
+
+        if ($statusCode == 200) {
+            return response()->json(['message' => 'Order created successfully']);
+        } else {
+            $error = json_decode($body, true);
+            return response()->json(['error' => $error['msg']], $statusCode);
+        }
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
